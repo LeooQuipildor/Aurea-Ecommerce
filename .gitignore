@@ -1,0 +1,12 @@
+# --- Reglas Globales (Afectan a todo el proyecto) ---
+node_modules/
+.DS_Store
+
+# --- Reglas del Backend (Server) ---
+server/.env
+.env
+npm-debug.log
+
+# --- Reglas de Editor ---
+.vscode/
+.idea/
