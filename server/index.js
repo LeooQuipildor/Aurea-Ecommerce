@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+// --- IMPORTAR RUTAS ---
+const productRoutes = require('./routes/productRoutes');
 
 // Configurar variables de entorno
 dotenv.config();
@@ -13,6 +15,9 @@ const app = express();
 app.use(cors());
 // Permite que tu servidor entienda datos en formato JSON (lo que envía React)
 app.use(express.json());
+
+// --- USAR RUTAS ---
+app.use('/api/products', productRoutes);
 
 // --- Rutas de Prueba ---
 app.get('/', (req, res) => {
