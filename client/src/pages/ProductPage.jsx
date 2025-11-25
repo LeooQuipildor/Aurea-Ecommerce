@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../context/CartContext";
 
 const ProductPage = () => {
   const { id } = useParams();
+  const { addToCart } = useCart(); // <--- Usar el hook
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -78,12 +80,13 @@ const ProductPage = () => {
 
           {/* Botones de Acción */}
           <div className="flex gap-4">
-            <button className="flex-1 bg-blue-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-lg shadow-blue-200">
+            <button
+              onClick={() => addToCart(product)} // <--- ¡AQUÍ ESTÁ LA MAGIA!
+              className="flex-1 bg-blue-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:bg-blue-700 transition shadow-lg shadow-blue-200 active:scale-95 transform"
+            >
               Añadir al Carrito
             </button>
-            <button className="bg-gray-100 text-gray-800 py-4 px-6 rounded-xl hover:bg-gray-200 transition">
-              ❤️
-            </button>
+            {/* ... */}
           </div>
 
           {/* Garantías (Visual) */}
