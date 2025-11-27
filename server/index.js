@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const orderRoutes = require('./routes/orderRoutes');
 // --- IMPORTAR RUTAS ---
 const productRoutes = require('./routes/productRoutes');
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // --- USAR RUTAS ---
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 
 // --- Rutas de Prueba ---
 app.get('/', (req, res) => {

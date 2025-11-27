@@ -46,12 +46,17 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
   };
 
+  //Función para limpiar todo
+  const clearCart = () => {
+    setCart([]);
+  };
+
   // Calcular total
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, totalItems }}
+      value={{ cart, addToCart, removeFromCart, clearCart, totalItems }}
     >
       {children}
     </CartContext.Provider>
