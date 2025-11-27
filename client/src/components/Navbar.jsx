@@ -1,63 +1,120 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Importante para navegar
-import { useCart } from "../context/CartContext"; // <--- 1. Importar Hook
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
-  const { totalItems } = useCart(); // <--- 2. Sacar el numero del contexto
+  const { totalItems } = useCart();
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className="bg-black shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link
-            to="/"
-            className="flex-shrink-0 flex items-center cursor-pointer"
-          >
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              AUREA
-            </span>
-          </Link>
-
-          <div className="hidden md:flex space-x-8">
-            <Link
-              to="/"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium"
-            >
-              Inicio
-            </Link>
-            <Link
-              to="/"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium"
-            >
-              Catálogo
-            </Link>
+        <div className="relative flex justify-between items-center h-16">
+          {/* 1. IZQUIERDA: MENÚ */}
+          <div className="flex-1 flex items-center justify-start">
+            {/* CAMBIO AQUÍ: Bajé de 'space-x-8' a 'space-x-4' para juntarlos más */}
+            <div className="hidden md:flex space-x-1">
+              <Link
+                to="/"
+                className="text-gray-300 hover:text-white px-2 py-2 font-medium transition-colors text-sm uppercase tracking-wide"
+              >
+                Inicio
+              </Link>
+              <Link
+                to="/"
+                className="text-gray-300 hover:text-white px-2 py-2 font-medium transition-colors text-sm uppercase tracking-wide"
+              >
+                Productos
+              </Link>
+              <Link
+                to="/"
+                className="text-gray-300 hover:text-white px-2 py-2 font-medium transition-colors text-sm uppercase tracking-wide"
+              >
+                Contacto
+              </Link>
+            </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          {/* 2. CENTRO: LOGO (Absoluto) */}
+          <Link
+            to="/"
+            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-shrink-0 flex items-center cursor-pointer"
+          >
+            <img
+              src="/images/logo.png"
+              alt="Logo Aurea"
+              className="h-12 w-auto" /* Ajusté un poco la altura para que se vea fino */
+            />
+          </Link>
+
+          {/* 3. DERECHA: ICONOS */}
+          {/* CAMBIO AQUÍ: Bajé de 'space-x-4' a 'space-x-2' o 'space-x-3' */}
+          <div className="flex-1 flex items-center justify-end space-x-1">
+            {/* Buscador */}
             <Link
-              to="/cart"
-              className="relative p-2 text-gray-600 hover:text-blue-600 transition"
+              to="/"
+              className="relative p-1 text-gray-300 hover:text-white transition"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
+                strokeWidth="1.5"
                 stroke="currentColor"
+                className="size-6"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
                 />
               </svg>
-              {/* 3. Mostrar el número dinámico. Si es 0, no mostramos nada */}
+            </Link>
+
+            {/* Carrito */}
+            <Link
+              to="/cart"
+              className="relative p-1 text-gray-300 hover:text-white transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                />
+              </svg>
               {totalItems > 0 && (
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full">
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full">
                   {totalItems}
                 </span>
               )}
+            </Link>
+
+            {/* Usuario */}
+            <Link
+              to="/"
+              className="relative p-1 text-gray-300 hover:text-white transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                />
+              </svg>
             </Link>
           </div>
         </div>

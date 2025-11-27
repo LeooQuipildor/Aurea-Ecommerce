@@ -1,1 +1,11 @@
+
+/* 1. Importas la fuente de Google (pon esto al principio de todo) */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+/* 2. Importas Tailwind */
 @import "tailwindcss";
+
+/* 3. Configuras el tema directamente aquí */
+@theme {
+  /* Esto le dice a Tailwind: "Tu fuente 'sans' (la predeterminada) ahora es Montserrat" */
+  --font-sans: "Oswald", sans-serif;
+}
