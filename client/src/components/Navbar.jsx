@@ -1,58 +1,81 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom"; // <--- 1. Importamos useLocation
 import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
   const { totalItems } = useCart();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation(); // <--- 2. Obtenemos la ruta actual
+
+  // Detectar si estamos en la Home Page
+  const isHomePage = location.pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-black shadow-md sticky top-0 z-50">
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
+        // LÓGICA DE ESTILOS:
+        isHomePage && !isScrolled
+          ? "bg-transparent border-transparent" // <--- AQUÍ ESTÁ EL CAMBIO: Borde transparente
+          : "bg-black shadow-md border-white/10" // <--- Scroll u otras páginas: Borde visible
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex justify-between items-center h-16">
           {/* 1. IZQUIERDA: MENÚ */}
           <div className="flex-1 flex items-center justify-start">
-            {/* CAMBIO AQUÍ: Bajé de 'space-x-8' a 'space-x-4' para juntarlos más */}
-            <div className="hidden md:flex space-x-1">
+            <div className="hidden md:flex space-x-6">
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white px-2 py-2 font-medium transition-colors text-sm uppercase tracking-wide"
+                className="text-gray-300 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold"
               >
                 Inicio
               </Link>
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white px-2 py-2 font-medium transition-colors text-sm uppercase tracking-wide"
+                className="text-gray-300 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold"
               >
                 Productos
               </Link>
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white px-2 py-2 font-medium transition-colors text-sm uppercase tracking-wide"
+                className="text-gray-300 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold"
               >
                 Contacto
               </Link>
             </div>
           </div>
 
-          {/* 2. CENTRO: LOGO (Absoluto) */}
+          {/* 2. CENTRO: LOGO */}
           <Link
             to="/"
-            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-shrink-0 flex items-center cursor-pointer"
+            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-shrink-0"
           >
             <img
               src="/images/logo.png"
               alt="Logo Aurea"
-              className="h-12 w-auto" /* Ajusté un poco la altura para que se vea fino */
+              className="h-8 w-auto hover:opacity-80 transition-opacity"
             />
           </Link>
 
           {/* 3. DERECHA: ICONOS */}
-          {/* CAMBIO AQUÍ: Bajé de 'space-x-4' a 'space-x-2' o 'space-x-3' */}
-          <div className="flex-1 flex items-center justify-end space-x-1">
+          <div className="flex-1 flex items-center justify-end space-x-3">
             {/* Buscador */}
             <Link
               to="/"
-              className="relative p-1 text-gray-300 hover:text-white transition"
+              className="p-1 text-gray-400 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +83,7 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6"
+                className="size-5"
               >
                 <path
                   strokeLinecap="round"
@@ -73,7 +96,7 @@ const Navbar = () => {
             {/* Carrito */}
             <Link
               to="/cart"
-              className="relative p-1 text-gray-300 hover:text-white transition"
+              className="relative p-1 text-gray-400 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +104,7 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6"
+                className="size-5"
               >
                 <path
                   strokeLinecap="round"
@@ -90,7 +113,7 @@ const Navbar = () => {
                 />
               </svg>
               {totalItems > 0 && (
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full">
+                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-red-600 rounded-full">
                   {totalItems}
                 </span>
               )}
@@ -99,7 +122,7 @@ const Navbar = () => {
             {/* Usuario */}
             <Link
               to="/"
-              className="relative p-1 text-gray-300 hover:text-white transition"
+              className="p-1 text-gray-400 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +130,7 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="size-6"
+                className="size-5"
               >
                 <path
                   strokeLinecap="round"
