@@ -1,5 +1,6 @@
 // client/src/context/CartContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
+import { toast } from "sonner";
 
 const CartContext = createContext();
 
@@ -39,6 +40,7 @@ export const CartProvider = ({ children }) => {
         return [...prevCart, { ...product, quantity: 1 }];
       }
     });
+    toast.success(`Añadido ${product.name} al carrito`);
   };
 
   // Función para remover

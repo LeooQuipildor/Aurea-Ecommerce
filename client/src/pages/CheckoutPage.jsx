@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Para redirigir al usuario
+import { toast } from "sonner";
 
 const CheckoutPage = () => {
   const { cart, totalItems, clearCart } = useCart();
@@ -40,11 +41,11 @@ const CheckoutPage = () => {
 
       // Limpiar carrito y redirigir
       clearCart();
-      alert("¡Compra realizada con éxito! 🚀");
+      toast.success("¡Compra realizada con éxito! 🚀");
       navigate("/"); // Volver al inicio
     } catch (error) {
       console.error("Error comprando:", error);
-      alert("Hubo un error al procesar tu pedido.");
+      toast.error("Hubo un error al procesar tu pedido.");
     }
   };
 
