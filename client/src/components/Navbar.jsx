@@ -39,19 +39,19 @@ const Navbar = () => {
             <div className="hidden md:flex space-x-6">
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold"
+                className="text-gray-300 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Inicio
               </Link>
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold"
+                className="text-gray-300 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Productos
               </Link>
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white transition-colors text-xs uppercase tracking-widest font-bold"
+                className="text-gray-300 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Contacto
               </Link>

@@ -1,31 +1,46 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext"; // Importamos el hook del carrito
 
 const ProductCard = ({ product }) => {
+  const { _id, name, price, image } = product;
+  const { addToCart } = useCart(); // Usamos la función para agregar
+
   return (
-    <Link to={`/product/${product._id}`} className="group block relative">
-      {/* Contenedor de Imagen (Aspect Ratio Vertical 3:4) */}
-      <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700 ease-in-out"
-        />
-
-        {/* --- BARRA NEGRA INFERIOR --- */}
-        <div className="absolute bottom-0 inset-x-0 bg-black px-5 py-4 flex justify-between items-center transition-colors group-hover:bg-gray-900">
-          {/* Nombre (Izquierda) */}
-          <h3 className="text-white text-[10px] uppercase tracking-[0.2em] font-medium truncate pr-4 font-sans">
-            {product.name}
-          </h3>
-
-          {/* Precio (Derecha) */}
-          <p className="text-yellow-600 text-[10px] uppercase tracking-[0.1em] font-medium flex-shrink-0 font-sans">
-            ${product.price.toLocaleString()}
-          </p>
-        </div>
+    <div className="bg-white p-3 shadow-sm transition-shadow duration-100 hover:shadow-xl flex flex-col h-full group">
+      {/* Contenedor de Imagen */}
+      <div className="mb-3 overflow-hidden bg-gray-100">
+        <Link to={`/product/${_id}`}>
+          <img
+            src={image}
+            alt={name}
+            // CAMBIO CLAVE 1: 'object-cover' hace que la imagen ocupe todo el espacio sin deformarse (recorta los bordes)
+            // 'h-80' le da esa altura vertical elegante tipo "Frame 1"
+            className="w-full h-80 object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-in-out"
+          />
+        </Link>
       </div>
-    </Link>
+
+      {/* Detalles del producto */}
+      <div className="mb-4 text-left flex-grow">
+        <Link to={`/product/${_id}`}>
+          <h3 className="text-gray-500 text-xs uppercase font-medium mb-1 truncate tracking-wide">
+            {name}
+          </h3>
+          <p className="text-yellow-600 text-base font-bold">
+            ${price.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
+          </p>
+        </Link>
+      </div>
+
+      {/* Botón */}
+      <button
+        onClick={() => addToCart(product)}
+        className="w-full bg-black text-white text-xs uppercase font-bold py-3 px-4 hover:bg-gray-800 transition-colors tracking-widest"
+      >
+        AGREGAR AL CARRITO
+      </button>
+    </div>
   );
 };
 
