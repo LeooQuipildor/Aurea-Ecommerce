@@ -7,5 +7,6 @@
 /* 3. Configuras el tema directamente aquí */
 @theme {
   /* Esto le dice a Tailwind: "Tu fuente 'sans' (la predeterminada) ahora es Montserrat" */
-  --font-sans: "Oswald", sans-serif;
+  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", serif; /* Nueva fuente para títulos */
 }
