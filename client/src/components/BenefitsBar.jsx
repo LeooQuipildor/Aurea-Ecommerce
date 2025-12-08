@@ -1,6 +1,6 @@
 const BenefitsBar = () => {
   return (
-    <div className="bg-[#4B4845] text-white py-8">
+    <div className="bg-[#000] text-white py-8 opacity-49">
       {" "}
       {/* Color gris/marrón del diseño */}
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-500">
