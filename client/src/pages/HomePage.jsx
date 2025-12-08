@@ -28,7 +28,7 @@ const HomePage = () => {
       <div className="relative h-screen w-full bg-[#D8D4CC]">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/hero.jpg')" }}
+          style={{ backgroundImage: "url('/images/hero.jpeg')" }}
         ></div>
         <div className="absolute inset-0 bg-black/20"></div>
 

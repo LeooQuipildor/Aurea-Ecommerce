@@ -75,7 +75,7 @@ const Navbar = () => {
             {/* Buscador */}
             <Link
               to="/"
-              className="p-1 text-gray-400 hover:text-white transition-colors"
+              className="p-1 text-gray-300 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@ const Navbar = () => {
             {/* Carrito */}
             <Link
               to="/cart"
-              className="relative p-1 text-gray-400 hover:text-white transition-colors"
+              className="relative p-1 text-gray-300 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@ const Navbar = () => {
             {/* Usuario */}
             <Link
               to="/"
-              className="p-1 text-gray-400 hover:text-white transition-colors"
+              className="p-1 text-gray-300 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
