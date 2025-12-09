@@ -66,10 +66,10 @@ const HomePage = () => {
       </div>
 
       {/* 2. SECCIÓN MÁS VENDIDOS */}
-      <section className="max-w-7xl mx-auto px-4 py-24 text-center">
-        <h2 className="font-serif text-4xl text-gray-800 mb-2">Más vendidos</h2>
-        <p className="text-gray-400 text-xs uppercase tracking-widest mb-16">
-          Descubre los productos más populares
+      <section className="max-w-7xl mx-auto px-4 py-16 text-center">
+        <h2 className="font-thin text-7xl text-gray-800 mb-2">Más vendidos</h2>
+        <p className="text-gray-400 text-base uppercase tracking-widest mb-16 ">
+          Descubrí los productos más populares que nuestros clientes aman
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
