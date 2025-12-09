@@ -2,20 +2,22 @@ const AboutSection = () => {
   return (
     <section className="py-10 bg-white">
       <div className="max-w-4xl mx-auto text-center px-4 mb-16">
-        <p className="text-yellow-600 text-xs tracking-[0.3em] uppercase mb-4">
-          Pequeños detalles que transforman
+        <p className="text-yellow-600 text-lg tracking-[0.3em] uppercase mb-4 font-light">
+          PORQUE CADA DETALLE IMPORTA
         </p>
-        <h2 className="font-serif text-5xl text-gray-800 mb-8">
+        <h2 className="font-thin text-7xl uppercase text-gray-800 mb-8">
           Acerca de Auréa
         </h2>
         <div className="w-px h-16 bg-yellow-600 mx-auto mb-8"></div>{" "}
         {/* Línea vertical decorativa */}
-        <p className="text-gray-500 font-light leading-relaxed max-w-2xl mx-auto">
-          Auréa nace del deseo de capturar la luz y la elegancia en formas
-          simples. Creemos que cada pieza cuenta una historia y que el verdadero
-          lujo reside en la sutileza. Trabajamos con materiales de calidad,
-          diseños atemporales y un amor por el detalle que nos convierte no solo
-          en una marca, sino en una experiencia para quien lo lleva.
+        <p className="text-gray-500 text-2xl font-light leading-tight max-w-1xl mx-auto">
+          En Auréa creemos que la joyería es mucho más que un accesorio: es una
+          forma de expresar quién sos. Cada pieza que creamos está pensada para
+          acompañar tus momentos, resaltar tu esencia y convertirse en parte de
+          tu historia. Trabajamos con materiales de calidad, diseño cuidado y
+          una dedicación que se siente en cada detalle. Queremos que brilles
+          siempre, a tu manera, y que encuentres en Auréa el lugar donde la
+          elegancia se vuelve cotidiana.
         </p>
       </div>
 
