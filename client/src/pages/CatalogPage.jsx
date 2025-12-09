@@ -83,29 +83,36 @@ const CatalogPage = () => {
               </p>
             </div>
 
-            {/* Imágenes Derecha */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="aspect-[3/4] bg-gray-800 rounded-sm overflow-hidden">
-                <img
-                  src="/images/hero.jpeg"
-                  alt="Collar"
-                  className="w-full h-full object-cover opacity-90"
-                />
-              </div>
-              <div className="aspect-[3/4] bg-gray-800 rounded-sm overflow-hidden">
-                <img
-                  src="/images/hero.jpeg"
-                  alt="Anillo"
-                  className="w-full h-full object-cover opacity-90"
-                />
-              </div>
-              <div className="aspect-[3/4] bg-gray-800 rounded-sm overflow-hidden">
-                <img
-                  src="/images/hero.jpeg"
-                  alt="Pulsera"
-                  className="w-full h-full object-cover opacity-90"
-                />
-              </div>
+            {/* Cards de Filtro - 4 categorías */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { name: "COLLARES", image: "/images/hero.jpeg" },
+                { name: "ANILLOS", image: "/images/hero.jpeg" },
+                { name: "PULSERAS", image: "/images/hero.jpeg" },
+                { name: "ARETES", image: "/images/hero.jpeg" },
+              ].map((category) => (
+                <button
+                  key={category.name}
+                  onClick={() => handleCategorySelect(category.name)}
+                  className="group relative aspect-[3/4] bg-gray-800 rounded-sm overflow-hidden cursor-pointer transition-transform hover:scale-105"
+                >
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                  />
+                  {/* Overlay con nombre */}
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex items-end justify-center pb-4">
+                    <span className="text-white text-sm md:text-base font-semibold uppercase tracking-widest">
+                      {category.name}
+                    </span>
+                  </div>
+                  {/* Indicador de selección */}
+                  {selectedCategory === category.name && (
+                    <div className="absolute top-2 right-2 w-3 h-3 bg-yellow-500 rounded-full border-2 border-white"></div>
+                  )}
+                </button>
+              ))}
             </div>
           </div>
         </div>
