@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import FAQSection from "../components/FAQSection";
@@ -9,6 +9,8 @@ const CatalogPage = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("TODOS");
   const [sortBy, setSortBy] = useState("featured");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,6 +23,18 @@ const CatalogPage = () => {
       }
     };
     fetchProducts();
+  }, []);
+
+  // Cerrar dropdown al hacer click fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Filtrar productos por categoría
@@ -43,6 +57,11 @@ const CatalogPage = () => {
 
     setFilteredProducts(filtered);
   }, [selectedCategory, sortBy, products]);
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setIsDropdownOpen(false);
+  };
 
   return (
     <div className="bg-white">
@@ -102,22 +121,49 @@ const CatalogPage = () => {
 
           {/* Filtros */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-gray-200 pb-6">
-            {/* Categorías */}
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              {["TODOS", "COLLARES", "ANILLOS", "PULSERAS", "ARETES"].map(
-                (category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`text-sm uppercase tracking-widest transition-colors ${
-                      selectedCategory === category
-                        ? "text-black font-semibold border-b-2 border-black pb-1"
-                        : "text-gray-500 hover:text-gray-800"
-                    }`}
-                  >
-                    {category}
-                  </button>
-                )
+            {/* Dropdown de Categorías */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2 text-sm uppercase tracking-widest text-black font-semibold border-b-2 border-black pb-1 hover:text-gray-700 transition-colors"
+              >
+                {selectedCategory}
+                <svg
+                  className={`w-4 h-4 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="absolute top-full left-0 mt-2 bg-white shadow-lg py-2 z-10 min-w-[150px]">
+                  {["TODOS", "COLLARES", "ANILLOS", "PULSERAS", "ARETES"].map(
+                    (category) => (
+                      <button
+                        key={category}
+                        onClick={() => handleCategorySelect(category)}
+                        className={`w-full text-left px-4 py-2 text-sm uppercase tracking-widest transition-colors ${
+                          selectedCategory === category
+                            ? "text-black font-semibold bg-gray-50"
+                            : "text-gray-600 hover:text-black hover:bg-gray-50"
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    )
+                  )}
+                </div>
               )}
             </div>
 
