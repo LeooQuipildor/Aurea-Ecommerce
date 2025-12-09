@@ -44,7 +44,7 @@ const Navbar = () => {
                 Inicio
               </Link>
               <Link
-                to="/"
+                to="/catalogo"
                 className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Productos
