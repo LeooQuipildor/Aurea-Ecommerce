@@ -22,21 +22,29 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Detalles del producto */}
-      <div className="mb-4 text-left flex-grow">
-        <Link to={`/product/${_id}`}>
-          <h3 className="text-gray-500 text-xs uppercase font-medium mb-1 truncate tracking-wide">
-            {name}
-          </h3>
-          <p className="text-yellow-600 text-base font-bold">
-            ${price.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
-          </p>
+      <div className="mb-2 text-left flex-grow">
+        <Link to={`/product/${_id}`} className="block mt-0">
+          {" "}
+          {/* Aseguramos bloque para el click */}
+          <div className="flex flex-col gap-0">
+            {" "}
+            {/* gap-0 pega los elementos, flex organiza verticalmente */}
+            <h3 className="text-black text-lg uppercase font-normal truncate tracking-wide leading-none font-sans">
+              {name}
+            </h3>
+            {/* mt-1 opcional: da un respiro mínimo de 4px si quedan DEMASIADO pegados. 
+        Si lo quieres totalmente pegado, quita el 'mt-1' */}
+            <p className="text-yellow-500 text-lg font-semibold leading-none mb-2 font-sans">
+              ${price.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
+            </p>
+          </div>
         </Link>
       </div>
 
       {/* Botón */}
       <button
         onClick={() => addToCart(product)}
-        className="w-full bg-black text-white text-xs uppercase font-bold py-3 px-4 hover:bg-gray-800 transition-colors tracking-widest"
+        className="w-full bg-black text-white text-md font-medium py-0 px-4 hover:bg-gray-900 transition-colors tracking-widest"
       >
         AGREGAR AL CARRITO
       </button>
