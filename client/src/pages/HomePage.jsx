@@ -80,7 +80,7 @@ const HomePage = () => {
 
         <Link
           to="/catalogo"
-          className="inline-block mt-16 border-b-2 border-black pb-1 text-xs uppercase tracking-widest hover:text-gray-600 hover:border-gray-600 transition"
+          className="inline-block mt-16 border-b-2 border-black pb-1 text-base uppercase tracking-widest hover:text-gray-600 hover:border-gray-600 transition"
         >
           Ver Todos los Productos
         </Link>

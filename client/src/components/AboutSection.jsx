@@ -1,6 +1,6 @@
 const AboutSection = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-10 bg-white">
       <div className="max-w-4xl mx-auto text-center px-4 mb-16">
         <p className="text-yellow-600 text-xs tracking-[0.3em] uppercase mb-4">
           Pequeños detalles que transforman

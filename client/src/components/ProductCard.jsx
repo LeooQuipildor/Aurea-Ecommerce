@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useCart(); // Usamos la función para agregar
 
   return (
-    <div className="bg-white p-3 shadow-sm transition-shadow duration-100 hover:shadow-xl flex flex-col h-full group">
+    <div className="bg-white p-3 shadow-sm transition-shadow duration-100 hover:shadow-xl flex flex-col h-full group drop-shadow-[4px_4px_1px_rgba(0,0,0,0.15)]">
       {/* Contenedor de Imagen */}
       <div className="mb-3 overflow-hidden bg-gray-100">
         <Link to={`/product/${_id}`}>
