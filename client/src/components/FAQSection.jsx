@@ -4,20 +4,20 @@ const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-800">
+    <div className="border-b border-gray-100">
       <button
         className="w-full py-6 flex justify-between items-center text-left focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="text-gray-200 text-lg font-light">{question}</span>
-        <span className="text-gray-400 text-xl">{isOpen ? "−" : "+"}</span>
+        <span className="text-gray-200 text-3xl font-light">{question}</span>
+        <span className="text-gray-100 text-xl">{isOpen ? "−" : "+"}</span>
       </button>
       <div
         className={`overflow-hidden transition-all duration-300 ${
           isOpen ? "max-h-40 opacity-100 pb-6" : "max-h-0 opacity-0"
         }`}
       >
-        <p className="text-gray-500 font-light">{answer}</p>
+        <p className="text-gray-100 font-thin text-xl">{answer}</p>
       </div>
     </div>
   );
@@ -25,9 +25,9 @@ const FAQItem = ({ question, answer }) => {
 
 const FAQSection = () => {
   return (
-    <section className="bg-black py-20 px-4">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="font-serif text-4xl text-white mb-12">
+    <section className="bg-black py-10 px-4">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="font-thin text-7xl text-white mb-12">
           Preguntas Frecuentes
         </h2>
         <div className="space-y-2">
