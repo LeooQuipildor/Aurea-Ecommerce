@@ -19,7 +19,16 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
-        <Toaster richColors position="top-center" />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: "#fbbf24",
+              color: "#000",
+              border: "1px solid #f59e0b",
+            },
+          }}
+        />
       </div>
     </BrowserRouter>
   );

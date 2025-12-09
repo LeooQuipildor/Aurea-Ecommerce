@@ -113,7 +113,7 @@ const Navbar = () => {
                 />
               </svg>
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-red-600 rounded-full">
+                <span className="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-black bg-yellow-500 rounded-full">
                   {totalItems}
                 </span>
               )}
