@@ -55,7 +55,7 @@ const HomePage = () => {
             Pequeños detalles que transforman lo cotidiano
           </p>
 
-          <button className="mt-8 px-8 py-3 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition duration-300">
+          <button className="mt-8 px-8 py-3 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition duration-300  drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
             Ver Colección
           </button>
         </div>
