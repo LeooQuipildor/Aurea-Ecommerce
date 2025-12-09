@@ -39,19 +39,19 @@ const Navbar = () => {
             <div className="hidden md:flex space-x-6">
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
+                className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Inicio
               </Link>
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
+                className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Productos
               </Link>
               <Link
                 to="/"
-                className="text-gray-300 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
+                className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Contacto
               </Link>
@@ -75,7 +75,7 @@ const Navbar = () => {
             {/* Buscador */}
             <Link
               to="/"
-              className="p-1 text-gray-300 hover:text-white transition-colors"
+              className="p-1 text-white/80 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +96,7 @@ const Navbar = () => {
             {/* Carrito */}
             <Link
               to="/cart"
-              className="relative p-1 text-gray-300 hover:text-white transition-colors"
+              className="relative p-1 text-white/80 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@ const Navbar = () => {
             {/* Usuario */}
             <Link
               to="/"
-              className="p-1 text-gray-300 hover:text-white transition-colors"
+              className="p-1 text-white/80 hover:text-white transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
