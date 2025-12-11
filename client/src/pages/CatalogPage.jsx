@@ -120,7 +120,7 @@ const CatalogPage = () => {
       <section className="max-w-7xl mx-auto px-4 py-16">
         {/* Título y Filtros */}
         <div className="mb-12">
-          <h2 className="font-thin text-6xl md:text-7xl text-gray-800 mb-8">
+          <h2 className="font-thin text-6xl md:text-7xl text-gray-800 mb-8 uppercase">
             Todos nuestros productos
           </h2>
 
@@ -221,71 +221,88 @@ const CatalogPage = () => {
       </section>
 
       {/* SECCIÓN "POR QUÉ MILES DE PERSONAS NOS ELIGEN" */}
-      <section className="bg-gray-50 py-16">
+      <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="font-thin text-5xl md:text-6xl text-center text-gray-800 mb-4">
-            Por qué miles de personas nos eligen cada día
-          </h2>
-          <p className="text-center text-gray-500 text-sm uppercase tracking-widest mb-12">
-            MÁS QUE JOYAS, EXPERIENCIAS QUE BRILLAN • CALIDAD PREMIUM • ENVÍO
-            GRATIS • GARANTÍA DE POR VIDA
-          </p>
+          {/* Título y Subtítulo */}
+          <div className="text-center mb-16">
+            <h2 className="font-thin text-4xl md:text-5xl text-gray-800 mb-4 uppercase tracking-wide">
+              Por qué miles de personas nos eligen cada día
+            </h2>
+            <p className="text-gray-500 text-xs md:text-sm max-w-3xl mx-auto leading-relaxed">
+              Disfrutá ventajas únicas en cada compra, pensadas para ofrecerte
+              calidad, confianza y una experiencia premium
+            </p>
+          </div>
 
-          {/* Grid de Garantías */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Garantía 1 */}
-            <div className="bg-white p-6 shadow-sm">
-              <div className="aspect-[4/3] bg-gray-200 mb-4 overflow-hidden">
-                <img
-                  src="/images/hero.jpeg"
-                  alt="Garantía de Calidad"
-                  className="w-full h-full object-cover"
-                />
+          {/* Grid 3x2 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-0">
+            {/* Fila 1, Col 1: Texto */}
+            <div className="flex items-center justify-center p-8 md:p-12">
+              <div className="text-center max-w-sm">
+                <h3 className="font-light text-2xl md:text-3xl mb-4 text-gray-800">
+                  Garantía de Calidad
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Te ofrecemos piezas elaboradas con materiales premium y
+                  terminaciones impecables para que disfrutes joyas que duran
+                  toda la vida
+                </p>
               </div>
-              <h3 className="font-semibold text-xl mb-2 text-gray-800">
-                Garantía de Calidad
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Trabajamos con materiales premium y cada pieza pasa por un
-                riguroso control de calidad. Si no te gusta, te devolvemos tu
-                dinero.
-              </p>
             </div>
 
-            {/* Garantía 2 */}
-            <div className="bg-white p-6 shadow-sm">
-              <div className="aspect-[4/3] bg-gray-200 mb-4 overflow-hidden">
-                <img
-                  src="/images/hero.jpeg"
-                  alt="Envío Gratis"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-semibold text-xl mb-2 text-gray-800">
-                Envío Gratis y Rápido
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Recibí tu pedido en 24-48hs sin costo adicional. Empaque premium
-                y seguimiento en tiempo real de tu compra.
-              </p>
+            {/* Fila 1, Col 2: Imagen */}
+            <div className="overflow-hidden">
+              <img
+                src="/images/hero.jpeg"
+                alt="Garantía de Calidad"
+                className="w-full h-full object-cover min-h-[300px]"
+              />
             </div>
 
-            {/* Garantía 3 */}
-            <div className="bg-white p-6 shadow-sm">
-              <div className="aspect-[4/3] bg-gray-200 mb-4 overflow-hidden">
-                <img
-                  src="/images/hero.jpeg"
-                  alt="Garantía de por Vida"
-                  className="w-full h-full object-cover"
-                />
+            {/* Fila 1, Col 3: Texto */}
+            <div className="flex items-center justify-center p-8 md:p-12">
+              <div className="text-center max-w-sm">
+                <h3 className="font-light text-2xl md:text-3xl mb-4 text-gray-800">
+                  Garantía de Calidad
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Te ofrecemos piezas elaboradas con materiales premium y
+                  terminaciones impecables para que disfrutes joyas que duran
+                  toda la vida
+                </p>
               </div>
-              <h3 className="font-semibold text-xl mb-2 text-gray-800">
-                Garantía de por Vida
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Todas nuestras joyas incluyen garantía de por vida contra
-                defectos de fabricación. Tu inversión está protegida.
-              </p>
+            </div>
+
+            {/* Fila 2, Col 1: Imagen */}
+            <div className="overflow-hidden">
+              <img
+                src="/images/hero.jpeg"
+                alt="Envío Gratis"
+                className="w-full h-full object-cover min-h-[300px]"
+              />
+            </div>
+
+            {/* Fila 2, Col 2: Texto */}
+            <div className="flex items-center justify-center p-8 md:p-12 bg-gray-50">
+              <div className="text-center max-w-sm">
+                <h3 className="font-light text-2xl md:text-3xl mb-4 text-gray-800">
+                  Garantía de Calidad
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  Te ofrecemos piezas elaboradas con materiales premium y
+                  terminaciones impecables para que disfrutes joyas que duran
+                  toda la vida
+                </p>
+              </div>
+            </div>
+
+            {/* Fila 2, Col 3: Imagen */}
+            <div className="overflow-hidden">
+              <img
+                src="/images/hero.jpeg"
+                alt="Garantía de por Vida"
+                className="w-full h-full object-cover min-h-[300px]"
+              />
             </div>
           </div>
         </div>
