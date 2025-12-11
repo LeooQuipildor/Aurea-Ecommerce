@@ -101,26 +101,17 @@ const ProductPage = () => {
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          Volver al catálogo
+          Volver a {product.category}
         </Link>
       </div>
 
       {/* Contenido Principal */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Columna Izquierda: Galería de Imágenes */}
-          <div className="space-y-4">
-            {/* Imagen Principal */}
-            <div className="aspect-[3/4] bg-gray-100 overflow-hidden">
-              <img
-                src={productImages[selectedImage]}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Miniaturas */}
-            <div className="grid grid-cols-3 gap-4">
+          <div className="flex gap-4">
+            {/* Miniaturas Verticales */}
+            <div className="flex flex-col gap-4 w-20">
               {productImages.map((img, index) => (
                 <button
                   key={index}
@@ -139,17 +130,19 @@ const ProductPage = () => {
                 </button>
               ))}
             </div>
+
+            {/* Imagen Principal */}
+            <div className="flex-1 bg-gray-100 overflow-hidden aspect-[3/4]">
+              <img
+                src={productImages[selectedImage]}
+                alt={product.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
 
           {/* Columna Derecha: Información del Producto */}
-          <div className="flex flex-col justify-center space-y-6">
-            {/* Categoría */}
-            <div>
-              <span className="text-xs uppercase tracking-widest text-gray-500">
-                {product.category}
-              </span>
-            </div>
-
+          <div className="flex flex-col space-y-6">
             {/* Nombre del Producto */}
             <h1 className="font-thin text-4xl md:text-5xl text-gray-800 leading-tight">
               {product.name}
@@ -172,26 +165,19 @@ const ProductPage = () => {
             </div>
 
             {/* Precio y Stock */}
-            <div className="space-y-2">
-              <div className="flex items-baseline gap-4">
-                <span className="text-4xl md:text-5xl font-light text-gray-900">
-                  ${product.price.toLocaleString()}
+            <div className="flex items-baseline gap-4">
+              <span className="text-4xl md:text-5xl font-light text-gray-900">
+                ${product.price.toLocaleString()}
+              </span>
+              {product.stock > 0 ? (
+                <span className="text-sm text-green-600 uppercase tracking-wider">
+                  En Stock
                 </span>
-                {product.stock > 0 ? (
-                  <span className="text-sm text-green-600 uppercase tracking-wider">
-                    En Stock
-                  </span>
-                ) : (
-                  <span className="text-sm text-red-600 uppercase tracking-wider">
-                    Agotado
-                  </span>
-                )}
-              </div>
-              {/* Información de cuotas */}
-              <p className="text-sm text-gray-600">
-                o 3 cuotas sin interés de $
-                {(product.price / 3).toLocaleString()}
-              </p>
+              ) : (
+                <span className="text-sm text-red-600 uppercase tracking-wider">
+                  Agotado
+                </span>
+              )}
             </div>
 
             {/* Descripción */}
