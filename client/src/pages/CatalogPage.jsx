@@ -67,16 +67,14 @@ const CatalogPage = () => {
     <div className="bg-white">
       {/* HERO SECTION */}
       <section className="relative bg-black text-white pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="w-full px-4 md:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Texto Izquierda */}
             <div className="space-y-6">
-              <h1 className="font-thin text-5xl md:text-7xl leading-tight">
-                Elegancia actual
-                <br />
-                diseñada para vos
+              <h1 className="font-thin text-5xl md:text-8xl leading-none">
+                Elegancia actual diseñada para vos.
               </h1>
-              <p className="text-gray-400 text-sm md:text-base max-w-md leading-relaxed">
+              <p className="text-gray-200 text-sm md:text-xl leading-relaxed">
                 Descubrí nuestra colección completa de joyas artesanales. Cada
                 pieza está diseñada con atención al detalle para realzar tu
                 estilo único.
@@ -102,7 +100,7 @@ const CatalogPage = () => {
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                   />
                   {/* Overlay con nombre */}
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex items-end justify-center pb-4">
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                     <span className="text-white text-sm md:text-base font-semibold uppercase tracking-widest">
                       {category.name}
                     </span>
@@ -122,7 +120,7 @@ const CatalogPage = () => {
       <section className="max-w-7xl mx-auto px-4 py-16">
         {/* Título y Filtros */}
         <div className="mb-12">
-          <h2 className="font-thin text-6xl md:text-7xl text-gray-800 mb-8 text-center">
+          <h2 className="font-thin text-6xl md:text-7xl text-gray-800 mb-8">
             Todos nuestros productos
           </h2>
 
@@ -182,7 +180,7 @@ const CatalogPage = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="text-sm border border-gray-300 rounded px-3 py-1 focus:outline-none focus:border-black"
+                className="text-base border border-gray-300 rounded px-3 py-1 focus:outline-none focus:border-black"
               >
                 <option value="featured">Destacados</option>
                 <option value="price-low">Precio: Menor a Mayor</option>
