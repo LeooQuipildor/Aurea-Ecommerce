@@ -68,7 +68,7 @@ const ProductPage = () => {
             Producto no encontrado
           </h2>
           <Link
-            to="/catalog"
+            to="/catalogo"
             className="text-sm uppercase tracking-widest hover:underline"
           >
             Volver al catálogo
@@ -85,8 +85,8 @@ const ProductPage = () => {
       {/* Breadcrumb / Navegación */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-24 pb-8">
         <Link
-          to="/catalog"
-          className="text-sm text-gray-500 hover:text-black transition-colors uppercase tracking-widest inline-flex items-center gap-2"
+          to="/catalogo"
+          className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-widest inline-flex items-center gap-2"
         >
           <svg
             className="w-4 h-4"
@@ -142,31 +142,33 @@ const ProductPage = () => {
           </div>
 
           {/* Columna Derecha: Información del Producto */}
-          <div className="flex flex-col space-y-6">
-            {/* Nombre del Producto */}
-            <h1 className="font-thin text-4xl md:text-5xl text-gray-800 leading-tight">
-              {product.name}
-            </h1>
+          <div className="flex flex-col">
+            {/* Nombre del Producto y Rating */}
+            <div className="space-y-2 mb-6">
+              <h1 className="font-semibold text-4xl md:text-5xl text-gray-800 leading-tight">
+                {product.name}
+              </h1>
 
-            {/* Rating */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className="w-5 h-5 fill-yellow-400"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
+              {/* Rating */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <svg
+                      key={i}
+                      className="w-5 h-5 fill-yellow-400"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-sm text-gray-600">(24 reseñas)</span>
               </div>
-              <span className="text-sm text-gray-600">(24 reseñas)</span>
             </div>
 
             {/* Precio y Stock */}
-            <div className="flex items-baseline gap-4">
-              <span className="text-4xl md:text-5xl font-light text-gray-900">
+            <div className="flex items-baseline gap-4 mb-6">
+              <span className="text-4xl md:text-5xl font-bold text-gray-900">
                 ${product.price.toLocaleString()}
               </span>
               {product.stock > 0 ? (
@@ -181,12 +183,12 @@ const ProductPage = () => {
             </div>
 
             {/* Descripción */}
-            <p className="text-gray-600 text-base leading-relaxed">
+            <p className="text-gray-900 text-base leading-relaxed mb-6">
               {product.description}
             </p>
 
             {/* Selector de Variantes (Colores) */}
-            <div className="space-y-3">
+            <div className="space-y-3 mb-6">
               <label className="text-sm font-semibold text-gray-800 uppercase tracking-wider">
                 Color
               </label>
@@ -208,7 +210,7 @@ const ProductPage = () => {
             </div>
 
             {/* Selector de Cantidad */}
-            <div className="space-y-3">
+            <div className="space-y-3 mb-6">
               <label className="text-sm font-semibold text-gray-800 uppercase tracking-wider">
                 Cantidad
               </label>
