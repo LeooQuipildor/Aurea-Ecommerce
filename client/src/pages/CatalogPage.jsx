@@ -221,14 +221,14 @@ const CatalogPage = () => {
       </section>
 
       {/* SECCIÓN "POR QUÉ MILES DE PERSONAS NOS ELIGEN" */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="bg-white">
+        <div className="w-full">
           {/* Título y Subtítulo */}
           <div className="text-center mb-16">
-            <h2 className="font-thin text-4xl md:text-5xl text-gray-800 mb-4 uppercase tracking-wide">
+            <h2 className="font-light text-4xl md:text-6xl text-gray-800 mb-4 uppercase tracking-wide">
               Por qué miles de personas nos eligen cada día
             </h2>
-            <p className="text-gray-500 text-xs md:text-sm max-w-3xl mx-auto leading-relaxed">
+            <p className="text-gray-700 text-xs md:text-xl max-w-3xl mx-auto leading-relaxed">
               Disfrutá ventajas únicas en cada compra, pensadas para ofrecerte
               calidad, confianza y una experiencia premium
             </p>
@@ -239,10 +239,10 @@ const CatalogPage = () => {
             {/* Fila 1, Col 1: Texto */}
             <div className="flex items-center justify-center p-8 md:p-12">
               <div className="text-center max-w-sm">
-                <h3 className="font-light text-2xl md:text-3xl mb-4 text-gray-800">
+                <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
                   Garantía de Calidad
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
                   Te ofrecemos piezas elaboradas con materiales premium y
                   terminaciones impecables para que disfrutes joyas que duran
                   toda la vida
@@ -262,10 +262,10 @@ const CatalogPage = () => {
             {/* Fila 1, Col 3: Texto */}
             <div className="flex items-center justify-center p-8 md:p-12">
               <div className="text-center max-w-sm">
-                <h3 className="font-light text-2xl md:text-3xl mb-4 text-gray-800">
+                <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
                   Garantía de Calidad
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
                   Te ofrecemos piezas elaboradas con materiales premium y
                   terminaciones impecables para que disfrutes joyas que duran
                   toda la vida
@@ -285,10 +285,10 @@ const CatalogPage = () => {
             {/* Fila 2, Col 2: Texto */}
             <div className="flex items-center justify-center p-8 md:p-12 bg-gray-50">
               <div className="text-center max-w-sm">
-                <h3 className="font-light text-2xl md:text-3xl mb-4 text-gray-800">
+                <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
                   Garantía de Calidad
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
                   Te ofrecemos piezas elaboradas con materiales premium y
                   terminaciones impecables para que disfrutes joyas que duran
                   toda la vida
