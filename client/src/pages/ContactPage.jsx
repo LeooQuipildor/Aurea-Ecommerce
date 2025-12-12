@@ -240,7 +240,7 @@ const ContactPage = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-pink-400 to-pink-300 text-black font-semibold py-4 px-8 uppercase tracking-widest text-sm hover:from-pink-300 hover:to-pink-200 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-yellow-500 to-orange-400 text-black font-semibold py-4 px-8 uppercase tracking-widest text-sm hover:from-yellow-400 hover:to-orange-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? "Enviando..." : "Enviar"}
               </button>
@@ -269,86 +269,64 @@ const ContactPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Valor 1: Calidad */}
-            <div className="bg-white/5 border border-white/10 p-8 text-center hover:bg-white/10 transition-colors">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-8 h-8 text-pink-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h3 className="text-white text-2xl font-light mb-4">Calidad</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Seleccionamos cuidadosamente cada material para garantizar joyas
-                que perduren en el tiempo con su brillo original.
-              </p>
-            </div>
+          {/* Grid de 3 imágenes con valores */}
+          <div className="grid grid-cols-1 text-2xl md:grid-cols-3 gap-8 drop-shadow-[4px_4px_1px_rgba(0,0,0,0.15)]">
+            {[
+              {
+                src: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800",
+                title: "Calidad",
+                description:
+                  "Seleccionamos cuidadosamente cada material para garantizar joyas que perduren en el tiempo con su brillo original.",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800",
+                title: "Conexión",
+                description:
+                  "Valoramos la relación con nuestros clientes y nos esforzamos por crear experiencias memorables en cada interacción.",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800",
+                title: "Autenticidad",
+                description:
+                  "Cada pieza es única y refleja nuestro compromiso con el diseño original y la artesanía genuina.",
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="group relative h-[500px] overflow-hidden bg-black"
+              >
+                {/* Imagen de fondo con efecto zoom */}
+                <img
+                  src={item.src}
+                  alt={`Auréa ${item.title}`}
+                  className="w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-110"
+                />
 
-            {/* Valor 2: Conexión */}
-            <div className="bg-white/5 border border-white/10 p-8 text-center hover:bg-white/10 transition-colors">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-8 h-8 text-pink-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h3 className="text-white text-2xl font-light mb-4">Conexión</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Valoramos la relación con nuestros clientes y nos esforzamos por
-                crear experiencias memorables en cada interacción.
-              </p>
-            </div>
+                {/* Capa de ruido */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-30 mix-blend-overlay z-10"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.40' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")`,
+                  }}
+                ></div>
 
-            {/* Valor 3: Autenticidad */}
-            <div className="bg-white/5 border border-white/10 p-8 text-center hover:bg-white/10 transition-colors">
-              <div className="flex justify-center mb-6">
-                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-8 h-8 text-pink-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    />
-                  </svg>
+                {/* Capa oscura */}
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
+
+                {/* Texto centrado */}
+                <div className="absolute inset-0 flex items-center justify-center z-20">
+                  <div className="text-center px-6">
+                    <h3 className="text-white font-medium tracking-[0.2em] uppercase drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                      {item.title}
+                    </h3>
+                    {/* Descripción que aparece al hacer hover */}
+                    <p className="text-white text-2xl text-center leading-relaxed mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 max-w-xs mx-auto drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-              <h3 className="text-white text-2xl font-light mb-4">
-                Autenticidad
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                Cada pieza es única y refleja nuestro compromiso con el diseño
-                original y la artesanía genuina.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>
