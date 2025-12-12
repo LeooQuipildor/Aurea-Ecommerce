@@ -4,6 +4,7 @@ import axios from "axios";
 import { useCart } from "../context/CartContext";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
+import FAQSection from "../components/FAQSection";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -383,6 +384,8 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
+
+      <FAQSection />
 
       <Footer />
     </div>
