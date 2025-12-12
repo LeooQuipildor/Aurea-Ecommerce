@@ -1,22 +1,22 @@
 import React from "react";
 const Footer = () => {
   return (
-    <footer className="bg-black text-white pt-10 pb-6 border-t border-gray-900">
-      <div className="max-w-7xl mx-auto p-6 flex flex-col md:flex-row justify-between items-center">
+    <footer className="bg-black text-white pt-5 pb-5 border-t border-gray-900">
+      <div className="max-w-7xl mx-auto p-2 flex flex-col md:flex-row justify-between items-center">
         {/* Logo e Instagram juntos a la izquierda */}
         <div className="flex items-center gap-4 mb-4 md:mb-0">
           {/* Logo */}
           <img
             src="/images/logo.png"
             alt="Auréa"
-            className="h-16 brightness-0 invert"
+            className="h-14 brightness-0 invert"
           />
 
           {/* Icono Instagram */}
           <div className="cursor-pointer transition opacity-90 hover:opacity-100">
             <svg
-              width="38px"
-              height="38px"
+              width="24px"
+              height="24px"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
