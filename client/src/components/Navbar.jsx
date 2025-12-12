@@ -50,7 +50,7 @@ const Navbar = () => {
                 Productos
               </Link>
               <Link
-                to="/"
+                to="/contacto"
                 className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
               >
                 Contacto
