@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import BenefitsBar from "../components/BenefitsBar";
 import AboutSection from "../components/AboutSection";
+import TestimonialsSection from "../components/TestimonialsSection";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
@@ -90,6 +91,9 @@ const HomePage = () => {
       </section>
 
       <AboutSection />
+
+      <TestimonialsSection />
+
       <FAQSection />
       <Footer />
     </div>
