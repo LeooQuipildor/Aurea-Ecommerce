@@ -74,7 +74,7 @@ Gracias!`;
           <p className="text-gray-600 text-lg mb-2">
             Tu pedido ha sido registrado exitosamente
           </p>
-          <div className="inline-block bg-gray-100 px-6 py-3 rounded-lg">
+          <div className="inline-block bg-gray-100 px-6 py-3">
             <p className="text-sm text-gray-500 mb-1">ID de Compra</p>
             <p className="text-2xl font-bold text-gray-900 font-mono">
               #{orderId}
@@ -140,7 +140,7 @@ Gracias!`;
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 <svg
                   className="w-6 h-6"

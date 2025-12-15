@@ -507,7 +507,7 @@ const CheckoutPage = () => {
                 </div>
 
                 {/* Información adicional */}
-                <div className="bg-blue-50 border border-blue-200 p-4 rounded">
+                <div className="bg-blue-50 border border-blue-200 p-4">
                   <div className="flex gap-2">
                     <svg
                       className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5"

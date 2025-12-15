@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/CartContext";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import FAQSection from "../components/FAQSection";
+import Button from "../components/Button";
 
 const ProductPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -241,22 +243,52 @@ const ProductPage = () => {
               </div>
             </div>
 
-            {/* Botón Añadir al Carrito */}
-            <button
-              onClick={() => {
-                for (let i = 0; i < quantity; i++) {
-                  addToCart(product);
-                }
-              }}
-              disabled={product.stock === 0}
-              className={`w-full py-4 px-8 text-sm uppercase tracking-widest font-semibold transition-all ${
-                product.stock > 0
-                  ? "bg-black text-white hover:bg-gray-800 active:scale-95"
-                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
-              }`}
-            >
-              {product.stock > 0 ? "Añadir al Carrito" : "Agotado"}
-            </button>
+            {/* Botones de Acción */}
+            <div className="space-y-4 mb-6">
+              {/* Botón COMPRAR AHORA */}
+              <Button
+                onClick={() => {
+                  for (let i = 0; i < quantity; i++) {
+                    addToCart(product);
+                  }
+                  navigate("/checkout");
+                }}
+                disabled={product.stock === 0}
+                fullWidth
+              >
+                {product.stock > 0 ? "COMPRAR AHORA" : "AGOTADO"}
+              </Button>
+
+              {/* Botón Añadir al Carrito */}
+              <button
+                onClick={() => {
+                  for (let i = 0; i < quantity; i++) {
+                    addToCart(product);
+                  }
+                }}
+                disabled={product.stock === 0}
+                className={`
+                  w-full 
+                  py-4 
+                  px-8 
+                  text-sm 
+                  uppercase 
+                  tracking-widest 
+                  font-bold 
+                  transition-all 
+                  drop-shadow-[4px_4px_1px_rgba(0,0,0,0.3)]
+                  border-2
+                  border-black
+                  ${
+                    product.stock > 0
+                      ? "bg-black text-white hover:bg-gray-800"
+                      : "bg-gray-200 text-gray-400 cursor-not-allowed border-gray-300"
+                  }
+                `}
+              >
+                {product.stock > 0 ? "Añadir al Carrito" : "Agotado"}
+              </button>
+            </div>
 
             {/* Información Adicional */}
             <div className="pt-8 border-t border-gray-200 space-y-4">

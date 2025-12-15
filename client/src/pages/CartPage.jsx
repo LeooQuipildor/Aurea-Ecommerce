@@ -89,9 +89,11 @@ const CartPage = () => {
                     {/* Info del producto */}
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
-                        <h3 className="text-xl font-light text-gray-900 mb-1">
-                          {item.name}
-                        </h3>
+                        <Link to={`/product/${item._id}`}>
+                          <h3 className="text-xl font-light text-gray-900 mb-1 hover:text-gray-600 transition-colors cursor-pointer">
+                            {item.name}
+                          </h3>
+                        </Link>
                         <p className="text-gray-400 text-sm uppercase tracking-wider">
                           {item.category}
                         </p>
