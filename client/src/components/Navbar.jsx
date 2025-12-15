@@ -66,7 +66,7 @@ const Navbar = () => {
             <img
               src="/images/logo.png"
               alt="Logo Aurea"
-              className="h-8 w-auto hover:opacity-80 transition-opacity"
+              className="h-12 w-auto hover:opacity-80 transition-opacity"
             />
           </Link>
 
