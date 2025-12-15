@@ -190,25 +190,25 @@ const CartPage = () => {
             {/* RESUMEN DE PAGO (Derecha - 1 columna) */}
             <div className="lg:col-span-1">
               <div className="bg-gray-50 border border-gray-200 p-8 sticky top-24">
-                <h2 className="font-light-semibold text-2xl text-gray-900 mb-6">
+                <h2 className="font-semibold text-2xl text-gray-900 mb-6">
                   Resumen del Pedido
                 </h2>
 
                 <div className="space-y-4 mb-6 text-gray-600">
-                  <div className="flex justify-between text-xl">
+                  <div className="flex justify-between text-base">
                     <span>Subtotal</span>
                     <span className="text-gray-900 font-semibold">
                       ${totalPrice.toLocaleString()}
                     </span>
                   </div>
-                  <div className="flex justify-between text-xl">
+                  <div className="flex justify-between text-base">
                     <span>Envío</span>
                     <span className="text-green-600 font-semibold">Gratis</span>
                   </div>
                 </div>
 
                 <div className="border-t border-gray-300 pt-6 mb-8 flex justify-between items-center">
-                  <span className="text-xl font-semibold text-gray-700">
+                  <span className="text-lg font-semibold text-gray-700">
                     Total
                   </span>
                   <span className="text-3xl font-semibold text-gray-900">
@@ -220,7 +220,7 @@ const CartPage = () => {
                   to="/checkout"
                   className="block w-full text-center bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-semibold py-4 px-8 uppercase tracking-widest text-sm hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 mb-4"
                 >
-                  Finalizar Compra
+                  Realizar mi Pedido
                 </Link>
 
                 <Link
