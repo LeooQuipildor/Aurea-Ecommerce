@@ -44,15 +44,29 @@ const CheckoutPage = () => {
 
     setIsSubmitting(true);
 
+    // Generar ID de pedido único
+    const orderId = `AUR${Date.now().toString().slice(-8)}`;
+
+    // Preparar datos del pedido
+    const orderData = {
+      orderId,
+      customerData: formData,
+      cart,
+      totalPrice,
+      date: new Date().toISOString(),
+    };
+
     // Aquí irá la lógica para enviar el pedido al backend
-    console.log("Pedido:", { ...formData, cart, totalPrice });
+    console.log("Pedido:", orderData);
 
     // Simular envío
     setTimeout(() => {
-      alert("¡Pedido realizado con éxito! Te contactaremos pronto.");
+      // Limpiar carrito
       clearCart();
       setIsSubmitting(false);
-      navigate("/");
+
+      // Redirigir a página de confirmación con los datos
+      navigate("/order-confirmation", { state: { orderData } });
     }, 1500);
   };
 
