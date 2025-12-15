@@ -48,6 +48,19 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
   };
 
+  // Función para actualizar cantidad
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(productId);
+      return;
+    }
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item._id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
   //Función para limpiar todo
   const clearCart = () => {
     setCart([]);
@@ -58,7 +71,14 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart, totalItems }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        totalItems,
+      }}
     >
       {children}
     </CartContext.Provider>
