@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import Button from "../components/Button";
 
 const CheckoutPage = () => {
   const { cart, totalItems, clearCart } = useCart();
@@ -81,12 +82,7 @@ const CheckoutPage = () => {
           <p className="text-gray-500 text-base md:text-lg mb-12 max-w-md">
             Agregá productos a tu carrito antes de realizar un pedido.
           </p>
-          <button
-            onClick={() => navigate("/catalogo")}
-            className="bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-semibold py-4 px-12 uppercase tracking-widest text-sm hover:from-yellow-300 hover:to-orange-300 transition-all duration-300"
-          >
-            Ir al Catálogo
-          </button>
+          <Button onClick={() => navigate("/catalogo")}>Ir al Catálogo</Button>
         </div>
         <Footer />
       </div>
@@ -421,28 +417,15 @@ const CheckoutPage = () => {
                   </div>
 
                   {/* Botón de envío */}
-                  <button
+                  <Button
                     type="submit"
                     disabled={isSubmitting || !acceptTerms}
-                    className="w-full bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-bold py-4 px-8 uppercase tracking-wider text-sm hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    fullWidth
                   >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
                     {isSubmitting
                       ? "Procesando..."
                       : `Confirmar Pedido - $${totalPrice.toLocaleString()}`}
-                  </button>
+                  </Button>
                 </form>
               </div>
             </div>

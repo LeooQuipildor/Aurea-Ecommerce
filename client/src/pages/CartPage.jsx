@@ -1,6 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import Button from "../components/Button";
 
 const CartPage = () => {
   const { cart, removeFromCart, updateQuantity, totalItems } = useCart();
@@ -40,11 +41,8 @@ const CartPage = () => {
             Descubrí nuestra colección de joyas únicas y encontrá la pieza
             perfecta para vos.
           </p>
-          <Link
-            to="/catalogo"
-            className="bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-semibold py-4 px-12 uppercase tracking-widest text-sm hover:from-yellow-300 hover:to-orange-300 transition-all duration-300"
-          >
-            Explorar Catálogo
+          <Link to="/catalogo">
+            <Button>Explorar Catálogo</Button>
           </Link>
         </div>
         <Footer />
@@ -216,11 +214,8 @@ const CartPage = () => {
                   </span>
                 </div>
 
-                <Link
-                  to="/checkout"
-                  className="block w-full text-center bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-semibold py-4 px-8 uppercase tracking-widest text-sm hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 mb-4"
-                >
-                  Realizar mi Pedido
+                <Link to="/checkout" className="block mb-4">
+                  <Button fullWidth>Realizar mi Pedido</Button>
                 </Link>
 
                 <Link

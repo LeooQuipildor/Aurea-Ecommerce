@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Footer from "../components/Footer";
 import FAQSection from "../components/FAQSection";
+import Button from "../components/Button";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -225,13 +226,9 @@ const ContactPage = () => {
 
             {/* Botón de envío */}
             <div>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-yellow-400 to-orange-400 text-black font-semibold py-4 px-8 uppercase tracking-widest text-sm hover:from-yellow-400 hover:to-orange-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
+              <Button type="submit" disabled={isSubmitting} fullWidth>
                 {isSubmitting ? "Enviando..." : "Enviar"}
-              </button>
+              </Button>
             </div>
 
             {/* Mensaje de éxito */}
