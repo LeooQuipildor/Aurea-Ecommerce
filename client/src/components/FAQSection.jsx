@@ -6,10 +6,12 @@ const FAQItem = ({ question, answer }) => {
   return (
     <div className="border-b border-gray-100">
       <button
-        className="w-full py-6 flex justify-between items-center text-left focus:outline-none"
+        className="w-full py-2 flex justify-between items-center text-left focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="text-gray-200 text-3xl font-light">{question}</span>
+        <span className="text-gray-200 text-xl font-light uppercase">
+          {question}
+        </span>
         <span className="text-gray-100 text-xl">{isOpen ? "−" : "+"}</span>
       </button>
       <div
@@ -25,9 +27,9 @@ const FAQItem = ({ question, answer }) => {
 
 const FAQSection = () => {
   return (
-    <section className="bg-black py-10 px-4">
+    <section className="bg-black py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        <h2 className="font-thin text-7xl text-white mb-12">
+        <h2 className="font-thin text-7xl text-white mb-5">
           Preguntas Frecuentes
         </h2>
         <div className="space-y-2">
@@ -42,6 +44,10 @@ const FAQSection = () => {
           <FAQItem
             question="¿Es seguro comprar en su sitio web?"
             answer="Totalmente. Utilizamos cifrado SSL para proteger todos tus datos personales y de pago."
+          />
+          <FAQItem
+            question="¿Cuál es el costo de envío?"
+            answer="El envío es gratuito en compras superiores a $50.000. Para montos menores, se calcula en el checkout."
           />
           <FAQItem
             question="¿Cuál es el costo de envío?"
