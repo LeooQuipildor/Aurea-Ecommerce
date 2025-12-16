@@ -59,7 +59,12 @@ const CatalogPage = () => {
   }, [selectedCategory, sortBy, products]);
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+    // Si la categoría seleccionada es la misma, deseleccionar (volver a TODOS)
+    if (selectedCategory === category && category !== "TODOS") {
+      setSelectedCategory("TODOS");
+    } else {
+      setSelectedCategory(category);
+    }
     setIsDropdownOpen(false);
   };
 
