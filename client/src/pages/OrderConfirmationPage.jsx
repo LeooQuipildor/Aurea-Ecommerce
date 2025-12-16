@@ -157,133 +157,142 @@ Gracias!`;
       </div>
 
       {/* Resumen del Pedido */}
-      <div className="py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-8 text-center">
-            Resumen de tu Pedido
+      <div className="py-16 px-50 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="font-thin-semibold text-6xl text-gray-900 mb-2">
+            Tu Pedido
           </h2>
 
-          {/* Información del Cliente */}
-          <div className="bg-gray-50 border border-gray-200 p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Información de Entrega
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div>
-                <p className="text-gray-500">Nombre completo</p>
-                <p className="text-gray-900 font-medium">
-                  {customerData.nombre} {customerData.apellido}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500">WhatsApp</p>
-                <p className="text-gray-900 font-medium">
-                  {customerData.whatsapp}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500">Dirección</p>
-                <p className="text-gray-900 font-medium">
-                  {customerData.direccion}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500">Referencia</p>
-                <p className="text-gray-900 font-medium">
-                  {customerData.referencia}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500">Provincia</p>
-                <p className="text-gray-900 font-medium">
-                  {customerData.departamento}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500">Ciudad</p>
-                <p className="text-gray-900 font-medium">
-                  {customerData.ciudad}
-                </p>
-              </div>
-              {customerData.email && (
-                <div className="md:col-span-2">
-                  <p className="text-gray-500">Email</p>
-                  <p className="text-gray-900 font-medium">
-                    {customerData.email}
-                  </p>
+          {/* Contenedor único con todo el contenido */}
+          <div className="bg-white border border-gray-200 p-8">
+            {/* Grid de 2 columnas - INVERTIDO */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Columna Izquierda - Información del Cliente (2/3) */}
+              <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                {/* Cliente */}
+                <div className="mb-6">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+                    Cliente
+                  </h3>
+                  <div className="space-y-1">
+                    <p className="text-lg text-gray-600">
+                      {customerData.nombre} {customerData.apellido}
+                    </p>
+                    <p className="text-lg text-gray-500">1 Pedido</p>
+                  </div>
                 </div>
-              )}
+
+                {/* Información del Cliente */}
+                <div className="mb-6">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+                    Información del Cliente
+                  </h3>
+                  <div className="space-y-1">
+                    <p className="text-lg text-gray-600">
+                      {customerData.email}
+                    </p>
+                    <p className="text-lg text-gray-600">
+                      {customerData.whatsapp}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Dirección de Envío */}
+                <div>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+                    Dirección de Envío
+                  </h3>
+                  <div className="space-y-1">
+                    <p className="text-lg font-medium text-gray-900">
+                      {customerData.nombre} {customerData.apellido}
+                    </p>
+                    <p className="text-lg text-gray-600">
+                      {customerData.direccion}
+                    </p>
+                    <p className="text-lg text-gray-600">
+                      {customerData.referencia}
+                    </p>
+                    <p className="text-lg text-gray-600">
+                      {customerData.ciudad}, {customerData.departamento}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Columna Derecha - Productos y Resumen (1/3) */}
+              <div className="lg:col-span-1">
+                {/* Productos */}
+                <div className="space-y-6 pb-8 border-b border-gray-200">
+                  {cart.map((item, index) => (
+                    <div key={item._id}>
+                      <div className="flex gap-4">
+                        <div className="w-20 h-20 flex-shrink-0 bg-gray-100">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">
+                            {item.category}
+                          </p>
+                          <h4 className="text-base font-semibold text-gray-900 mb-1 truncate">
+                            {item.name}
+                          </h4>
+                          <p className="text-xs text-gray-600">
+                            Cantidad: {item.quantity}
+                          </p>
+                          <p className="text-lg font-bold text-gray-900 mt-1">
+                            ${(item.price * item.quantity).toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
+                      {index < cart.length - 1 && (
+                        <div className="mt-6 border-b border-gray-200"></div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Resumen del Pedido */}
+                <div className="pt-8">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                    Resumen del Pedido
+                  </h3>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-gray-600">
+                      <span className="text-lg">Subtotal</span>
+                      <span className="font-semibold text-gray-900 text-lg">
+                        ${totalPrice.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-gray-600">
+                      <span className="text-lg">Envío</span>
+                      <span className="font-semibold text-green-600 text-lg">
+                        Gratis
+                      </span>
+                    </div>
+                    <div className="pt-3 border-t border-gray-200 flex justify-between">
+                      <span className="text-2xl font-bold text-gray-900">
+                        Total
+                      </span>
+                      <span className="text-2xl font-bold text-gray-900">
+                        ${totalPrice.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Productos */}
-          <div className="bg-white border border-gray-200 p-6 mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Productos
-            </h3>
-            <div className="space-y-4">
-              {cart.map((item) => (
-                <div
-                  key={item._id}
-                  className="flex gap-4 pb-4 border-b border-gray-200 last:border-0"
-                >
-                  <div className="w-20 h-20 flex-shrink-0 bg-gray-100">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-base font-medium text-gray-900">
-                      {item.name}
-                    </h4>
-                    <p className="text-sm text-gray-500 mt-1">
-                      Cantidad: {item.quantity}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-lg font-semibold text-gray-900">
-                      ${(item.price * item.quantity).toLocaleString()}
-                    </p>
-                    {item.quantity > 1 && (
-                      <p className="text-xs text-gray-500 mt-1">
-                        ${item.price.toLocaleString()} c/u
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Total */}
-          <div className="bg-gray-900 text-white p-6">
-            <div className="flex justify-between items-center mb-3">
-              <span className="text-base">Subtotal</span>
-              <span className="text-lg font-semibold">
-                ${totalPrice.toLocaleString()}
-              </span>
-            </div>
-            <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-700">
-              <span className="text-base">Envío</span>
-              <span className="text-lg font-semibold text-green-400">
-                Gratis
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-xl font-semibold">Total a Pagar</span>
-              <span className="text-3xl font-bold">
-                ${totalPrice.toLocaleString()}
-              </span>
-            </div>
-            <p className="text-sm text-gray-400 mt-4 text-center">
-              Pago contra entrega en efectivo
-            </p>
-          </div>
+          <p className="text-green-500 text-2xl mb-12 py-4 text-center font-semibold">
+            Gracias. Tu pedido ha sido registrado.
+          </p>
 
           {/* Botón para volver */}
-          <div className="mt-8 text-center">
+          <div className="mt-12 text-center">
             <button
               onClick={() => navigate("/")}
               className="inline-block border-b-2 border-gray-900 pb-1 text-base uppercase tracking-widest hover:text-gray-600 hover:border-gray-600 transition"

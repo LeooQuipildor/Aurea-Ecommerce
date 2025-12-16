@@ -125,8 +125,8 @@ const CheckoutPage = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Nombre <span className="text-red-500">*</span>
                       </label>
-                      <div className="flex items-center border border-gray-300 bg-white">
-                        <div className="px-3 py-3 bg-gray-200 border-r border-gray-300">
+                      <div className="flex items-stretch border border-gray-300 bg-white">
+                        <div className="px-3 bg-gray-200 border-r border-gray-300 flex items-center">
                           <svg
                             className="w-5 h-5 text-gray-600"
                             fill="none"
@@ -158,8 +158,8 @@ const CheckoutPage = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Apellido <span className="text-red-500">*</span>
                       </label>
-                      <div className="flex items-center border border-gray-300 bg-white">
-                        <div className="px-3 py-3 bg-gray-200 border-r border-gray-300">
+                      <div className="flex items-stretch border border-gray-300 bg-white">
+                        <div className="px-3 bg-gray-200 border-r border-gray-300 flex items-center">
                           <svg
                             className="w-5 h-5 text-gray-600"
                             fill="none"
@@ -192,8 +192,8 @@ const CheckoutPage = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Whatsapp <span className="text-red-500">*</span>
                     </label>
-                    <div className="flex items-center border border-gray-300 bg-white">
-                      <div className="px-3 py-3 bg-gray-200 border-r border-gray-300">
+                    <div className="flex items-stretch border border-gray-300 bg-white">
+                      <div className="px-3 bg-gray-200 border-r border-gray-300 flex items-center">
                         <svg
                           className="w-5 h-5 text-gray-600"
                           fill="currentColor"
@@ -214,13 +214,46 @@ const CheckoutPage = () => {
                     </div>
                   </div>
 
+                  {/* Email */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Correo electrónico <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex items-stretch border border-gray-300 bg-white">
+                      <div className="px-3 bg-gray-200 border-r border-gray-300 flex items-center">
+                        <svg
+                          className="w-5 h-5 text-gray-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="EJEMPLO: maria@gmail.com"
+                        required
+                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                      />
+                    </div>
+                  </div>
+
                   {/* Dirección completa */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Dirección completa <span className="text-red-500">*</span>
                     </label>
-                    <div className="flex items-center border border-gray-300 bg-white">
-                      <div className="px-3 py-3 bg-gray-200 border-r border-gray-300">
+                    <div className="flex items-stretch border border-gray-300 bg-white">
+                      <div className="px-3 bg-gray-200 border-r border-gray-300 flex items-center">
                         <svg
                           className="w-5 h-5 text-gray-600"
                           fill="none"
@@ -259,8 +292,8 @@ const CheckoutPage = () => {
                       Puntos de referencia{" "}
                       <span className="text-red-500">*</span>
                     </label>
-                    <div className="flex items-center border border-gray-300 bg-white">
-                      <div className="px-3 py-3 bg-gray-200 border-r border-gray-300">
+                    <div className="flex items-stretch border border-gray-300 bg-white">
+                      <div className="px-3 bg-gray-200 border-r border-gray-300 flex items-center">
                         <svg
                           className="w-5 h-5 text-gray-600"
                           fill="none"
@@ -366,38 +399,6 @@ const CheckoutPage = () => {
                           />
                         </svg>
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Email (opcional) */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Correo electrónico (opcional)
-                    </label>
-                    <div className="flex items-center border border-gray-300 bg-white">
-                      <div className="px-3 py-3 bg-gray-200 border-r border-gray-300">
-                        <svg
-                          className="w-5 h-5 text-gray-600"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                          />
-                        </svg>
-                      </div>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="tucorreo@ejemplo.com"
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
-                      />
                     </div>
                   </div>
 
