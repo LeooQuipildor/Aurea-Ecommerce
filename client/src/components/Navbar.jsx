@@ -14,6 +14,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchRef = useRef(null);
+  const mobileSearchRef = useRef(null);
   const inputRef = useRef(null);
 
   // Detectar si estamos en la Home Page
@@ -48,7 +49,19 @@ const Navbar = () => {
   // Cerrar búsqueda al hacer click fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+      // No cerrar si se hace clic en el botón de búsqueda
+      if (event.target.closest("[data-search-toggle]")) {
+        return;
+      }
+
+      // Verificar si el clic fue dentro de alguna área de búsqueda
+      const clickedInsideDesktop = searchRef.current?.contains(event.target);
+      const clickedInsideMobile = mobileSearchRef.current?.contains(
+        event.target
+      );
+
+      // Solo cerrar si el clic fue fuera de ambas áreas
+      if (!clickedInsideDesktop && !clickedInsideMobile) {
         setIsSearchOpen(false);
         setSearchQuery("");
         setSearchResults([]);
@@ -106,7 +119,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
-        isHomePage && !isScrolled && !isMobileMenuOpen
+        isHomePage && !isScrolled && !isMobileMenuOpen && !isSearchOpen
           ? "bg-transparent border-transparent"
           : "bg-black shadow-md border-white/10"
       }`}
@@ -194,9 +207,9 @@ const Navbar = () => {
 
           {/* 3. DERECHA: ICONOS */}
           <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-3">
-            {/* Buscador */}
-            <div ref={searchRef} className="relative">
-              {/* Input de búsqueda expandible */}
+            {/* Buscador - Desktop */}
+            <div ref={searchRef} className="relative hidden md:block">
+              {/* Input de búsqueda expandible - Desktop */}
               <div
                 className={`flex items-center transition-all duration-300 ease-in-out ${
                   isSearchOpen ? "w-64" : "w-auto"
@@ -233,7 +246,7 @@ const Navbar = () => {
                 </button>
               </div>
 
-              {/* Resultados de búsqueda */}
+              {/* Resultados de búsqueda - Desktop */}
               {isSearchOpen && searchResults.length > 0 && (
                 <div className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 shadow-lg max-h-96 overflow-y-auto animate-fade-in">
                   {searchResults.map((product) => (
@@ -265,7 +278,7 @@ const Navbar = () => {
                 </div>
               )}
 
-              {/* Mensaje de no resultados */}
+              {/* Mensaje de no resultados - Desktop */}
               {isSearchOpen &&
                 searchQuery.trim() !== "" &&
                 searchResults.length === 0 && (
@@ -276,6 +289,34 @@ const Navbar = () => {
                   </div>
                 )}
             </div>
+
+            {/* Botón Buscador - Mobile */}
+            <button
+              onClick={() => {
+                setIsSearchOpen(!isSearchOpen);
+                if (isSearchOpen) {
+                  setSearchQuery("");
+                  setSearchResults([]);
+                }
+              }}
+              className="md:hidden p-1 text-white/80 hover:text-white transition-colors"
+              data-search-toggle
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </button>
 
             {/* Carrito */}
             <Link
@@ -364,6 +405,67 @@ const Navbar = () => {
             >
               Contacto
             </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Búsqueda Móvil Desplegable */}
+      {isSearchOpen && (
+        <div
+          ref={mobileSearchRef}
+          className="md:hidden bg-black border-t border-white/10 animate-fade-in"
+        >
+          <div className="px-4 py-4">
+            {/* Input de búsqueda móvil */}
+            <input
+              ref={inputRef}
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Buscar productos..."
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/70 px-4 py-3 text-base focus:outline-none focus:border-white/40 transition-all rounded"
+            />
+
+            {/* Resultados de búsqueda móvil */}
+            {searchResults.length > 0 && (
+              <div className="mt-4 space-y-2">
+                {searchResults.map((product) => (
+                  <div
+                    key={product._id}
+                    onClick={() => handleProductClick(product._id)}
+                    className="flex items-center gap-3 p-3 bg-white/5 hover:bg-white/10 cursor-pointer transition-colors rounded"
+                  >
+                    <div className="w-16 h-16 flex-shrink-0 bg-gray-800 rounded">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover rounded"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-white/60 uppercase tracking-wider">
+                        {product.category}
+                      </p>
+                      <h4 className="text-sm font-semibold text-white truncate">
+                        {product.name}
+                      </h4>
+                      <p className="text-sm font-bold text-yellow-500">
+                        ${product.price.toLocaleString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Mensaje de no resultados móvil */}
+            {searchQuery.trim() !== "" && searchResults.length === 0 && (
+              <div className="mt-4 p-4 text-center bg-white/5 rounded">
+                <p className="text-sm text-white/70">
+                  No se encontraron productos
+                </p>
+              </div>
+            )}
           </div>
         </div>
       )}
