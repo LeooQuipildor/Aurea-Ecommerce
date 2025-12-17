@@ -32,7 +32,7 @@ const HomePage = () => {
   return (
     <div className="bg-white">
       {/* 1. HERO SECTION */}
-      <div className="relative h-screen w-full bg-[#000]">
+      <div className="relative h-[60vh] sm:h-[70vh] md:h-screen w-full bg-[#000]">
         {/* A. IMAGEN DE FONDO */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-80"
@@ -48,12 +48,12 @@ const HomePage = () => {
         ></div>
 
         {/* C. TEXTO (Contenido) */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 pb-20">
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-3 sm:px-4 pb-16 sm:pb-20">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="font-alumni font-thin text-5xl md:text-8xl text-white mb-2 tracking-widest italic drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]"
+            className="font-alumni font-thin text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white mb-2 tracking-widest italic drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]"
           >
             BRILLO QUE INSPIRA
           </motion.h1>
@@ -74,7 +74,7 @@ const HomePage = () => {
           >
             <Link
               to="/catalogo"
-              className="mt-8 px-8 py-3 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition duration-300 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)] inline-block"
+              className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 bg-transparent border border-white text-white font-bold uppercase tracking-widest text-xs sm:text-sm hover:bg-white hover:text-black transition duration-300 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)] inline-block"
             >
               Ver Colección
             </Link>
@@ -87,13 +87,13 @@ const HomePage = () => {
       </div>
 
       {/* 2. SECCIÓN MÁS VENDIDOS */}
-      <section className="max-w-7xl mx-auto px-4 py-16 text-center">
+      <section className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-12 sm:py-16 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="font-thin text-7xl text-gray-800 mb-2"
+          className="font-thin text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-gray-800 mb-2"
         >
           Más vendidos
         </motion.h2>
@@ -102,7 +102,7 @@ const HomePage = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-gray-400 text-base uppercase tracking-widest mb-16 "
+          className="text-gray-400 text-sm sm:text-base uppercase tracking-widest mb-12 sm:mb-16"
         >
           Descubrí los productos más populares que nuestros clientes aman
         </motion.p>

@@ -10,6 +10,7 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const searchRef = useRef(null);
@@ -110,18 +111,49 @@ const Navbar = () => {
           : "bg-black shadow-md border-white/10"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative flex justify-between items-center h-16">
-          {/* 1. IZQUIERDA: MENÚ */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="relative flex justify-between items-center h-14 sm:h-16">
+          {/* 1. IZQUIERDA: MENÚ HAMBURGUESA (MÓVIL) / MENÚ (DESKTOP) */}
           <div className="flex-1 flex items-center justify-start">
-            <div className="hidden md:flex space-x-6">
+            {/* Botón hamburguesa - Solo móvil */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden text-white p-2 hover:bg-white/10 rounded transition-colors"
+              aria-label="Menú"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+
+            {/* Menú desktop */}
+            <div className="hidden md:flex space-x-4 lg:space-x-6">
               <Link
                 to="/"
                 className={`${
                   location.pathname === "/"
                     ? "text-white"
                     : "text-white/80 hover:text-white"
-                } transition-colors text-xl uppercase tracking-widest font-normal`}
+                } transition-colors text-base lg:text-xl uppercase tracking-widest font-normal`}
               >
                 Inicio
               </Link>
@@ -131,7 +163,7 @@ const Navbar = () => {
                   location.pathname === "/catalogo"
                     ? "text-white"
                     : "text-white/80 hover:text-white"
-                } transition-colors text-xl uppercase tracking-widest font-normal`}
+                } transition-colors text-base lg:text-xl uppercase tracking-widest font-normal`}
               >
                 Productos
               </Link>
@@ -141,7 +173,7 @@ const Navbar = () => {
                   location.pathname === "/contacto"
                     ? "text-white"
                     : "text-white/80 hover:text-white"
-                } transition-colors text-xl uppercase tracking-widest font-normal`}
+                } transition-colors text-base lg:text-xl uppercase tracking-widest font-normal`}
               >
                 Contacto
               </Link>
@@ -156,12 +188,12 @@ const Navbar = () => {
             <img
               src="/images/logo.png"
               alt="Logo Aurea"
-              className="h-12 w-auto hover:opacity-80 transition-opacity"
+              className="h-10 sm:h-12 w-auto hover:opacity-80 transition-opacity"
             />
           </Link>
 
           {/* 3. DERECHA: ICONOS */}
-          <div className="flex-1 flex items-center justify-end space-x-3">
+          <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-3">
             {/* Buscador */}
             <div ref={searchRef} className="relative">
               {/* Input de búsqueda expandible */}
@@ -294,6 +326,47 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Menú Móvil Desplegable */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-black border-t border-white/10 animate-fade-in">
+          <div className="px-4 py-4 space-y-3">
+            <Link
+              to="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block py-3 px-4 text-base uppercase tracking-widest font-normal rounded transition-colors ${
+                location.pathname === "/"
+                  ? "text-white bg-white/10"
+                  : "text-white/80 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Inicio
+            </Link>
+            <Link
+              to="/catalogo"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block py-3 px-4 text-base uppercase tracking-widest font-normal rounded transition-colors ${
+                location.pathname === "/catalogo"
+                  ? "text-white bg-white/10"
+                  : "text-white/80 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Productos
+            </Link>
+            <Link
+              to="/contacto"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block py-3 px-4 text-base uppercase tracking-widest font-normal rounded transition-colors ${
+                location.pathname === "/contacto"
+                  ? "text-white bg-white/10"
+                  : "text-white/80 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Contacto
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Animación CSS */}
       <style jsx>{`
