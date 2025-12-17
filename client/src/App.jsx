@@ -10,6 +10,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import ContactPage from "./pages/ContactPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
@@ -122,6 +123,15 @@ const AnimatedRoutes = () => {
                     </AnimatedRoute>
                   }
                 />
+                {/* Ruta 404 para rutas públicas no encontradas */}
+                <Route
+                  path="*"
+                  element={
+                    <AnimatedRoute>
+                      <NotFoundPage />
+                    </AnimatedRoute>
+                  }
+                />
               </Routes>
             </div>
           }
@@ -194,6 +204,16 @@ const AnimatedRoutes = () => {
                 <AdminAnalytics />
               </AnimatedRoute>
             </ProtectedRoute>
+          }
+        />
+
+        {/* Ruta 404 para rutas admin no encontradas */}
+        <Route
+          path="/admin/*"
+          element={
+            <AnimatedRoute>
+              <NotFoundPage />
+            </AnimatedRoute>
           }
         />
       </Routes>
