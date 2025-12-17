@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useCart } from "../context/CartContext";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
@@ -260,13 +261,19 @@ const ProductPage = () => {
               </Button>
 
               {/* Botón Añadir al Carrito */}
-              <button
+              <motion.button
                 onClick={() => {
                   for (let i = 0; i < quantity; i++) {
                     addToCart(product);
                   }
                 }}
                 disabled={product.stock === 0}
+                whileHover={{
+                  scale: product.stock > 0 ? 1.02 : 1,
+                  y: product.stock > 0 ? -2 : 0,
+                }}
+                whileTap={{ scale: product.stock > 0 ? 0.98 : 1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 className={`
                   w-full 
                   py-4 
@@ -275,19 +282,17 @@ const ProductPage = () => {
                   uppercase 
                   tracking-widest 
                   font-bold 
-                  transition-all 
+                  transition-colors 
                   drop-shadow-[4px_4px_1px_rgba(0,0,0,0.3)]
-                  border-2
-                  border-black
                   ${
                     product.stock > 0
-                      ? "bg-black text-white hover:bg-gray-800"
-                      : "bg-gray-200 text-gray-400 cursor-not-allowed border-gray-300"
+                      ? "bg-black text-white hover:bg-black"
+                      : "bg-gray-200 text-gray-400 cursor-not-allowed"
                   }
                 `}
               >
                 {product.stock > 0 ? "Añadir al Carrito" : "Agotado"}
-              </button>
+              </motion.button>
             </div>
 
             {/* Información Adicional */}

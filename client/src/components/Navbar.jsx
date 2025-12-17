@@ -117,19 +117,31 @@ const Navbar = () => {
             <div className="hidden md:flex space-x-6">
               <Link
                 to="/"
-                className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
+                className={`${
+                  location.pathname === "/"
+                    ? "text-white"
+                    : "text-white/80 hover:text-white"
+                } transition-colors text-xl uppercase tracking-widest font-normal`}
               >
                 Inicio
               </Link>
               <Link
                 to="/catalogo"
-                className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
+                className={`${
+                  location.pathname === "/catalogo"
+                    ? "text-white"
+                    : "text-white/80 hover:text-white"
+                } transition-colors text-xl uppercase tracking-widest font-normal`}
               >
                 Productos
               </Link>
               <Link
                 to="/contacto"
-                className="text-white/80 hover:text-white transition-colors text-xl uppercase tracking-widest font-normal"
+                className={`${
+                  location.pathname === "/contacto"
+                    ? "text-white"
+                    : "text-white/80 hover:text-white"
+                } transition-colors text-xl uppercase tracking-widest font-normal`}
               >
                 Contacto
               </Link>
