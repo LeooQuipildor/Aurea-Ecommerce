@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
+import axios from "axios";
 
 const CheckoutPage = () => {
   const { cart, totalItems, clearCart } = useCart();
@@ -23,6 +24,64 @@ const CheckoutPage = () => {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Estados para departamentos y municipios
+  const [departamentos, setDepartamentos] = useState([]);
+  const [municipios, setMunicipios] = useState([]);
+  const [loadingDepartamentos, setLoadingDepartamentos] = useState(true);
+  const [loadingMunicipios, setLoadingMunicipios] = useState(false);
+
+  // Cargar departamentos al montar el componente
+  useEffect(() => {
+    const fetchDepartamentos = async () => {
+      try {
+        const response = await axios.get(
+          "https://api-colombia.com/api/v1/Department"
+        );
+        setDepartamentos(response.data);
+      } catch (error) {
+        console.error("Error al cargar departamentos:", error);
+      } finally {
+        setLoadingDepartamentos(false);
+      }
+    };
+
+    fetchDepartamentos();
+  }, []);
+
+  // Cargar municipios cuando se selecciona un departamento
+  useEffect(() => {
+    const fetchMunicipios = async () => {
+      if (!formData.departamento) {
+        setMunicipios([]);
+        return;
+      }
+
+      setLoadingMunicipios(true);
+      try {
+        // Buscar el ID del departamento seleccionado
+        const departamentoSeleccionado = departamentos.find(
+          (dep) =>
+            dep.name.toLowerCase() === formData.departamento.toLowerCase()
+        );
+
+        if (departamentoSeleccionado) {
+          const response = await axios.get(
+            `https://api-colombia.com/api/v1/Department/${departamentoSeleccionado.id}/cities`
+          );
+          // La API devuelve un array directamente
+          setMunicipios(response.data || []);
+        }
+      } catch (error) {
+        console.error("Error al cargar municipios:", error);
+        setMunicipios([]);
+      } finally {
+        setLoadingMunicipios(false);
+      }
+    };
+
+    fetchMunicipios();
+  }, [formData.departamento, departamentos]);
+
   // Calcular el precio total del carrito
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -30,10 +89,21 @@ const CheckoutPage = () => {
   );
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    // Si cambia el departamento, resetear la ciudad
+    if (name === "departamento") {
+      setFormData({
+        ...formData,
+        departamento: value,
+        ciudad: "",
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -207,7 +277,7 @@ const CheckoutPage = () => {
                         name="whatsapp"
                         value={formData.whatsapp}
                         onChange={handleChange}
-                        placeholder="+54 9 11 1234-5678"
+                        placeholder="+57 300 123 4567"
                         required
                         className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
                       />
@@ -331,7 +401,7 @@ const CheckoutPage = () => {
                     {/* Departamento */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Provincia <span className="text-red-500">*</span>
+                        Departamento <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <select
@@ -339,15 +409,19 @@ const CheckoutPage = () => {
                           value={formData.departamento}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none"
+                          disabled={loadingDepartamentos}
+                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         >
-                          <option value="">Seleccionar provincia</option>
-                          <option value="Buenos Aires">Buenos Aires</option>
-                          <option value="CABA">CABA</option>
-                          <option value="Córdoba">Córdoba</option>
-                          <option value="Santa Fe">Santa Fe</option>
-                          <option value="Mendoza">Mendoza</option>
-                          <option value="Tucumán">Tucumán</option>
+                          <option value="">
+                            {loadingDepartamentos
+                              ? "Cargando departamentos..."
+                              : "Seleccionar departamento"}
+                          </option>
+                          {departamentos.map((dep) => (
+                            <option key={dep.id} value={dep.name}>
+                              {dep.name}
+                            </option>
+                          ))}
                         </select>
                         <svg
                           className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 pointer-events-none"
@@ -368,7 +442,7 @@ const CheckoutPage = () => {
                     {/* Ciudad */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Ciudad <span className="text-red-500">*</span>
+                        Municipio <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
                         <select
@@ -376,14 +450,21 @@ const CheckoutPage = () => {
                           value={formData.ciudad}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none"
+                          disabled={!formData.departamento || loadingMunicipios}
+                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed"
                         >
-                          <option value="">Seleccionar ciudad</option>
-                          <option value="CABA">CABA</option>
-                          <option value="La Plata">La Plata</option>
-                          <option value="Córdoba">Córdoba</option>
-                          <option value="Rosario">Rosario</option>
-                          <option value="Mendoza">Mendoza</option>
+                          <option value="">
+                            {!formData.departamento
+                              ? "Primero selecciona un departamento"
+                              : loadingMunicipios
+                              ? "Cargando municipios..."
+                              : "Seleccionar municipio"}
+                          </option>
+                          {municipios.map((mun) => (
+                            <option key={mun.id} value={mun.name}>
+                              {mun.name}
+                            </option>
+                          ))}
                         </select>
                         <svg
                           className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600 pointer-events-none"
@@ -399,6 +480,13 @@ const CheckoutPage = () => {
                           />
                         </svg>
                       </div>
+                      {formData.departamento &&
+                        municipios.length === 0 &&
+                        !loadingMunicipios && (
+                          <p className="text-xs text-gray-500 mt-1">
+                            No se encontraron municipios para este departamento
+                          </p>
+                        )}
                     </div>
                   </div>
 
