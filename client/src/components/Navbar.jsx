@@ -208,7 +208,7 @@ const Navbar = () => {
           {/* 3. DERECHA: ICONOS */}
           <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-3">
             {/* Buscador - Desktop */}
-            <div ref={searchRef} className="relative hidden md:block">
+            <div ref={searchRef} className="relative hidden lg:block">
               {/* Input de búsqueda expandible - Desktop */}
               <div
                 className={`flex items-center transition-all duration-300 ease-in-out ${
@@ -299,7 +299,7 @@ const Navbar = () => {
                   setSearchResults([]);
                 }
               }}
-              className="md:hidden p-1 text-white/80 hover:text-white transition-colors"
+              className="lg:hidden p-1 text-white/80 hover:text-white transition-colors"
               data-search-toggle
             >
               <svg
@@ -413,7 +413,7 @@ const Navbar = () => {
       {isSearchOpen && (
         <div
           ref={mobileSearchRef}
-          className="md:hidden bg-black border-t border-white/10 animate-fade-in"
+          className="lg:hidden bg-black border-t border-white/10 animate-fade-in"
         >
           <div className="px-4 py-4">
             {/* Input de búsqueda móvil */}

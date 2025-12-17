@@ -61,8 +61,8 @@ const AboutSection = () => {
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
 
             {/* 4. TEXTO CENTRADO */}
-            <div className="absolute inset-0 flex items-center justify-center z-20">
-              <h3 className="text-white font-medium tracking-[0.2em] uppercase drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)] ">
+            <div className="absolute inset-0 flex items-center justify-center z-20 px-4">
+              <h3 className="text-white font-medium tracking-[0.2em] uppercase drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)] text-center">
                 {item.title}
               </h3>
             </div>
