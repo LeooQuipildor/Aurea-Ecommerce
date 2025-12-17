@@ -39,7 +39,7 @@ const AboutSection = () => {
         ].map((item, index) => (
           <div
             key={index}
-            className="group relative h-[500px] overflow-hidden bg-black"
+            className="group relative h-[250px] md:h-[500px] overflow-hidden bg-black"
           >
             {/* 1. IMAGEN DE FONDO (Con efecto Zoom al Hover) */}
             <img

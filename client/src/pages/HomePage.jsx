@@ -107,7 +107,7 @@ const HomePage = () => {
           Descubrí los productos más populares que nuestros clientes aman
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {loading
             ? // Mostrar skeletons mientras carga
               Array.from({ length: 4 }).map((_, index) => (
