@@ -23,7 +23,7 @@ const BenefitsBar = () => {
     <div className="bg-black/60 text-white py-3 backdrop-blur-sm overflow-hidden">
       <div className="relative flex">
         {/* Primera copia del marquee */}
-        <div className="flex animate-marquee whitespace-nowrap">
+        <div className="flex animate-marquee whitespace-nowrap text-center">
           {marqueeItems.map((benefit, index) => (
             <div
               key={`marquee-1-${index}`}
@@ -78,13 +78,8 @@ const BenefitsBar = () => {
         }
 
         .animate-marquee {
-          animation: marquee 30s linear infinite;
+          animation: marquee 50s linear infinite;
           will-change: transform;
-        }
-
-        /* Pausar animación al hacer hover */
-        .animate-marquee:hover {
-          animation-play-state: paused;
         }
       `}</style>
     </div>
