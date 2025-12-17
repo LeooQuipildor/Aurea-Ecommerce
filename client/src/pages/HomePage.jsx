@@ -32,7 +32,7 @@ const HomePage = () => {
   return (
     <div className="bg-white">
       {/* 1. HERO SECTION */}
-      <div className="relative h-[60vh] sm:h-[70vh] md:h-screen w-full bg-[#000]">
+      <div className="relative h-screen w-full bg-[#000]">
         {/* A. IMAGEN DE FONDO */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-80"

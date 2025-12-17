@@ -1,38 +1,94 @@
+import React from "react";
+
 const BenefitsBar = () => {
+  const benefits = [
+    {
+      title: "Envío gratis",
+      description: "En pedidos superiores a un mínimo",
+    },
+    {
+      title: "Pagos en casa",
+      description: "Paga cómodamente sin correr riesgos",
+    },
+    {
+      title: "Calidad asegurada",
+      description: "3 meses de garantía en el metal",
+    },
+  ];
+
+  // Crear un array con múltiples repeticiones para el efecto marquee
+  const marqueeItems = [...benefits, ...benefits, ...benefits, ...benefits];
+
   return (
-    // CAMBIO AQUI:
-    // 1. 'bg-black/50': Negro con 50% de opacidad (similar a tu 49%).
-    // 2. 'backdrop-blur-md': Aplica el desenfoque al fondo (explicado abajo).
-    <div className="bg-black/50 text-white py-8 backdrop-blur-sm">
-      {" "}
-      {/* Color gris/marrón del diseño */}
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white-">
-        <div className="px-4">
-          <h3 className="font-semibold text-2xl text-white drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
-            Envío gratis
-          </h3>
-          <p className="text-lg text-white/80 font-medium mt-1 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
-            En pedidos superiores a un mínimo
-          </p>
+    <div className="bg-black/60 text-white py-3 backdrop-blur-sm overflow-hidden">
+      <div className="relative flex">
+        {/* Primera copia del marquee */}
+        <div className="flex animate-marquee whitespace-nowrap">
+          {marqueeItems.map((benefit, index) => (
+            <div
+              key={`marquee-1-${index}`}
+              className="flex items-center mx-8 md:mx-12"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:gap-2">
+                <h3 className="font-semibold uppercase text-base md:text-xl text-white drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                  {benefit.title}
+                </h3>
+                <span className="hidden md:inline text-white/50">•</span>
+                <p className="text-sm md:text-base text-white/80 font-medium drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                  {benefit.description}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="px-4">
-          <h3 className="font-semibold text-2xl text-white drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
-            Pagos en casa
-          </h3>
-          <p className="text-lg text-white/80 font-medium mt-1 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
-            Paga cómodamente sin correr riesgos
-          </p>
-        </div>
-        <div className="px-4">
-          <h3 className="font-semibold text-2xl text-white drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
-            Calidad asegurada
-          </h3>
-          <p className="text-lg text-white/80 font-medium mt-1 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
-            3 meses de garantía en el metal
-          </p>
+
+        {/* Segunda copia del marquee para continuidad */}
+        <div
+          className="flex animate-marquee whitespace-nowrap"
+          aria-hidden="true"
+        >
+          {marqueeItems.map((benefit, index) => (
+            <div
+              key={`marquee-2-${index}`}
+              className="flex items-center mx-8 md:mx-12"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:gap-2">
+                <h3 className="font-semibold uppercase text-base md:text-xl text-white drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                  {benefit.title}
+                </h3>
+                <span className="hidden md:inline text-white/50">•</span>
+                <p className="text-sm md:text-base text-white/80 font-medium drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                  {benefit.description}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* Animación CSS para marquee */}
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-100%, 0, 0);
+          }
+        }
+
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+          will-change: transform;
+        }
+
+        /* Pausar animación al hacer hover */
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </div>
   );
 };
+
 export default BenefitsBar;
