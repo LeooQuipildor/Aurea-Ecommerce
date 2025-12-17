@@ -261,7 +261,7 @@ const Navbar = () => {
 
             {/* Usuario */}
             <Link
-              to="/"
+              to="/admin/login"
               className="p-1 text-white/80 hover:text-white transition-colors"
             >
               <svg

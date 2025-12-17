@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const orderRoutes = require('./routes/orderRoutes');
-// --- IMPORTAR RUTAS ---
 const productRoutes = require('./routes/productRoutes');
+const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 // Configurar variables de entorno
 dotenv.config();
@@ -20,6 +21,8 @@ app.use(express.json());
 // --- USAR RUTAS ---
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 // --- Rutas de Prueba ---
 app.get('/', (req, res) => {
