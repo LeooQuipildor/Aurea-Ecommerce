@@ -284,9 +284,18 @@ const ContactPage = () => {
                   value={formData.firstName}
                   onChange={handleChange}
                   placeholder="Nombre"
+                  minLength={2}
+                  maxLength={25}
                   required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
+                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
+                    errors.firstName ? "border-red-500" : "border-white/10"
+                  }`}
                 />
+                {errors.firstName && (
+                  <p className="text-red-400 text-xs mt-1">
+                    {errors.firstName}
+                  </p>
+                )}
               </div>
               <div>
                 <input
@@ -295,9 +304,16 @@ const ContactPage = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   placeholder="Apellido"
+                  minLength={2}
+                  maxLength={25}
                   required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
+                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
+                    errors.lastName ? "border-red-500" : "border-white/10"
+                  }`}
                 />
+                {errors.lastName && (
+                  <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>
+                )}
               </div>
             </div>
 
@@ -310,9 +326,15 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Email"
+                  maxLength={50}
                   required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
+                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
+                    errors.email ? "border-red-500" : "border-white/10"
+                  }`}
                 />
+                {errors.email && (
+                  <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+                )}
               </div>
               <div>
                 <input
@@ -320,9 +342,17 @@ const ContactPage = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="Teléfono"
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
+                  placeholder="Teléfono (Ej: 3001234567)"
+                  pattern="3[0-9]{9}"
+                  maxLength={10}
+                  required
+                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
+                    errors.phone ? "border-red-500" : "border-white/10"
+                  }`}
                 />
+                {errors.phone && (
+                  <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+                )}
               </div>
             </div>
 
@@ -332,17 +362,28 @@ const ContactPage = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Tu mensaje"
+                placeholder="Tu mensaje... (mínimo 10 caracteres)"
                 required
                 rows="6"
-                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors resize-none"
+                minLength={10}
+                maxLength={500}
+                className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors resize-none ${
+                  errors.message ? "border-red-500" : "border-white/10"
+                }`}
               ></textarea>
+              {errors.message && (
+                <p className="text-red-400 text-xs mt-1">{errors.message}</p>
+              )}
             </div>
 
             {/* Botón de envío */}
             <div>
-              <Button type="submit" disabled={isSubmitting} fullWidth>
-                {isSubmitting ? "Enviando..." : "Enviar"}
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isFormComplete()}
+                fullWidth
+              >
+                {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
               </Button>
             </div>
 
