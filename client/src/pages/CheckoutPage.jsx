@@ -23,6 +23,7 @@ const CheckoutPage = () => {
 
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
 
   // Estados para departamentos y municipios
   const [departamentos, setDepartamentos] = useState([]);
@@ -88,8 +89,93 @@ const CheckoutPage = () => {
     0
   );
 
+  // Función de validación
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validar nombre
+    if (!formData.nombre.trim()) {
+      newErrors.nombre = "El nombre es obligatorio";
+    } else if (formData.nombre.trim().length < 2) {
+      newErrors.nombre = "El nombre debe tener al menos 2 caracteres";
+    } else if (formData.nombre.trim().length > 25) {
+      newErrors.nombre = "El nombre no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.nombre)) {
+      newErrors.nombre = "El nombre solo puede contener letras";
+    }
+
+    // Validar apellido
+    if (!formData.apellido.trim()) {
+      newErrors.apellido = "El apellido es obligatorio";
+    } else if (formData.apellido.trim().length < 2) {
+      newErrors.apellido = "El apellido debe tener al menos 2 caracteres";
+    } else if (formData.apellido.trim().length > 25) {
+      newErrors.apellido = "El apellido no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.apellido)) {
+      newErrors.apellido = "El apellido solo puede contener letras";
+    }
+
+    // Validar WhatsApp (Colombia: empieza con 3, 10 dígitos)
+    const phoneDigits = formData.whatsapp.replace(/\D/g, "");
+    if (!formData.whatsapp.trim()) {
+      newErrors.whatsapp = "El número de WhatsApp es obligatorio";
+    } else if (phoneDigits.length !== 10) {
+      newErrors.whatsapp = "El número debe tener exactamente 10 dígitos";
+    } else if (!phoneDigits.startsWith("3")) {
+      newErrors.whatsapp = "El número debe empezar con 3";
+    }
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "El email es obligatorio";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "El email no es válido";
+    } else if (formData.email.length > 50) {
+      newErrors.email = "El email no puede exceder 50 caracteres";
+    }
+
+    // Validar dirección (debe incluir número)
+    if (!formData.direccion.trim()) {
+      newErrors.direccion = "La dirección es obligatoria";
+    } else if (formData.direccion.trim().length < 5) {
+      newErrors.direccion = "La dirección debe tener al menos 5 caracteres";
+    } else if (formData.direccion.length > 200) {
+      newErrors.direccion = "La dirección no puede exceder 200 caracteres";
+    } else if (!/\d/.test(formData.direccion)) {
+      newErrors.direccion = "La dirección debe incluir un número";
+    }
+
+    // Validar referencia
+    if (!formData.referencia.trim()) {
+      newErrors.referencia = "El punto de referencia es obligatorio";
+    } else if (formData.referencia.trim().length < 3) {
+      newErrors.referencia = "Debe tener al menos 3 caracteres";
+    } else if (formData.referencia.length > 300) {
+      newErrors.referencia = "No puede exceder 300 caracteres";
+    }
+
+    // Validar departamento
+    if (!formData.departamento) {
+      newErrors.departamento = "Debes seleccionar un departamento";
+    }
+
+    // Validar ciudad
+    if (!formData.ciudad) {
+      newErrors.ciudad = "Debes seleccionar un municipio";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
 
     // Si cambia el departamento, resetear la ciudad
     if (name === "departamento") {
@@ -108,6 +194,13 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validar formulario
+    if (!validateForm()) {
+      alert("Por favor, corrige los errores en el formulario");
+      return;
+    }
+
     if (!acceptTerms) {
       alert("Debes aceptar los términos para continuar");
       return;
@@ -118,10 +211,22 @@ const CheckoutPage = () => {
     // Generar ID de pedido único
     const orderId = `AUR${Date.now().toString().slice(-8)}`;
 
+    // Sanitizar datos (trim)
+    const sanitizedData = {
+      nombre: formData.nombre.trim(),
+      apellido: formData.apellido.trim(),
+      whatsapp: formData.whatsapp.trim(),
+      direccion: formData.direccion.trim(),
+      referencia: formData.referencia.trim(),
+      departamento: formData.departamento,
+      ciudad: formData.ciudad,
+      email: formData.email.trim().toLowerCase(),
+    };
+
     // Preparar datos del pedido
     const orderData = {
       orderId,
-      customerData: formData,
+      customerData: sanitizedData,
       cart,
       totalPrice,
       date: new Date().toISOString(),
@@ -217,10 +322,19 @@ const CheckoutPage = () => {
                           value={formData.nombre}
                           onChange={handleChange}
                           placeholder="EJEMPLO: María"
+                          minLength={2}
+                          maxLength={25}
                           required
-                          className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                          className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                            errors.nombre ? "border-red-500" : ""
+                          }`}
                         />
                       </div>
+                      {errors.nombre && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.nombre}
+                        </p>
+                      )}
                     </div>
 
                     {/* Apellido */}
