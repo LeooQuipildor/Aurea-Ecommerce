@@ -337,19 +337,24 @@ const ContactPage = () => {
                 )}
               </div>
               <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Teléfono (Ej: 3001234567)"
-                  pattern="3[0-9]{9}"
-                  maxLength={10}
-                  required
-                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
-                    errors.phone ? "border-red-500" : "border-white/10"
-                  }`}
-                />
+                <div className="flex items-stretch border border-white/10 bg-white/5">
+                  <div className="px-4 bg-white/10 border-r border-white/10 flex items-center">
+                    <span className="text-white font-medium">+57</span>
+                  </div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="3001234567"
+                    pattern="3[0-9]{9}"
+                    maxLength={10}
+                    required
+                    className={`flex-1 bg-transparent text-white placeholder-gray-500 px-6 py-4 focus:outline-none ${
+                      errors.phone ? "border-red-500" : ""
+                    }`}
+                  />
+                </div>
                 {errors.phone && (
                   <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
                 )}
