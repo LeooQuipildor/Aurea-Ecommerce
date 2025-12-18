@@ -55,27 +55,52 @@ const TestimonialsSection = () => {
   ];
 
   // Calcular número de páginas según el tamaño de pantalla
-  // Móvil: 1 por página = 6 páginas
-  // Desktop: 3 por página = 2 páginas
-  const totalPagesMobile = testimonials.length; // 6 páginas en móvil
-  const totalPagesDesktop = Math.ceil(testimonials.length / 3);
+  const totalPagesMobile = testimonials.length; // 6 páginas en móvil (1 por página)
+  const totalPagesTablet = Math.ceil(testimonials.length / 2); // 3 páginas en tablet (2 por página)
+  const totalPagesDesktop = Math.ceil(testimonials.length / 3); // 2 páginas en desktop (3 por página)
+
+  // Detectar tamaño de pantalla
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Determinar total de páginas según el ancho de pantalla
+  const getTotalPages = () => {
+    if (windowWidth < 768) return totalPagesMobile; // Móvil
+    if (windowWidth < 1024) return totalPagesTablet; // Tablet
+    return totalPagesDesktop; // Desktop
+  };
+
+  const totalPages = getTotalPages();
+
+  // Resetear currentPage si está fuera del rango cuando cambia el tamaño de pantalla
+  useEffect(() => {
+    if (currentPage >= totalPages) {
+      setCurrentPage(0);
+    }
+  }, [totalPages]);
 
   // Auto-play: cambiar de página automáticamente cada 5 segundos
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentPage((prev) => (prev + 1) % totalPagesMobile);
-    }, 5000); // Cambiar cada 5 segundos
+      setCurrentPage((prev) => (prev + 1) % totalPages);
+    }, 5000);
 
-    return () => clearInterval(interval); // Limpiar intervalo al desmontar
-  }, [totalPagesMobile]);
+    return () => clearInterval(interval);
+  }, [totalPages]);
 
   const nextPage = () => {
-    // En móvil: 6 páginas, en desktop: 2 páginas
-    setCurrentPage((prev) => (prev + 1) % totalPagesMobile);
+    setCurrentPage((prev) => (prev + 1) % totalPages);
   };
 
   const prevPage = () => {
-    setCurrentPage((prev) => (prev - 1 + totalPagesMobile) % totalPagesMobile);
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
   const goToPage = (index) => {
@@ -271,11 +296,11 @@ const TestimonialsSection = () => {
           </button>
         </div>
 
-        {/* Indicadores (dots) - 6 en móvil, 3 en tablet, 2 en desktop */}
+        {/* Indicadores (dots) - dinámicos según el tamaño de pantalla */}
         <div className="flex justify-center gap-2 mt-8">
           {/* Móvil: 6 dots */}
           <div className="flex md:hidden gap-2">
-            {[0, 1, 2, 3, 4, 5].map((pageIndex) => (
+            {[...Array(totalPagesMobile)].map((_, pageIndex) => (
               <button
                 key={pageIndex}
                 onClick={() => goToPage(pageIndex)}
@@ -290,7 +315,7 @@ const TestimonialsSection = () => {
           </div>
           {/* Tablet: 3 dots */}
           <div className="hidden md:flex lg:hidden gap-2">
-            {[0, 1, 2].map((pageIndex) => (
+            {[...Array(totalPagesTablet)].map((_, pageIndex) => (
               <button
                 key={pageIndex}
                 onClick={() => goToPage(pageIndex)}
@@ -305,7 +330,7 @@ const TestimonialsSection = () => {
           </div>
           {/* Desktop: 2 dots */}
           <div className="hidden lg:flex gap-2">
-            {[0, 1].map((pageIndex) => (
+            {[...Array(totalPagesDesktop)].map((_, pageIndex) => (
               <button
                 key={pageIndex}
                 onClick={() => goToPage(pageIndex)}
