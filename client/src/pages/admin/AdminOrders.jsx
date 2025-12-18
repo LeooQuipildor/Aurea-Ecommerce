@@ -1,16 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 
 const AdminOrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("all"); // all, pending, confirmed, shipped, delivered, cancelled
+  const [filter, setFilter] = useState("all");
+  const [updatingStatus, setUpdatingStatus] = useState(null);
 
-  useEffect(() => {
-    fetchOrders();
-  }, [filter]); // Recargar cuando cambie el filtro
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
@@ -35,6 +32,41 @@ const AdminOrdersPage = () => {
       console.error("Error al cargar pedidos:", error);
       toast.error("Error al cargar los pedidos");
       setLoading(false);
+    }
+  }, [filter]);
+
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
+
+  const updateOrderStatus = async (orderId, newStatus) => {
+    try {
+      setUpdatingStatus(orderId);
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        `http://localhost:5000/api/admin/orders/${orderId}/status`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ status: newStatus }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar el estado");
+      }
+
+      toast.success("Estado actualizado correctamente");
+      fetchOrders(); // Recargar pedidos
+    } catch (error) {
+      console.error("Error al actualizar estado:", error);
+      toast.error("Error al actualizar el estado del pedido");
+    } finally {
+      setUpdatingStatus(null);
     }
   };
 
@@ -155,13 +187,33 @@ const AdminOrdersPage = () => {
                     })}
                   </p>
                 </div>
-                <span
-                  className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
-                    order.status
-                  )}`}
-                >
-                  {getStatusText(order.status)}
-                </span>
+
+                {/* Selector de Estado */}
+                <div className="flex items-center gap-2">
+                  <select
+                    value={order.status}
+                    onChange={(e) =>
+                      updateOrderStatus(order._id, e.target.value)
+                    }
+                    disabled={updatingStatus === order._id}
+                    className={`px-3 py-1 rounded-full text-sm font-medium border-2 cursor-pointer transition-all ${getStatusColor(
+                      order.status
+                    )} ${
+                      updatingStatus === order._id
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:opacity-80"
+                    }`}
+                  >
+                    <option value="pending">Pendiente</option>
+                    <option value="confirmed">Confirmado</option>
+                    <option value="shipped">Enviado</option>
+                    <option value="delivered">Entregado</option>
+                    <option value="cancelled">Cancelado</option>
+                  </select>
+                  {updatingStatus === order._id && (
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-yellow-600"></div>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">

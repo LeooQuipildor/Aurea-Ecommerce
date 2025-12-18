@@ -202,4 +202,49 @@ router.get('/contacts', protect, admin, async (req, res) => {
   }
 });
 
+// @route   PATCH /api/admin/orders/:id/status
+// @desc    Actualizar el estado de un pedido
+// @access  Private/Admin
+router.patch('/orders/:id/status', protect, admin, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const orderId = req.params.id;
+
+    // Validar que el estado sea válido
+    const validStatuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Estado inválido',
+      });
+    }
+
+    // Actualizar el pedido
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true, runValidators: true }
+    );
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'Pedido no encontrado',
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Estado actualizado correctamente',
+      order,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error al actualizar el estado',
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;
