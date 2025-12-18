@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import axios from "axios";
+import { toast } from "sonner";
 
 const CheckoutPage = () => {
   const { cart, totalItems, clearCart } = useCart();
@@ -217,12 +218,12 @@ const CheckoutPage = () => {
 
     // Validar formulario
     if (!validateForm()) {
-      alert("Por favor, corrige los errores en el formulario");
+      toast.error("Por favor, corrige los errores en el formulario");
       return;
     }
 
     if (!acceptTerms) {
-      alert("Debes aceptar los términos para continuar");
+      toast.error("Debes aceptar los términos para continuar");
       return;
     }
 
@@ -275,6 +276,9 @@ const CheckoutPage = () => {
 
       // Pedido exitoso
       console.log("✅ Pedido procesado:", data);
+      toast.success(
+        "¡Pedido realizado con éxito! Recibirás un email de confirmación."
+      );
 
       // Limpiar carrito
       clearCart();
@@ -294,9 +298,10 @@ const CheckoutPage = () => {
       });
     } catch (error) {
       console.error("❌ Error al procesar pedido:", error);
-      setIsSubmitting(false);
-      alert(
-        "Hubo un error al procesar tu pedido. Por favor, intenta nuevamente."
+      setIsSubmitting(false); // IMPORTANTE: Desbloquear el botón
+      toast.error(
+        error.message ||
+          "Hubo un error al procesar tu pedido. Por favor, intenta nuevamente."
       );
     }
   };

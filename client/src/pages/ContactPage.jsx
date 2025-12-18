@@ -2,6 +2,7 @@ import { useState } from "react";
 import Footer from "../components/Footer";
 import FAQSection from "../components/FAQSection";
 import Button from "../components/Button";
+import { toast } from "sonner";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -139,6 +140,7 @@ const ContactPage = () => {
 
       // Mensaje enviado exitosamente
       console.log("✅ Mensaje enviado:", data);
+      toast.success("¡Mensaje enviado con éxito! Te responderemos pronto.");
 
       setIsSubmitting(false);
       setSubmitStatus("success");
@@ -155,7 +157,11 @@ const ContactPage = () => {
       setTimeout(() => setSubmitStatus(null), 5000);
     } catch (error) {
       console.error("❌ Error al enviar mensaje:", error);
-      setIsSubmitting(false);
+      setIsSubmitting(false); // IMPORTANTE: Desbloquear el botón
+      toast.error(
+        error.message ||
+          "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente."
+      );
       setSubmitStatus("error");
       setTimeout(() => setSubmitStatus(null), 5000);
     }
