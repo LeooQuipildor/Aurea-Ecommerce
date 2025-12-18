@@ -177,8 +177,8 @@ const CheckoutPage = () => {
       <div className="pb-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* FORMULARIO (Izquierda - 2 columnas) */}
-            <div className="lg:col-span-2">
+            {/* FORMULARIO (Izquierda - 2 columnas) - Orden 2 en móvil/tablet, 1 en desktop */}
+            <div className="lg:col-span-2 order-2 lg:order-1">
               <div className="bg-gray-50 border border-gray-200 p-8">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                   Información de Entrega
@@ -519,8 +519,8 @@ const CheckoutPage = () => {
               </div>
             </div>
 
-            {/* RESUMEN DEL PEDIDO (Derecha - 1 columna) */}
-            <div className="lg:col-span-1">
+            {/* RESUMEN DEL PEDIDO (Derecha - 1 columna) - Orden 1 en móvil/tablet, 2 en desktop */}
+            <div className="lg:col-span-1 order-1 lg:order-2">
               <div className="bg-gray-50 border border-gray-200 p-6 sticky top-24">
                 <h2 className="font-semibold text-xl text-gray-900 mb-6">
                   Resumen del Pedido

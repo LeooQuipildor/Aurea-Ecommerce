@@ -68,15 +68,17 @@ Gracias!`;
             </div>
           </div>
 
-          <h1 className="font-thin text-5xl md:text-6xl text-gray-900 mb-4">
+          <h1 className="font-thin text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-4">
             ¡Pedido Registrado!
           </h1>
-          <p className="text-gray-600 text-lg mb-2">
+          <p className="text-gray-600 text-base md:text-lg mb-2">
             Tu pedido ha sido registrado exitosamente
           </p>
-          <div className="inline-block bg-gray-100 px-6 py-3">
-            <p className="text-sm text-gray-500 mb-1">ID de Compra</p>
-            <p className="text-2xl font-bold text-gray-900 font-mono">
+          <div className="inline-block bg-gray-100 px-4 md:px-6 py-3">
+            <p className="text-xs md:text-sm text-gray-500 mb-1">
+              ID de Compra
+            </p>
+            <p className="text-xl md:text-2xl font-bold text-gray-900 font-mono">
               #{orderId}
             </p>
           </div>
@@ -86,11 +88,11 @@ Gracias!`;
       {/* Instrucciones Importantes */}
       <div className="py-12 px-4 bg-yellow-50 border-y-2 border-yellow-200">
         <div className="max-w-3xl mx-auto">
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-400 rounded-full flex items-center justify-center">
                 <svg
-                  className="w-7 h-7 text-yellow-900"
+                  className="w-6 h-6 sm:w-7 sm:h-7 text-yellow-900"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -105,14 +107,14 @@ Gracias!`;
               </div>
             </div>
             <div className="flex-1">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-3">
+              <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-3">
                 ⚠️ Importante: Confirmá tu Pedido
               </h2>
-              <p className="text-gray-700 text-base leading-relaxed mb-4">
+              <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-4">
                 <strong>El envío solo se realizará</strong> si nos enviás un
                 mensaje por WhatsApp confirmando tu pedido. Por favor, incluí:
               </p>
-              <ul className="space-y-2 text-gray-700 mb-6">
+              <ul className="space-y-2 text-gray-700 text-sm md:text-base mb-6">
                 <li className="flex items-start gap-2">
                   <span className="text-green-600 font-bold mt-1">✓</span>
                   <span>
@@ -140,10 +142,10 @@ Gracias!`;
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="inline-flex items-center justify-center gap-2 md:gap-3 bg-green-500 hover:bg-green-600 text-white font-bold py-3 md:py-4 px-6 md:px-8 transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto text-sm md:text-base"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-5 h-5 md:w-6 md:h-6"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -157,14 +159,14 @@ Gracias!`;
       </div>
 
       {/* Resumen del Pedido */}
-      <div className="py-16 px-50 bg-gray-50">
+      <div className="py-12 md:py-16 px-4 md:px-8 lg:px-50 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="font-thin-semibold text-6xl text-gray-900 mb-2">
+          <h2 className="font-thin-semibold text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-2">
             Tu Pedido
           </h2>
 
           {/* Contenedor único con todo el contenido */}
-          <div className="bg-white border border-gray-200 p-8">
+          <div className="bg-white border border-gray-200 p-4 md:p-6 lg:p-8">
             {/* Grid de 2 columnas - INVERTIDO */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Columna Izquierda - Información del Cliente (2/3) */}
