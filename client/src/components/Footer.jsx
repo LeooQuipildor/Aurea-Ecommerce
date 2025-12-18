@@ -15,7 +15,13 @@ const Footer = () => {
           />
 
           {/* Icono Instagram */}
-          <div className="cursor-pointer transition opacity-90 hover:opacity-100">
+          <a
+            href="https://www.instagram.com/aurea.only"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer transition opacity-90 hover:opacity-100"
+            aria-label="Instagram"
+          >
             <svg
               width="24px"
               height="24px"
@@ -42,7 +48,7 @@ const Footer = () => {
                 ></path>
               </g>
             </svg>
-          </div>
+          </a>
         </div>
 
         {/* Copyright Derecha con link */}

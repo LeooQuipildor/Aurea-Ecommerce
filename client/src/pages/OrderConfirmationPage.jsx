@@ -37,7 +37,11 @@ Gracias!`;
     return encodeURIComponent(message);
   };
 
-  const whatsappNumber = "5491112345678"; // Reemplazar con tu número de WhatsApp
+  // IMPORTANTE: Reemplazar con tu número de WhatsApp
+  // Formato: código de país + código de área + número (sin espacios, guiones ni +)
+  // Ejemplo Argentina: 549 + 11 + tu número (549111234567)
+  // Ejemplo Colombia: 57 + código área + número (573001234567)
+  const whatsappNumber = "573218422436"; // 👈 CAMBIA ESTE NÚMERO
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${generateWhatsAppMessage()}`;
 
   return (
