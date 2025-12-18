@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { protect, admin } = require('../middleware/auth');
 const { validateAdminLogin } = require('../middleware/validators');
+const { loginLimiter } = require('../middleware/rateLimiter');
 
 // Generar JWT Token
 const generateToken = (id) => {
@@ -51,7 +52,7 @@ router.post('/register', async (req, res) => {
 // @route   POST /api/auth/login
 // @desc    Autenticar usuario y obtener token
 // @access  Public
-router.post('/login', validateAdminLogin, async (req, res) => {
+router.post('/login', loginLimiter, validateAdminLogin, async (req, res) => {
   try {
     const { email, password } = req.body;
 
