@@ -364,10 +364,19 @@ const CheckoutPage = () => {
                           value={formData.apellido}
                           onChange={handleChange}
                           placeholder="EJEMPLO: Rodriguez"
+                          minLength={2}
+                          maxLength={25}
                           required
-                          className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                          className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                            errors.apellido ? "border-red-500" : ""
+                          }`}
                         />
                       </div>
+                      {errors.apellido && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.apellido}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -391,11 +400,20 @@ const CheckoutPage = () => {
                         name="whatsapp"
                         value={formData.whatsapp}
                         onChange={handleChange}
-                        placeholder="+57 300 123 4567"
+                        placeholder="3001234567"
+                        pattern="3[0-9]{9}"
+                        maxLength={10}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.whatsapp ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.whatsapp && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.whatsapp}
+                      </p>
+                    )}
                   </div>
 
                   {/* Email */}
@@ -425,10 +443,18 @@ const CheckoutPage = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="EJEMPLO: maria@gmail.com"
+                        maxLength={50}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.email ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   {/* Dirección completa */}
@@ -464,10 +490,19 @@ const CheckoutPage = () => {
                         value={formData.direccion}
                         onChange={handleChange}
                         placeholder="Ej: Calle 19 # 29-80 Casa 8"
+                        minLength={5}
+                        maxLength={200}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.direccion ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.direccion && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.direccion}
+                      </p>
+                    )}
                   </div>
 
                   {/* Puntos de referencia */}
@@ -504,10 +539,19 @@ const CheckoutPage = () => {
                         value={formData.referencia}
                         onChange={handleChange}
                         placeholder="EJ: Barrio Palermo / Junto a panadería."
+                        minLength={3}
+                        maxLength={300}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.referencia ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.referencia && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.referencia}
+                      </p>
+                    )}
                   </div>
 
                   {/* Departamento y Ciudad en grid */}
@@ -524,7 +568,9 @@ const CheckoutPage = () => {
                           onChange={handleChange}
                           required
                           disabled={loadingDepartamentos}
-                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          className={`w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed ${
+                            errors.departamento ? "border-red-500" : ""
+                          }`}
                         >
                           <option value="">
                             {loadingDepartamentos
@@ -551,6 +597,11 @@ const CheckoutPage = () => {
                           />
                         </svg>
                       </div>
+                      {errors.departamento && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.departamento}
+                        </p>
+                      )}
                     </div>
 
                     {/* Ciudad */}
@@ -565,7 +616,9 @@ const CheckoutPage = () => {
                           onChange={handleChange}
                           required
                           disabled={!formData.departamento || loadingMunicipios}
-                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          className={`w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed ${
+                            errors.ciudad ? "border-red-500" : ""
+                          }`}
                         >
                           <option value="">
                             {!formData.departamento
@@ -594,6 +647,11 @@ const CheckoutPage = () => {
                           />
                         </svg>
                       </div>
+                      {errors.ciudad && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.ciudad}
+                        </p>
+                      )}
                       {formData.departamento &&
                         municipios.length === 0 &&
                         !loadingMunicipios && (
