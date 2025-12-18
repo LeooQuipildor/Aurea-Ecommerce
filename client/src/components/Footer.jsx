@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="bg-black text-white pt-5 pb-5 ">
@@ -43,10 +45,13 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Copyright Derecha */}
-        <div className="text-gray-100 text-xs tracking-widest">
-          © 2024 AURÉA. TODOS LOS DERECHOS RESERVADOS.
-        </div>
+        {/* Copyright Derecha con link */}
+        <Link
+          to="/terminos"
+          className="text-gray-100 text-xs tracking-widest hover:text-yellow-400 transition-colors"
+        >
+          © 2025 AURÉA. TODOS LOS DERECHOS RESERVADOS.
+        </Link>
       </div>
     </footer>
   );

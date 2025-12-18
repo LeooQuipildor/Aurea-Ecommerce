@@ -10,6 +10,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import ContactPage from "./pages/ContactPage";
+import TermsPage from "./pages/TermsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -120,6 +121,14 @@ const AnimatedRoutes = () => {
                   element={
                     <AnimatedRoute>
                       <ContactPage />
+                    </AnimatedRoute>
+                  }
+                />
+                <Route
+                  path="/terminos"
+                  element={
+                    <AnimatedRoute>
+                      <TermsPage />
                     </AnimatedRoute>
                   }
                 />
