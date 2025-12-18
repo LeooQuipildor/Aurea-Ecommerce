@@ -87,7 +87,7 @@ const CatalogPage = () => {
             </div>
 
             {/* Cards de Filtro - 4 categorías */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               {[
                 { name: "COLLARES", image: "/images/hero.jpeg" },
                 { name: "ANILLOS", image: "/images/hero.jpeg" },
@@ -125,12 +125,12 @@ const CatalogPage = () => {
       <section className="max-w-7xl mx-auto px-4 py-16">
         {/* Título y Filtros */}
         <div className="mb-12">
-          <h2 className="font-thin text-6xl md:text-7xl text-gray-800 mb-8 uppercase">
+          <h2 className="font-thin text-6xl md:text-7xl text-gray-800 mb-8 uppercase text-center md:text-left">
             Todos nuestros productos
           </h2>
 
           {/* Filtros */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-gray-200 pb-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-200 pb-6">
             {/* Dropdown de Categorías */}
             <div className="relative" ref={dropdownRef}>
               <button
@@ -239,24 +239,10 @@ const CatalogPage = () => {
             </p>
           </div>
 
-          {/* Grid 3x2 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-0">
-            {/* Fila 1, Col 1: Texto */}
-            <div className="flex items-center justify-center p-8 md:p-12">
-              <div className="text-center max-w-sm">
-                <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
-                  Garantía de Calidad
-                </h3>
-                <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
-                  Te ofrecemos piezas elaboradas con materiales premium y
-                  terminaciones impecables para que disfrutes joyas que duran
-                  toda la vida
-                </p>
-              </div>
-            </div>
-
-            {/* Fila 1, Col 2: Imagen */}
-            <div className="overflow-hidden">
+          {/* Grid: 2 columnas en móvil, 3x2 en desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-0">
+            {/* Móvil Fila 1: Foto (izq) - Desktop Fila 1 Col 2: Imagen */}
+            <div className="overflow-hidden md:order-2">
               <img
                 src="/images/hero.jpeg"
                 alt="Garantía de Calidad"
@@ -264,8 +250,8 @@ const CatalogPage = () => {
               />
             </div>
 
-            {/* Fila 1, Col 3: Texto */}
-            <div className="flex items-center justify-center p-8 md:p-12">
+            {/* Móvil Fila 1: Texto (der) - Desktop Fila 1 Col 1: Texto */}
+            <div className="flex items-center justify-center p-8 md:p-12 md:order-1">
               <div className="text-center max-w-sm">
                 <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
                   Garantía de Calidad
@@ -278,8 +264,21 @@ const CatalogPage = () => {
               </div>
             </div>
 
-            {/* Fila 2, Col 1: Imagen */}
-            <div className="overflow-hidden">
+            {/* Móvil Fila 2: Texto (izq) - Desktop Fila 1 Col 3: Texto */}
+            <div className="flex items-center justify-center p-8 md:p-12 md:order-3">
+              <div className="text-center max-w-sm">
+                <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
+                  Envío Gratis
+                </h3>
+                <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
+                  Recibí tus joyas sin costo adicional en compras superiores al
+                  mínimo establecido
+                </p>
+              </div>
+            </div>
+
+            {/* Móvil Fila 2: Foto (der) - Desktop Fila 2 Col 1: Imagen */}
+            <div className="overflow-hidden md:order-4">
               <img
                 src="/images/hero.jpeg"
                 alt="Envío Gratis"
@@ -287,27 +286,26 @@ const CatalogPage = () => {
               />
             </div>
 
-            {/* Fila 2, Col 2: Texto */}
-            <div className="flex items-center justify-center p-8 md:p-12 bg-gray-50">
-              <div className="text-center max-w-sm">
-                <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
-                  Garantía de Calidad
-                </h3>
-                <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
-                  Te ofrecemos piezas elaboradas con materiales premium y
-                  terminaciones impecables para que disfrutes joyas que duran
-                  toda la vida
-                </p>
-              </div>
-            </div>
-
-            {/* Fila 2, Col 3: Imagen */}
-            <div className="overflow-hidden">
+            {/* Móvil Fila 3: Foto (izq) - Desktop Fila 2 Col 3: Imagen */}
+            <div className="overflow-hidden md:order-6">
               <img
                 src="/images/hero.jpeg"
                 alt="Garantía de por Vida"
                 className="w-full h-full object-cover min-h-[300px]"
               />
+            </div>
+
+            {/* Móvil Fila 3: Texto (der) - Desktop Fila 2 Col 2: Texto */}
+            <div className="flex items-center justify-center p-8 md:p-12 bg-gray-50 md:order-5">
+              <div className="text-center max-w-sm">
+                <h3 className="font-light-semibold text-2xl md:text-4xl mb-4 text-gray-800">
+                  Atención Personalizada
+                </h3>
+                <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
+                  Nuestro equipo está disponible para asesorarte y ayudarte a
+                  encontrar la joya perfecta
+                </p>
+              </div>
             </div>
           </div>
         </div>
