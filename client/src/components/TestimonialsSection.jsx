@@ -6,45 +6,51 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       id: 1,
-      name: "María Campos",
-      role: "Cliente frecuente",
-      initials: "MC",
-      text: "Increíble calidad y atención al detalle. Compré un collar para mi esposa y quedó encantada. El proceso de compra fue muy sencillo y el envío rápido.",
+      name: "Valentina",
+      role: "Medellín",
+      initials: "VG",
+      rating: 5,
+      text: "El collar es una cosa de locos, demasiado divino. Se nota que le ponen amor a cada detalle. Apenas me llegó lo probé y quedé matada. Súper recomendadísimo, definitivamente les volveré a pedir.",
     },
     {
       id: 2,
-      name: "Laura Rodríguez",
-      role: "Diseñadora",
-      initials: "LR",
-      text: "Las joyas son hermosas y únicas. Me encanta que cada pieza tiene su propia personalidad. Definitivamente volveré a comprar aquí.",
+      name: "Marcela Martín",
+      role: "Bogotá",
+      initials: "MM",
+      rating: 5,
+      text: "Excelente servicio. La verdad estaba un poco indecisa de pedir por internet, pero la asesoría por WhatsApp fue un 10/10, me tuvieron mucha paciencia. El pedido me llegó a Bogotá súper rápido y en perfecto estado. ¡Gracias por todo!",
     },
     {
       id: 3,
-      name: "Javier Sánchez",
-      role: "Empresario",
-      initials: "JS",
-      text: "Excelente servicio al cliente y productos de primera calidad. Compré unos aretes como regalo y la presentación fue impecable.",
+      name: "Carolina Muñoz",
+      role: "Cali",
+      initials: "CM",
+      rating: 5,
+      text: "Ya es la tercera vez que les compro y nunca fallan. La calidad sigue siendo topp. Me encanta que siempre están pendientes de si ya recibiste el paquete. Son los mejores, no los cambio por nada.",
     },
     {
       id: 4,
-      name: "Carolina Méndez",
-      role: "Arquitecta",
-      initials: "CM",
-      text: "Cada joya cuenta una historia. La atención personalizada y el cuidado en cada detalle hacen que cada compra sea especial.",
+      name: "Luisa Fernanda",
+      role: "Bucaramanga",
+      initials: "LF",
+      rating: 4,
+      text: "Me pareció súper chévere el producto. La calidad se siente muy buena para el precio que tiene. Lo único fue que la transportadora se demoró un día más de lo esperado, pero la atención de la tienda fue excelente para ayudarme a solucionar.",
     },
     {
       id: 5,
-      name: "Roberto Fernández",
-      role: "Fotógrafo",
-      initials: "RF",
-      text: "Calidad excepcional y diseños únicos. Perfectas para regalar en ocasiones especiales. Muy recomendable.",
+      name: "Andrea Pereira",
+      role: "Barranquilla",
+      initials: "AP",
+      rating: 5,
+      text: "Simplemente espectacular. Es tal cual como se ve en las fotos, incluso mejor en persona. ¡Me encantó!",
     },
     {
       id: 6,
-      name: "Ana Martínez",
-      role: "Profesora",
-      initials: "AM",
-      text: "Me encanta la variedad de diseños. Siempre encuentro algo especial para cada ocasión. El servicio al cliente es excepcional.",
+      name: "Natalia Ortiz",
+      role: "Pereira",
+      initials: "NO",
+      rating: 5,
+      text: "Se lo regalé a mi mamá de cumpleaños y quedó feliz. Estaba buscando algo diferente y de buena calidad, y dimos en el clavo. ¡Gracias por ayudarme a elegir el ideal! Se ganaron una clienta más.",
     },
   ];
 
@@ -76,6 +82,26 @@ const TestimonialsSection = () => {
     setCurrentPage(index);
   };
 
+  // Componente de estrellas
+  const StarRating = ({ rating }) => {
+    return (
+      <div className="flex gap-1 mb-3">
+        {[...Array(5)].map((_, index) => (
+          <svg
+            key={index}
+            className={`w-5 h-5 ${
+              index < rating ? "text-yellow-500" : "text-gray-300"
+            }`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <section className="bg-white py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -103,18 +129,7 @@ const TestimonialsSection = () => {
                     className="bg-gray-50 p-8 border border-gray-200 hover:border-gray-300 transition-colors flex flex-col"
                   >
                     {/* Estrellas */}
-                    <div className="flex gap-1 mb-6">
-                      {[...Array(5)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className="w-5 h-5 text-yellow-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
+                    <StarRating rating={testimonial.rating} />
 
                     {/* Texto del testimonio */}
                     <p className="text-gray-600 text-base leading-relaxed mb-8 flex-grow">
@@ -152,18 +167,7 @@ const TestimonialsSection = () => {
                     className="bg-gray-50 p-8 border border-gray-200 hover:border-gray-300 transition-colors flex flex-col"
                   >
                     {/* Estrellas */}
-                    <div className="flex gap-1 mb-6">
-                      {[...Array(5)].map((_, i) => (
-                        <svg
-                          key={i}
-                          className="w-5 h-5 text-yellow-400"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
+                    <StarRating rating={testimonial.rating} />
 
                     {/* Texto del testimonio */}
                     <p className="text-gray-600 text-base leading-relaxed mb-8 flex-grow">
@@ -200,18 +204,7 @@ const TestimonialsSection = () => {
                   className="hidden lg:flex bg-gray-50 p-8 border border-gray-200 hover:border-gray-300 transition-colors flex-col"
                 >
                   {/* Estrellas */}
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        className="w-5 h-5 text-yellow-400"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
+                  <StarRating rating={testimonial.rating} />
 
                   {/* Texto del testimonio */}
                   <p className="text-gray-600 text-base leading-relaxed mb-8 flex-grow">
