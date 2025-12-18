@@ -131,4 +131,75 @@ router.get('/products/stats', protect, admin, async (req, res) => {
   }
 });
 
+// @route   GET /api/admin/orders
+// @desc    Obtener todos los pedidos
+// @access  Private/Admin
+router.get('/orders', protect, admin, async (req, res) => {
+  try {
+    const { status, limit = 50, page = 1 } = req.query;
+
+    const query = status && status !== 'all' ? { status } : {};
+    const skip = (page - 1) * limit;
+
+    const orders = await Order.find(query)
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit))
+      .skip(skip);
+
+    const total = await Order.countDocuments(query);
+
+    res.json({
+      success: true,
+      orders,
+      pagination: {
+        total,
+        page: parseInt(page),
+        pages: Math.ceil(total / limit),
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false,
+      message: 'Error al obtener pedidos', 
+      error: error.message 
+    });
+  }
+});
+
+// @route   GET /api/admin/contacts
+// @desc    Obtener todos los mensajes de contacto
+// @access  Private/Admin
+router.get('/contacts', protect, admin, async (req, res) => {
+  try {
+    const Contact = require('../models/Contact');
+    const { status, limit = 50, page = 1 } = req.query;
+
+    const query = status && status !== 'all' ? { status } : {};
+    const skip = (page - 1) * limit;
+
+    const contacts = await Contact.find(query)
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit))
+      .skip(skip);
+
+    const total = await Contact.countDocuments(query);
+
+    res.json({
+      success: true,
+      contacts,
+      pagination: {
+        total,
+        page: parseInt(page),
+        pages: Math.ceil(total / limit),
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false,
+      message: 'Error al obtener contactos', 
+      error: error.message 
+    });
+  }
+});
+
 module.exports = router;
