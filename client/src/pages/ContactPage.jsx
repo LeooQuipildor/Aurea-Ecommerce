@@ -278,7 +278,7 @@ const ContactPage = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="group relative h-[500px] overflow-hidden bg-black"
+                className="group relative h-[250px] md:h-[500px] overflow-hidden bg-black"
               >
                 {/* Imagen de fondo con efecto zoom */}
                 <img
@@ -299,13 +299,13 @@ const ContactPage = () => {
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
 
                 {/* Texto centrado */}
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="text-center px-6">
-                    <h3 className="text-white font-medium tracking-[0.2em] uppercase drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                <div className="absolute inset-0 flex items-center justify-center z-20 px-4">
+                  <div className="text-center">
+                    <h3 className="text-white text-xl md:text-2xl font-medium tracking-wider uppercase drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
                       {item.title}
                     </h3>
                     {/* Descripción que aparece al hacer hover */}
-                    <p className="text-white text-2xl text-center leading-relaxed mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 max-w-xs mx-auto drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
+                    <p className="text-white text-base md:text-lg text-center leading-relaxed mt-4 hidden group-hover:block transition-opacity duration-500 max-w-xs mx-auto px-6 drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]">
                       {item.description}
                     </p>
                   </div>
