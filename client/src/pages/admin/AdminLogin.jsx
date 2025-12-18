@@ -96,16 +96,6 @@ const AdminLogin = () => {
             </a>
           </div>
         </div>
-
-        {/* Información de desarrollo */}
-        <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/20 text-center">
-          <p className="text-xs text-blue-300 mb-2">
-            <strong>Modo Desarrollo:</strong> Credenciales de prueba
-          </p>
-          <p className="text-xs text-gray-400">
-            Email: admin@aurea.com | Password: admin123
-          </p>
-        </div>
       </div>
     </div>
   );

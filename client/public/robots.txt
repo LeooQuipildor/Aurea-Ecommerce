@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://aurea.vercel.app/sitemap.xml
+
+# Disallow admin pages
+User-agent: *
+Disallow: /admin/
