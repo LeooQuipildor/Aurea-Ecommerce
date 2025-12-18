@@ -1,58 +1,60 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const User = require('./models/User');
-const bcrypt = require('bcryptjs');
+/**
+ * Script para verificar el login del admin
+ * Ejecutar con: node testLogin.js
+ */
 
-dotenv.config();
+require("dotenv").config();
+const mongoose = require("mongoose");
+const User = require("./models/User");
 
 const testLogin = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('✅ Conectado a MongoDB');
+    // Conectar a MongoDB
+    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI;
+    await mongoose.connect(mongoUri);
+    console.log("✅ Conectado a MongoDB\n");
 
-    const user = await User.findOne({ email: 'admin@aurea.com' }).select('+password');
-    
+    // Buscar el usuario
+    const user = await User.findOne({ email: "leoooquipildor@gmail.com" }).select('+password');
+
     if (!user) {
-      console.log('❌ Usuario no encontrado');
+      console.log("❌ No se encontró el usuario con email: leoooquipildor@gmail.com");
+      console.log("\n📝 Ejecuta: node createAdmin.js para crear el usuario");
       process.exit(1);
     }
 
-    console.log('Usuario encontrado:');
-    console.log('Email:', user.email);
-    console.log('Nombre:', user.name);
-    console.log('Rol:', user.role);
-    console.log('Password hash completo:', user.password);
-    console.log('Longitud del hash:', user.password.length);
+    console.log("✅ Usuario encontrado:");
+    console.log("📧 Email:", user.email);
+    console.log("👤 Nombre:", user.name);
+    console.log("🔑 Role:", user.role);
+    console.log("✅ Activo:", user.isActive);
+    console.log("");
 
-    // Probar la comparación de contraseña
-    const testPassword = 'admin123';
-    console.log('\nProbando contraseña:', testPassword);
-    
-    // Probar con el método del modelo
-    const isValid = await user.comparePassword(testPassword);
-    console.log('¿Contraseña válida (método del modelo)?:', isValid);
+    // Probar la contraseña
+    const testPassword = "ikmarjrpkvwlcvrl";
+    const isMatch = await user.comparePassword(testPassword);
 
-    // Probar directamente con bcrypt
-    const isValidDirect = await bcrypt.compare(testPassword, user.password);
-    console.log('¿Contraseña válida (bcrypt directo)?:', isValidDirect);
-
-    if (isValid) {
-      console.log('✅ ¡La contraseña es correcta!');
+    if (isMatch) {
+      console.log("✅ ¡Contraseña correcta!");
+      console.log("\n🎉 Puedes iniciar sesión con:");
+      console.log("📧 Email: leoooquipildor@gmail.com");
+      console.log("🔐 Contraseña: ikmarjrpkvwlcvrl");
     } else {
-      console.log('❌ La contraseña es incorrecta');
+      console.log("❌ Contraseña incorrecta");
+      console.log("\n🔧 Actualizando contraseña...");
       
-      // Intentar crear un nuevo hash para comparar
-      console.log('\nCreando nuevo hash para comparar...');
-      const newHash = await bcrypt.hash(testPassword, 10);
-      console.log('Nuevo hash:', newHash);
-      const testNewHash = await bcrypt.compare(testPassword, newHash);
-      console.log('¿El nuevo hash funciona?:', testNewHash);
+      user.password = testPassword;
+      await user.save();
+      
+      console.log("✅ Contraseña actualizada exitosamente");
+      console.log("\n🎉 Ahora puedes iniciar sesión con:");
+      console.log("📧 Email: leoooquipildor@gmail.com");
+      console.log("🔐 Contraseña: ikmarjrpkvwlcvrl");
     }
 
     process.exit(0);
   } catch (error) {
-    console.error('❌ Error:', error.message);
-    console.error(error);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 };
