@@ -6,6 +6,8 @@ const orderRoutes = require('./routes/orderRoutes');
 const productRoutes = require('./routes/productRoutes');
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const checkoutRoutes = require('./routes/checkoutRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 // Configurar variables de entorno
 dotenv.config();
@@ -23,6 +25,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/checkout', checkoutRoutes);
+app.use('/api/contact', contactRoutes);
 
 // --- Rutas de Prueba ---
 app.get('/', (req, res) => {
