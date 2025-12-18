@@ -26,7 +26,11 @@ const AdminOrders = () => {
       }
 
       const data = await response.json();
-      setOrders(data.orders || []);
+      // Filtrar pedidos válidos (que tengan customerData y orderId)
+      const validOrders = (data.orders || []).filter(
+        (order) => order.customerData && order.orderId
+      );
+      setOrders(validOrders);
       setLoading(false);
     } catch (error) {
       console.error("Error al cargar pedidos:", error);
@@ -222,13 +226,13 @@ const AdminOrders = () => {
                     Cliente
                   </h4>
                   <p className="text-sm text-gray-900">
-                    {order.customerData.nombre} {order.customerData.apellido}
+                    {order.customerData?.nombre} {order.customerData?.apellido}
                   </p>
                   <p className="text-sm text-gray-600">
-                    {order.customerData.email}
+                    {order.customerData?.email}
                   </p>
                   <p className="text-sm text-gray-600">
-                    +57 {order.customerData.whatsapp}
+                    +57 {order.customerData?.whatsapp}
                   </p>
                 </div>
                 <div>
@@ -236,14 +240,14 @@ const AdminOrders = () => {
                     Dirección de Entrega
                   </h4>
                   <p className="text-sm text-gray-900">
-                    {order.customerData.direccion}
+                    {order.customerData?.direccion}
                   </p>
                   <p className="text-sm text-gray-600">
-                    {order.customerData.ciudad},{" "}
-                    {order.customerData.departamento}
+                    {order.customerData?.ciudad},{" "}
+                    {order.customerData?.departamento}
                   </p>
                   <p className="text-sm text-gray-600 italic">
-                    Ref: {order.customerData.referencia}
+                    Ref: {order.customerData?.referencia}
                   </p>
                 </div>
               </div>
@@ -279,7 +283,7 @@ const AdminOrders = () => {
 
               <div className="mt-4 flex flex-wrap gap-2">
                 <a
-                  href={`https://wa.me/57${order.customerData.whatsapp}?text=Hola%20${order.customerData.nombre},%20sobre%20tu%20pedido%20${order.orderId}`}
+                  href={`https://wa.me/57${order.customerData?.whatsapp}?text=Hola%20${order.customerData?.nombre},%20sobre%20tu%20pedido%20${order.orderId}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
@@ -287,7 +291,7 @@ const AdminOrders = () => {
                   Contactar por WhatsApp
                 </a>
                 <a
-                  href={`mailto:${order.customerData.email}?subject=Pedido%20${order.orderId}`}
+                  href={`mailto:${order.customerData?.email}?subject=Pedido%20${order.orderId}`}
                   className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
                 >
                   Enviar Email
