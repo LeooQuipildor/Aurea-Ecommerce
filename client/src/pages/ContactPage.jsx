@@ -14,19 +14,116 @@ const ContactPage = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  // Función de validación
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validar nombre
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "El nombre es obligatorio";
+    } else if (formData.firstName.trim().length < 2) {
+      newErrors.firstName = "El nombre debe tener al menos 2 caracteres";
+    } else if (formData.firstName.trim().length > 25) {
+      newErrors.firstName = "El nombre no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.firstName)) {
+      newErrors.firstName = "El nombre solo puede contener letras";
+    }
+
+    // Validar apellido
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "El apellido es obligatorio";
+    } else if (formData.lastName.trim().length < 2) {
+      newErrors.lastName = "El apellido debe tener al menos 2 caracteres";
+    } else if (formData.lastName.trim().length > 25) {
+      newErrors.lastName = "El apellido no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.lastName)) {
+      newErrors.lastName = "El apellido solo puede contener letras";
+    }
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "El email es obligatorio";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "El email no es válido";
+    } else if (formData.email.length > 50) {
+      newErrors.email = "El email no puede exceder 50 caracteres";
+    }
+
+    // Validar teléfono (Colombia: empieza con 3, 10 dígitos)
+    const phoneDigits = formData.phone.replace(/\D/g, "");
+    if (!formData.phone.trim()) {
+      newErrors.phone = "El teléfono es obligatorio";
+    } else if (phoneDigits.length !== 10) {
+      newErrors.phone = "El número debe tener exactamente 10 dígitos";
+    } else if (!phoneDigits.startsWith("3")) {
+      newErrors.phone = "El número debe empezar con 3";
+    }
+
+    // Validar mensaje
+    if (!formData.message.trim()) {
+      newErrors.message = "El mensaje es obligatorio";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "El mensaje debe tener al menos 10 caracteres";
+    } else if (formData.message.length > 500) {
+      newErrors.message = "El mensaje no puede exceder 500 caracteres";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Verificar si el formulario está completo
+  const isFormComplete = () => {
+    const allFieldsFilled =
+      formData.firstName.trim() &&
+      formData.lastName.trim() &&
+      formData.email.trim() &&
+      formData.phone.trim() &&
+      formData.message.trim();
+
+    const noErrors = Object.keys(errors).length === 0;
+    return allFieldsFilled && noErrors;
+  };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validar formulario
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
+    // Sanitizar datos
+    const sanitizedData = {
+      firstName: formData.firstName.trim(),
+      lastName: formData.lastName.trim(),
+      email: formData.email.trim().toLowerCase(),
+      phone: formData.phone.trim(),
+      message: formData.message.trim(),
+    };
+
     // Simular envío (aquí conectarías con tu backend)
+    console.log("Datos del formulario:", sanitizedData);
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus("success");
@@ -37,6 +134,7 @@ const ContactPage = () => {
         phone: "",
         message: "",
       });
+      setErrors({});
 
       // Limpiar mensaje después de 5 segundos
       setTimeout(() => setSubmitStatus(null), 5000);

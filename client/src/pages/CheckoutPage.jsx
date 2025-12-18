@@ -89,6 +89,26 @@ const CheckoutPage = () => {
     0
   );
 
+  // Verificar si el formulario está completo y válido
+  const isFormComplete = () => {
+    // Verificar que todos los campos tengan valor
+    const allFieldsFilled =
+      formData.nombre.trim() &&
+      formData.apellido.trim() &&
+      formData.whatsapp.trim() &&
+      formData.email.trim() &&
+      formData.direccion.trim() &&
+      formData.referencia.trim() &&
+      formData.departamento &&
+      formData.ciudad;
+
+    // Verificar que no haya errores
+    const noErrors = Object.keys(errors).length === 0;
+
+    // Verificar que los términos estén aceptados
+    return allFieldsFilled && noErrors && acceptTerms;
+  };
+
   // Función de validación
   const validateForm = () => {
     const newErrors = {};
@@ -680,7 +700,7 @@ const CheckoutPage = () => {
                   {/* Botón de envío */}
                   <Button
                     type="submit"
-                    disabled={isSubmitting || !acceptTerms}
+                    disabled={isSubmitting || !isFormComplete()}
                     fullWidth
                   >
                     {isSubmitting
