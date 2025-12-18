@@ -3,6 +3,10 @@ const router = express.Router();
 const { validateCheckout } = require("../middleware/validators");
 const { formLimiter } = require("../middleware/rateLimiter");
 const Order = require("../models/Order");
+const {
+  sendOrderConfirmationEmail,
+  sendNewOrderNotificationToAdmin,
+} = require("../services/emailService");
 
 /**
  * @route   POST /api/checkout
@@ -46,9 +50,14 @@ router.post("/", formLimiter, validateCheckout, async (req, res) => {
       paymentMethod: "cash_on_delivery",
     });
 
-    // TODO: Enviar notificaciones
-    // await sendOrderConfirmationEmail(email, order);
-    // await sendWhatsAppNotification(whatsapp, order);
+    // Enviar emails (no bloqueante - en segundo plano)
+    Promise.all([
+      sendOrderConfirmationEmail(order),
+      sendNewOrderNotificationToAdmin(order),
+    ]).catch((error) => {
+      console.error("Error al enviar emails:", error);
+      // No fallar la request si los emails fallan
+    });
 
     res.status(201).json({
       success: true,

@@ -3,6 +3,10 @@ const router = express.Router();
 const { validateContact } = require("../middleware/validators");
 const { formLimiter } = require("../middleware/rateLimiter");
 const Contact = require("../models/Contact");
+const {
+  sendContactConfirmationEmail,
+  sendNewContactNotificationToAdmin,
+} = require("../services/emailService");
 
 /**
  * @route   POST /api/contact
@@ -23,9 +27,13 @@ router.post("/", formLimiter, validateContact, async (req, res) => {
       status: "pending",
     });
 
-    // TODO: Enviar notificaciones
-    // await sendContactNotificationEmail(contact);
-    // await notifyAdminNewContact(contact);
+    // Enviar emails (no bloqueante)
+    Promise.all([
+      sendContactConfirmationEmail(contact),
+      sendNewContactNotificationToAdmin(contact),
+    ]).catch((error) => {
+      console.error("Error al enviar emails:", error);
+    });
 
     res.status(201).json({
       success: true,
