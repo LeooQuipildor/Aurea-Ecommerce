@@ -245,25 +245,60 @@ const CheckoutPage = () => {
 
     // Preparar datos del pedido
     const orderData = {
-      orderId,
-      customerData: sanitizedData,
+      nombre: sanitizedData.nombre,
+      apellido: sanitizedData.apellido,
+      whatsapp: sanitizedData.whatsapp,
+      email: sanitizedData.email,
+      direccion: sanitizedData.direccion,
+      referencia: sanitizedData.referencia,
+      departamento: sanitizedData.departamento,
+      ciudad: sanitizedData.ciudad,
       cart,
       totalPrice,
-      date: new Date().toISOString(),
     };
 
-    // Aquí irá la lógica para enviar el pedido al backend
-    console.log("Pedido:", orderData);
+    try {
+      // Enviar pedido al backend
+      const response = await fetch("http://localhost:5000/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
 
-    // Simular envío
-    setTimeout(() => {
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error al procesar el pedido");
+      }
+
+      // Pedido exitoso
+      console.log("✅ Pedido procesado:", data);
+
       // Limpiar carrito
       clearCart();
       setIsSubmitting(false);
 
-      // Redirigir a página de confirmación con los datos
-      navigate("/order-confirmation", { state: { orderData } });
-    }, 1500);
+      // Redirigir a página de confirmación
+      navigate("/order-confirmation", {
+        state: {
+          orderData: {
+            orderId: data.data.orderId,
+            customerData: data.data.customerData,
+            cart,
+            totalPrice: data.data.totalPrice,
+            date: data.data.createdAt,
+          },
+        },
+      });
+    } catch (error) {
+      console.error("❌ Error al procesar pedido:", error);
+      setIsSubmitting(false);
+      alert(
+        "Hubo un error al procesar tu pedido. Por favor, intenta nuevamente."
+      );
+    }
   };
 
   // Si el carrito está vacío, redirigir

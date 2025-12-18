@@ -121,10 +121,25 @@ const ContactPage = () => {
       message: formData.message.trim(),
     };
 
-    // Simular envío (aquí conectarías con tu backend)
-    console.log("Datos del formulario:", sanitizedData);
+    try {
+      // Enviar al backend
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sanitizedData),
+      });
 
-    setTimeout(() => {
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error al enviar el mensaje");
+      }
+
+      // Mensaje enviado exitosamente
+      console.log("✅ Mensaje enviado:", data);
+
       setIsSubmitting(false);
       setSubmitStatus("success");
       setFormData({
@@ -138,7 +153,12 @@ const ContactPage = () => {
 
       // Limpiar mensaje después de 5 segundos
       setTimeout(() => setSubmitStatus(null), 5000);
-    }, 1500);
+    } catch (error) {
+      console.error("❌ Error al enviar mensaje:", error);
+      setIsSubmitting(false);
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   return (
