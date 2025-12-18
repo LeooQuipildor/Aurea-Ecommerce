@@ -85,7 +85,8 @@ const ContactPage = () => {
       formData.phone.trim() &&
       formData.message.trim();
 
-    const noErrors = Object.keys(errors).length === 0;
+    // Verificar que no haya errores (filtrar errores vacíos)
+    const noErrors = Object.values(errors).every((error) => !error);
     return allFieldsFilled && noErrors;
   };
 

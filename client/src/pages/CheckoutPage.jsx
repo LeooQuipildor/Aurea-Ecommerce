@@ -103,8 +103,8 @@ const CheckoutPage = () => {
       formData.departamento &&
       formData.ciudad;
 
-    // Verificar que no haya errores
-    const noErrors = Object.keys(errors).length === 0;
+    // Verificar que no haya errores (filtrar errores vacíos)
+    const noErrors = Object.values(errors).every((error) => !error);
 
     // Verificar que los términos estén aceptados
     return allFieldsFilled && noErrors && acceptTerms;
