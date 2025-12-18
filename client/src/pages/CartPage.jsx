@@ -74,11 +74,11 @@ const CartPage = () => {
               {cart.map((item) => (
                 <div
                   key={item._id}
-                  className="bg-white border border-gray-200 p-6 hover:border-gray-300 transition-colors duration-300"
+                  className="bg-white border border-gray-200 p-4 md:p-6 hover:border-gray-300 transition-colors duration-300"
                 >
-                  <div className="flex gap-6">
+                  <div className="flex gap-3 md:gap-6">
                     {/* Imagen */}
-                    <div className="w-32 h-32 flex-shrink-0 bg-gray-100 overflow-hidden">
+                    <div className="w-20 h-20 md:w-32 md:h-32 flex-shrink-0 bg-gray-100 overflow-hidden">
                       <img
                         src={item.image}
                         alt={item.name}
@@ -87,30 +87,30 @@ const CartPage = () => {
                     </div>
 
                     {/* Info del producto */}
-                    <div className="flex-1 flex flex-col justify-between">
+                    <div className="flex-1 flex flex-col justify-between min-w-0">
                       <div>
                         <Link to={`/product/${item._id}`}>
-                          <h3 className="text-xl font-light text-gray-900 mb-1 hover:text-gray-600 transition-colors cursor-pointer">
+                          <h3 className="text-base md:text-xl font-light text-gray-900 mb-1 hover:text-gray-600 transition-colors cursor-pointer truncate">
                             {item.name}
                           </h3>
                         </Link>
-                        <p className="text-gray-400 text-sm uppercase tracking-wider">
+                        <p className="text-gray-400 text-xs md:text-sm uppercase tracking-wider">
                           {item.category}
                         </p>
                       </div>
 
-                      <div className="flex items-end justify-between mt-4">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mt-3 md:mt-4 gap-3">
                         {/* Cantidad */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 md:gap-3">
                           <button
                             onClick={() =>
                               updateQuantity(item._id, item.quantity - 1)
                             }
                             disabled={item.quantity <= 1}
-                            className="w-8 h-8 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+                            className="w-8 h-8 md:w-8 md:h-8 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
                           >
                             <svg
-                              className="w-4 h-4"
+                              className="w-3 h-3 md:w-4 md:h-4"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -123,17 +123,17 @@ const CartPage = () => {
                               />
                             </svg>
                           </button>
-                          <span className="text-gray-900 font-light text-lg w-8 text-center">
+                          <span className="text-gray-900 font-light text-base md:text-lg w-6 md:w-8 text-center">
                             {item.quantity}
                           </span>
                           <button
                             onClick={() =>
                               updateQuantity(item._id, item.quantity + 1)
                             }
-                            className="w-8 h-8 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors flex items-center justify-center"
+                            className="w-8 h-8 md:w-8 md:h-8 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors flex items-center justify-center"
                           >
                             <svg
-                              className="w-4 h-4"
+                              className="w-3 h-3 md:w-4 md:h-4"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
@@ -149,8 +149,8 @@ const CartPage = () => {
                         </div>
 
                         {/* Precio */}
-                        <div className="text-right">
-                          <p className="text-2xl font-light text-gray-900">
+                        <div className="text-left sm:text-right">
+                          <p className="text-lg md:text-2xl font-light text-gray-900">
                             ${(item.price * item.quantity).toLocaleString()}
                           </p>
                           {item.quantity > 1 && (
@@ -169,7 +169,7 @@ const CartPage = () => {
                       title="Eliminar producto"
                     >
                       <svg
-                        className="w-5 h-5"
+                        className="w-4 h-4 md:w-5 md:h-5"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
