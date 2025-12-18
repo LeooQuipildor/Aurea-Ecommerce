@@ -4,7 +4,7 @@ const BenefitsBar = () => {
   const benefits = [
     {
       title: "Envío gratis",
-      description: "En pedidos superiores a un mínimo",
+      description: "Tu pedido llega sin costos adicionales",
     },
     {
       title: "Pagos en casa",
@@ -12,7 +12,7 @@ const BenefitsBar = () => {
     },
     {
       title: "Calidad asegurada",
-      description: "3 meses de garantía en el metal",
+      description: "3 meses de garantía de calidad",
     },
   ];
 

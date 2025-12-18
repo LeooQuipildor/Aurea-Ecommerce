@@ -80,8 +80,8 @@ const CatalogPage = () => {
                 Elegancia actual diseñada para vos.
               </h1>
               <p className="text-gray-200 text-sm md:text-xl leading-relaxed">
-                Descubrí nuestra colección completa de joyas artesanales. Cada
-                pieza está diseñada con atención al detalle para realzar tu
+                Descubrí nuestra colección de joyas. Seleccionamos piezas de
+                tendencia global con atención al detalle para acercarte un
                 estilo único.
               </p>
             </div>
@@ -259,7 +259,7 @@ const CatalogPage = () => {
                 <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
                   Te ofrecemos piezas elaboradas con materiales premium y
                   terminaciones impecables para que disfrutes joyas que duran
-                  toda la vida
+                  toda la vida.
                 </p>
               </div>
             </div>
@@ -271,8 +271,8 @@ const CatalogPage = () => {
                   Envío Gratis
                 </h3>
                 <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
-                  Recibí tus joyas sin costo adicional en compras superiores al
-                  mínimo establecido
+                  Llegamos a la puerta de tu casa, en cualquier punto del país y
+                  sin costos extra.
                 </p>
               </div>
             </div>
@@ -303,7 +303,7 @@ const CatalogPage = () => {
                 </h3>
                 <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
                   Nuestro equipo está disponible para asesorarte y ayudarte a
-                  encontrar la joya perfecta
+                  encontrar la joya perfecta para ti.
                 </p>
               </div>
             </div>
