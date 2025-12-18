@@ -15,8 +15,8 @@ const CartPage = () => {
   // Estado vacío: Si no hay productos, mostramos un mensaje amigable
   if (cart.length === 0) {
     return (
-      <div className="bg-white min-h-screen">
-        <div className="min-h-[80vh] flex flex-col items-center justify-center text-center px-4 pt-32">
+      <div className="bg-white min-h-screen flex flex-col">
+        <div className="flex-1 flex flex-col items-center justify-center text-center px-4 pt-32 pb-20">
           {/* Icono de carrito vacío */}
           <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-8">
             <svg
