@@ -50,8 +50,7 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-// Índices para búsquedas rápidas
-orderSchema.index({ orderId: 1 });
+// Índices para búsquedas rápidas (orderId ya tiene índice único en el schema)
 orderSchema.index({ "customerData.email": 1 });
 orderSchema.index({ "customerData.whatsapp": 1 });
 orderSchema.index({ status: 1 });
