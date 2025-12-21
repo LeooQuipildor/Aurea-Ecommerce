@@ -6,6 +6,7 @@ import ImageUploader from "../../components/admin/ImageUploader";
 import axios from "axios";
 import { Save, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { getApiUrl } from "../../config/api";
 
 const AdminProductForm = () => {
   const { id } = useParams();
@@ -38,9 +39,7 @@ const AdminProductForm = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/products/${id}`
-      );
+      const response = await axios.get(getApiUrl(`/api/products/${id}`));
       const product = response.data;
       setFormData({
         name: product.name,
@@ -100,13 +99,10 @@ const AdminProductForm = () => {
 
     try {
       if (isEditMode) {
-        await axios.put(
-          `http://localhost:5000/api/products/${id}`,
-          productData
-        );
+        await axios.put(getApiUrl(`/api/products/${id}`), productData);
         toast.success("Producto actualizado exitosamente");
       } else {
-        await axios.post("http://localhost:5000/api/products", productData);
+        await axios.post(getApiUrl("/api/products"), productData);
         toast.success("Producto creado exitosamente");
       }
       navigate("/admin/products");
