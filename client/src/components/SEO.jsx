@@ -1,10 +1,10 @@
 import { Helmet } from "react-helmet-async";
 
 const SEO = ({
-  title = "AURÉA - Joyería Minimalista de Lujo",
-  description = "Descubrí la colección de joyería minimalista AURÉA. Collares, anillos, pulseras y aretes de diseño único. Envío gratis en todas las compras. Calidad premium y estilo urbano.",
-  keywords = "joyería, joyas minimalistas, collares, anillos, pulseras, aretes, joyería Colombia, joyería de lujo, accesorios, bisutería fina, joyería urbana, AURÉA",
-  image = "/images/logo.png",
+  title = "AURÉA - Joyería de Lujo en Colombia",
+  description = "Compra joyería de lujo en Colombia con AURÉA. Collares elegantes, anillos únicos, pulseras y aretes de diseño exclusivo. Envío gratis a todo Colombia, calidad premium garantizada.",
+  keywords = "joyería Colombia, joyas de lujo Colombia, collares Colombia, anillos Colombia, pulseras Colombia, aretes Colombia, joyería online Colombia, comprar joyas Colombia, AURÉA Colombia, envío gratis Colombia",
+  image = "/images/hero.png",
   url = "",
   type = "website",
 }) => {
@@ -19,6 +19,8 @@ const SEO = ({
       <meta name="title" content={title} />
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
+      <meta name="geo.region" content="CO" />
+      <meta name="geo.placename" content="Colombia" />
 
       {/* Canonical URL */}
       <link rel="canonical" href={fullUrl} />

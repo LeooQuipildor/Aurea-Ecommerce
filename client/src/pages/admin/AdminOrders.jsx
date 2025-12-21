@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import AdminLayout from "../../components/admin/AdminLayout";
+import { getApiUrl } from "../../config/api";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -14,7 +15,7 @@ const AdminOrders = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/orders?status=${filter}`,
+        getApiUrl(`/api/admin/orders?status=${filter}`),
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +51,7 @@ const AdminOrders = () => {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:5000/api/admin/orders/${orderId}/status`,
+        getApiUrl(`/api/admin/orders/${orderId}/status`),
         {
           method: "PATCH",
           headers: {
