@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Button from "../components/Button";
 import axios from "axios";
 import { toast } from "sonner";
+import { getApiUrl } from "../config/api";
 
 const CheckoutPage = () => {
   const { cart, totalItems, clearCart } = useCart();
@@ -260,7 +261,7 @@ const CheckoutPage = () => {
 
     try {
       // Enviar pedido al backend
-      const response = await fetch("http://localhost:5000/api/checkout", {
+      const response = await fetch(getApiUrl("/api/checkout"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

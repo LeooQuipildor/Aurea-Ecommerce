@@ -9,6 +9,7 @@ import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
+import { getApiUrl } from "../config/api";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -18,7 +19,7 @@ const HomePage = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get(getApiUrl("/api/products"));
         setProducts(response.data);
       } catch (err) {
         console.error(err);

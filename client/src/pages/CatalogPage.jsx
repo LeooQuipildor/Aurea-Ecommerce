@@ -3,6 +3,7 @@ import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
+import { getApiUrl } from "../config/api";
 
 const CatalogPage = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ const CatalogPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get(getApiUrl("/api/products"));
         setProducts(response.data);
         setFilteredProducts(response.data);
       } catch (err) {

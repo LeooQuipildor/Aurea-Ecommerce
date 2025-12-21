@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import FAQSection from "../components/FAQSection";
 import Button from "../components/Button";
 import { toast } from "sonner";
+import { getApiUrl } from "../config/api";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -125,7 +126,7 @@ const ContactPage = () => {
 
     try {
       // Enviar al backend
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch(getApiUrl("/api/contact"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

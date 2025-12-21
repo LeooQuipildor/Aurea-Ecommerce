@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import FAQSection from "../components/FAQSection";
 import Button from "../components/Button";
+import { getApiUrl } from "../config/api";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -24,9 +25,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/products/${id}`
-        );
+        const response = await axios.get(getApiUrl(`/api/products/${id}`));
         setProduct(response.data);
         setLoading(false);
       } catch (err) {
@@ -41,7 +40,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get(getApiUrl("/api/products"));
         // Tomar solo 4 productos aleatorios
         const shuffled = response.data.sort(() => 0.5 - Math.random());
         setFeaturedProducts(shuffled.slice(0, 4));

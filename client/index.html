@@ -6,21 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary Meta Tags -->
-    <title>AURÉA - Joyería Minimalista de Lujo | Collares, Anillos, Pulseras</title>
-    <meta name="title" content="AURÉA - Joyería Minimalista de Lujo | Collares, Anillos, Pulseras" />
-    <meta name="description" content="Descubrí la colección de joyería minimalista AURÉA. Collares, anillos, pulseras y aretes de diseño único. Envío gratis en todas las compras. Calidad premium y estilo urbano." />
-    <meta name="keywords" content="joyería, joyas minimalistas, collares, anillos, pulseras, aretes, joyería Colombia, joyería de lujo, accesorios, bisutería fina, joyería urbana, AURÉA" />
+    <title>AURÉA - Joyería Minimalista de Lujo | Collares, Anillos, Pulseras y Aretes</title>
+    <meta name="title" content="AURÉA - Joyería Minimalista de Lujo | Collares, Anillos, Pulseras y Aretes" />
+    <meta name="description" content="Descubrí la colección de joyería minimalista AURÉA en Colombia. Collares, anillos, pulseras y aretes de diseño único. Envío gratis, calidad premium y estilo urbano. Compra online con garantía de por vida." />
+    <meta name="keywords" content="joyería Colombia, joyas minimalistas, collares elegantes, anillos de moda, pulseras de lujo, aretes modernos, joyería online Colombia, accesorios premium, bisutería fina, joyería urbana, AURÉA, comprar joyas online, envío gratis Colombia" />
     <meta name="author" content="AURÉA" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="language" content="Spanish" />
     <meta name="revisit-after" content="7 days" />
+    <meta name="geo.region" content="CO" />
+    <meta name="geo.placename" content="Colombia" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aurea.vercel.app/" />
     <meta property="og:title" content="AURÉA - Joyería Minimalista de Lujo" />
     <meta property="og:description" content="Descubrí nuestra colección de joyas minimalistas. Envío gratis en todas las compras. Calidad premium y diseño único." />
-    <meta property="og:image" content="https://aurea.vercel.app/images/logo.png" />
+    <meta property="og:image" content="https://aurea.vercel.app/images/hero.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="AURÉA" />
     <meta property="og:locale" content="es_CO" />
     
@@ -29,30 +33,90 @@
     <meta property="twitter:url" content="https://aurea.vercel.app/" />
     <meta property="twitter:title" content="AURÉA - Joyería Minimalista de Lujo" />
     <meta property="twitter:description" content="Descubrí nuestra colección de joyas minimalistas. Envío gratis en todas las compras." />
-    <meta property="twitter:image" content="https://aurea.vercel.app/images/logo.png" />
+    <meta property="twitter:image" content="https://aurea.vercel.app/images/hero.png" />
     
     <!-- Additional SEO -->
     <link rel="canonical" href="https://aurea.vercel.app/" />
     <meta name="theme-color" content="#F4C430" />
     
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Preconnect to improve performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Structured Data (JSON-LD) - Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Store",
+      "@type": "Organization",
       "name": "AURÉA",
-      "description": "Joyería minimalista de lujo con envío gratis",
+      "description": "Joyería minimalista de lujo con envío gratis en Colombia",
       "url": "https://aurea.vercel.app",
       "logo": "https://aurea.vercel.app/images/logo.png",
-      "image": "https://aurea.vercel.app/images/logo.png",
-      "priceRange": "$$",
+      "image": "https://aurea.vercel.app/images/hero.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+57-321-842-2436",
+        "contactType": "Customer Service",
+        "email": "aurea.co.store@gmail.com",
+        "availableLanguage": ["Spanish"]
+      },
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "CO"
       },
       "sameAs": [
-        "https://www.instagram.com/aurea.only"
+        "https://www.instagram.com/aurea.only",
+        "https://wa.me/573218422436"
       ]
+    }
+    </script>
+    
+    <!-- Structured Data (JSON-LD) - WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "AURÉA",
+      "url": "https://aurea.vercel.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://aurea.vercel.app/catalogo?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    
+    <!-- Structured Data (JSON-LD) - Store -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "AURÉA",
+      "description": "Tienda online de joyería minimalista de lujo",
+      "url": "https://aurea.vercel.app",
+      "logo": "https://aurea.vercel.app/images/logo.png",
+      "image": "https://aurea.vercel.app/images/hero.png",
+      "priceRange": "$$",
+      "currenciesAccepted": "COP",
+      "paymentAccepted": "Cash, Credit Card",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "CO"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
     }
     </script>
   </head>
@@ -61,4 +125,3 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
-
