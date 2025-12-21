@@ -8,7 +8,7 @@ const TestimonialsSection = () => {
       id: 1,
       name: "Valentina",
       role: "Medellín",
-      initials: "VG",
+      image: "/images/t1.jpg",
       rating: 5,
       text: "El collar es una cosa de locos, demasiado divino. Se nota que le ponen amor a cada detalle. Apenas me llegó lo probé y quedé matada. Súper recomendadísimo, definitivamente les volveré a pedir.",
     },
@@ -16,7 +16,7 @@ const TestimonialsSection = () => {
       id: 2,
       name: "Marcela Martín",
       role: "Bogotá",
-      initials: "MM",
+      image: "/images/t2.jpg",
       rating: 5,
       text: "Excelente servicio. La verdad estaba un poco indecisa de pedir por internet, pero la asesoría por WhatsApp fue un 10/10, me tuvieron mucha paciencia. El pedido me llegó a Bogotá súper rápido y en perfecto estado. ¡Gracias por todo!",
     },
@@ -24,7 +24,7 @@ const TestimonialsSection = () => {
       id: 3,
       name: "Carolina Muñoz",
       role: "Cali",
-      initials: "CM",
+      image: "/images/t3.jpg",
       rating: 5,
       text: "Ya es la tercera vez que les compro y nunca fallan. La calidad sigue siendo topp. Me encanta que siempre están pendientes de si ya recibiste el paquete. Son los mejores, no los cambio por nada.",
     },
@@ -32,7 +32,7 @@ const TestimonialsSection = () => {
       id: 4,
       name: "Luisa Fernanda",
       role: "Bucaramanga",
-      initials: "LF",
+      image: "/images/t4.jpg",
       rating: 4,
       text: "Me pareció súper chévere el producto. La calidad se siente muy buena para el precio que tiene. Lo único fue que la transportadora se demoró un día más de lo esperado, pero la atención de la tienda fue excelente para ayudarme a solucionar.",
     },
@@ -40,7 +40,7 @@ const TestimonialsSection = () => {
       id: 5,
       name: "Andrea Pereira",
       role: "Barranquilla",
-      initials: "AP",
+      image: "/images/t5.jpg",
       rating: 5,
       text: "Simplemente espectacular. Es tal cual como se ve en las fotos, incluso mejor en persona. ¡Me encantó!",
     },
@@ -48,7 +48,7 @@ const TestimonialsSection = () => {
       id: 6,
       name: "Natalia Ortiz",
       role: "Pereira",
-      initials: "NO",
+      image: "/images/t6.jpg",
       rating: 5,
       text: "Se lo regalé a mi mamá de cumpleaños y quedó feliz. Estaba buscando algo diferente y de buena calidad, y dimos en el clavo. ¡Gracias por ayudarme a elegir el ideal! Se ganaron una clienta más.",
     },
@@ -163,9 +163,11 @@ const TestimonialsSection = () => {
 
                     {/* Información del cliente */}
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center text-white font-semibold text-lg flex-shrink-0">
-                        {testimonial.initials}
-                      </div>
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                      />
                       <div>
                         <p className="font-medium text-gray-900">
                           {testimonial.name}
@@ -201,9 +203,11 @@ const TestimonialsSection = () => {
 
                     {/* Información del cliente */}
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center text-white font-semibold text-lg flex-shrink-0">
-                        {testimonial.initials}
-                      </div>
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                      />
                       <div>
                         <p className="font-medium text-gray-900">
                           {testimonial.name}
@@ -238,9 +242,11 @@ const TestimonialsSection = () => {
 
                   {/* Información del cliente */}
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-400 flex items-center justify-center text-white font-semibold text-lg flex-shrink-0">
-                      {testimonial.initials}
-                    </div>
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                    />
                     <div>
                       <p className="font-medium text-gray-900">
                         {testimonial.name}

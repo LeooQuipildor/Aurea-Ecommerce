@@ -89,10 +89,10 @@ const CatalogPage = () => {
             {/* Cards de Filtro - 4 categorías */}
             <div className="grid grid-cols-4 gap-4">
               {[
-                { name: "COLLARES", image: "/images/hero.jpeg" },
-                { name: "ANILLOS", image: "/images/hero.jpeg" },
-                { name: "PULSERAS", image: "/images/hero.jpeg" },
-                { name: "ARETES", image: "/images/hero.jpeg" },
+                { name: "COLLARES", image: "/images/collar.jpg" },
+                { name: "ANILLOS", image: "/images/anillo.jpg" },
+                { name: "PULSERAS", image: "/images/pulsera.jpg" },
+                { name: "ARETES", image: "/images/aretes.jpg" },
               ].map((category) => (
                 <button
                   key={category.name}
@@ -244,7 +244,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 1: Foto (izq) - Desktop Fila 1 Col 2: Imagen */}
             <div className="overflow-hidden md:order-2">
               <img
-                src="/images/hero.jpeg"
+                src="/images/garantia.png"
                 alt="Garantía de Calidad"
                 className="w-full h-full object-cover min-h-[300px]"
               />
@@ -280,7 +280,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 2: Foto (der) - Desktop Fila 2 Col 1: Imagen */}
             <div className="overflow-hidden md:order-4">
               <img
-                src="/images/hero.jpeg"
+                src="/images/Envio.png"
                 alt="Envío Gratis"
                 className="w-full h-full object-cover min-h-[300px]"
               />
@@ -289,7 +289,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 3: Foto (izq) - Desktop Fila 2 Col 3: Imagen */}
             <div className="overflow-hidden md:order-6">
               <img
-                src="/images/hero.jpeg"
+                src="/images/atencion.png"
                 alt="Garantía de por Vida"
                 className="w-full h-full object-cover min-h-[300px]"
               />
