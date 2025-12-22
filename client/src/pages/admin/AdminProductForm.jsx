@@ -23,6 +23,8 @@ const AdminProductForm = () => {
     stock: "",
     isFeatured: false,
     image: "",
+    materials: "",
+    care: "",
   });
   const [images, setImages] = useState([]);
 
@@ -49,8 +51,13 @@ const AdminProductForm = () => {
         stock: product.stock,
         isFeatured: product.isFeatured,
         image: product.image,
+        materials: product.materials || "",
+        care: product.care || "",
       });
-      if (product.image) {
+      // Cargar todas las imágenes (images array o solo image)
+      if (product.images && product.images.length > 0) {
+        setImages(product.images);
+      } else if (product.image) {
         setImages([product.image]);
       }
     } catch (error) {
@@ -94,7 +101,8 @@ const AdminProductForm = () => {
       ...formData,
       price: parseFloat(formData.price),
       stock: parseInt(formData.stock),
-      image: images[0], // Por ahora solo usamos la primera imagen
+      image: images[0], // Primera imagen como principal
+      images: images, // Todas las imágenes
     };
 
     try {
@@ -179,6 +187,50 @@ const AdminProductForm = () => {
               className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-[#F4C430]"
               placeholder="Describe el producto en detalle..."
             />
+          </div>
+
+          {/* Materiales */}
+          <div>
+            <label
+              htmlFor="materials"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Materiales
+            </label>
+            <textarea
+              id="materials"
+              name="materials"
+              value={formData.materials}
+              onChange={handleChange}
+              rows={3}
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-[#F4C430]"
+              placeholder="Ej: Plata 925, Baño de oro 18k, Piedras naturales..."
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Describe los materiales utilizados en el producto
+            </p>
+          </div>
+
+          {/* Cuidados */}
+          <div>
+            <label
+              htmlFor="care"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Cuidados
+            </label>
+            <textarea
+              id="care"
+              name="care"
+              value={formData.care}
+              onChange={handleChange}
+              rows={3}
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-[#F4C430]"
+              placeholder="Ej: Evitar contacto con agua, guardar en lugar seco..."
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Instrucciones de cuidado y mantenimiento
+            </p>
           </div>
 
           {/* Precio y Stock */}

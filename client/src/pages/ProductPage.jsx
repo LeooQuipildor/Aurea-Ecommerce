@@ -80,8 +80,11 @@ const ProductPage = () => {
       </div>
     );
 
-  // Simular múltiples imágenes (en producción vendrían del backend)
-  const productImages = [product.image, product.image, product.image];
+  // Usar todas las imágenes del producto o solo la principal si no hay más
+  const productImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.image];
 
   return (
     <div className="bg-white">
@@ -385,9 +388,8 @@ const ProductPage = () => {
                 Materiales
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Elaborado con materiales premium de la más alta calidad. Cada
-                pieza es cuidadosamente seleccionada para garantizar durabilidad
-                y belleza.
+                {product.materials ||
+                  "Elaborado con materiales premium de la más alta calidad. Cada pieza es cuidadosamente seleccionada para garantizar durabilidad y belleza."}
               </p>
             </div>
             <div>
@@ -395,9 +397,8 @@ const ProductPage = () => {
                 Cuidados
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Para mantener el brillo de tu joya, evitá el contacto con
-                perfumes y productos químicos. Guardá en un lugar seco cuando no
-                la uses.
+                {product.care ||
+                  "Para mantener el brillo de tu joya, evitá el contacto con perfumes y productos químicos. Guardá en un lugar seco cuando no la uses."}
               </p>
             </div>
           </div>

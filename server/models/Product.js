@@ -20,6 +20,18 @@ const productSchema = new mongoose.Schema({
     required: [true, 'La imagen es obligatoria'], 
     // Por ahora guardaremos URLs, luego usaremos Cloudinary
   },
+  images: {
+    type: [String],
+    default: []
+  },
+  materials: {
+    type: String,
+    default: ''
+  },
+  care: {
+    type: String,
+    default: ''
+  },
   category: {
     type: String,
     required: [true, 'La categoría es obligatoria'],

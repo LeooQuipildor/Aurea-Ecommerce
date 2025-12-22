@@ -114,8 +114,9 @@ const HomePage = () => {
               Array.from({ length: 4 }).map((_, index) => (
                 <ProductCardSkeleton key={index} />
               ))
-            : // Mostrar productos reales
+            : // Mostrar solo productos destacados (isFeatured: true)
               products
+                .filter((product) => product.isFeatured === true)
                 .slice(0, 4)
                 .map((product, index) => (
                   <ProductCard
