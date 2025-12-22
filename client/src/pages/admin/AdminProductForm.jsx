@@ -19,7 +19,7 @@ const AdminProductForm = () => {
     name: "",
     description: "",
     price: "",
-    category: "Ropa",
+    category: "Collares",
     stock: "",
     isFeatured: false,
     image: "",
@@ -241,11 +241,10 @@ const AdminProductForm = () => {
               required
               className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-[#F4C430]"
             >
-              <option value="Ropa">Ropa</option>
-              <option value="Electrónica">Electrónica</option>
-              <option value="Hogar">Hogar</option>
-              <option value="Accesorios">Accesorios</option>
-              <option value="Otros">Otros</option>
+              <option value="Collares">Collares</option>
+              <option value="Aretes">Aretes</option>
+              <option value="Pulseras">Pulseras</option>
+              <option value="Anillos">Anillos</option>
             </select>
           </div>
 

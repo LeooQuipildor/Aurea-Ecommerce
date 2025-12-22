@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'La categoría es obligatoria'],
-    enum: ['Ropa', 'Electrónica', 'Hogar', 'Accesorios', 'Otros'] // Puedes cambiar esto según tu nicho
+    enum: ['Collares', 'Aretes', 'Pulseras', 'Anillos']
   },
   stock: {
     type: Number,
