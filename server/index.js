@@ -18,7 +18,9 @@ const app = express();
 // Permite que React (u otros dominios) consulten tu API
 app.use(cors());
 // Permite que tu servidor entienda datos en formato JSON (lo que envía React)
-app.use(express.json());
+// Aumentar límite para permitir imágenes en base64
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // --- USAR RUTAS ---
 app.use('/api/products', productRoutes);
