@@ -1,65 +1,79 @@
-/**
- * Script para crear usuario administrador
- * Ejecutar con: node createAdmin.js
- */
+// Script para crear usuario administrador (FORZAR RECREACIÓN)
+// Ejecutar: node createAdmin.js
 
-require("dotenv").config();
-const mongoose = require("mongoose");
-const User = require("./models/User");
+require('dotenv').config();
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
-const createAdmin = async () => {
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/aurea';
+
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ['user', 'admin'], default: 'user' }
+}, { timestamps: true });
+
+const User = mongoose.model('User', userSchema);
+
+async function createAdmin() {
   try {
-    // Conectar a MongoDB
-    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI;
-    
-    if (!mongoUri) {
-      throw new Error("No se encontró MONGODB_URI o MONGO_URI en las variables de entorno");
-    }
-    
-    await mongoose.connect(mongoUri);
-    console.log("✅ Conectado a MongoDB");
+    console.log('🔄 Conectando a MongoDB Atlas...');
+    console.log('📍 URI:', MONGODB_URI.replace(/\/\/([^:]+):([^@]+)@/, '//$1:****@'));
+    await mongoose.connect(MONGODB_URI);
+    console.log('✅ Conectado a MongoDB Atlas');
 
-    // Verificar si ya existe un admin con este email
-    const existingAdmin = await User.findOne({
-      email: "leoooquipildor@gmail.com",
+    // Datos del admin
+    const adminData = {
+      name: 'Admin AURÉA',
+      email: 'leoooquipildor@gmail.com',
+      password: 'ikmarjrpkvwlcvrl',
+      role: 'admin'
+    };
+
+    // ELIMINAR usuario existente si existe
+    const existingUser = await User.findOne({ email: adminData.email });
+    
+    if (existingUser) {
+      console.log('⚠️  Usuario existente encontrado. Eliminando...');
+      await User.deleteOne({ email: adminData.email });
+      console.log('✅ Usuario anterior eliminado.');
+    }
+
+    // Hashear la contraseña
+    console.log('🔐 Hasheando contraseña...');
+    const hashedPassword = await bcrypt.hash(adminData.password, 10);
+
+    // Crear el usuario admin
+    const admin = new User({
+      name: adminData.name,
+      email: adminData.email,
+      password: hashedPassword,
+      role: 'admin'
     });
 
-    if (existingAdmin) {
-      console.log("⚠️  Ya existe un administrador con este email");
-      console.log("Actualizando contraseña...");
+    await admin.save();
 
-      existingAdmin.password = "ikmarjrpkvwlcvrl";
-      existingAdmin.name = "Leo Quipildor";
-      existingAdmin.role = "admin";
-      existingAdmin.isActive = true;
-      await existingAdmin.save();
-
-      console.log("✅ Administrador actualizado exitosamente");
-    } else {
-      // Crear nuevo admin
-      const admin = await User.create({
-        email: "leoooquipildor@gmail.com",
-        password: "ikmarjrpkvwlcvrl",
-        name: "Leo Quipildor",
-        role: "admin",
-        isActive: true,
-      });
-
-      console.log("✅ Administrador creado exitosamente");
-      console.log("📧 Email:", admin.email);
-      console.log("👤 Nombre:", admin.name);
-      console.log("🔑 Role:", admin.role);
-    }
-
-    console.log("\n🎉 ¡Listo! Ahora puedes iniciar sesión con:");
-    console.log("📧 Email: leoooquipildor@gmail.com");
-    console.log("🔐 Contraseña: ikmarjrpkvwlcvrl");
-
+    console.log('\n🎉 ¡Usuario administrador creado exitosamente!');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('📧 Email:', adminData.email);
+    console.log('🔑 Contraseña:', adminData.password);
+    console.log('👤 Rol:', admin.role);
+    console.log('🆔 ID:', admin._id);
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('\n⚠️  IMPORTANTE: Guarda estas credenciales.');
+    console.log('🌐 Accede al panel admin en: https://tu-sitio.vercel.app/admin/login');
+    
+    await mongoose.connection.close();
+    console.log('\n👋 Conexión cerrada.');
     process.exit(0);
+    
   } catch (error) {
-    console.error("❌ Error:", error.message);
+    console.error('❌ Error:', error.message);
+    console.error('Stack:', error.stack);
+    await mongoose.connection.close();
     process.exit(1);
   }
-};
+}
 
 createAdmin();
