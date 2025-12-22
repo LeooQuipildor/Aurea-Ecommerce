@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import AdminLayout from "../../components/admin/AdminLayout";
 import axios from "axios";
+import { getApiUrl } from "../../config/api";
 import {
   LineChart,
   Line,
@@ -38,8 +39,8 @@ const AdminAnalytics = () => {
   const fetchAnalytics = async () => {
     try {
       const [statsRes, productStatsRes] = await Promise.all([
-        axios.get("http://localhost:5000/api/admin/stats"),
-        axios.get("http://localhost:5000/api/admin/products/stats"),
+        axios.get(getApiUrl("/api/admin/stats")),
+        axios.get(getApiUrl("/api/admin/products/stats")),
       ]);
 
       setStats({

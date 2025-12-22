@@ -2,6 +2,8 @@ import { useState } from "react";
 import Footer from "../components/Footer";
 import FAQSection from "../components/FAQSection";
 import Button from "../components/Button";
+import { toast } from "sonner";
+import { getApiUrl } from "../config/api";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -14,20 +16,134 @@ const ContactPage = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  // Función de validación
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validar nombre
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "El nombre es obligatorio";
+    } else if (formData.firstName.trim().length < 2) {
+      newErrors.firstName = "El nombre debe tener al menos 2 caracteres";
+    } else if (formData.firstName.trim().length > 25) {
+      newErrors.firstName = "El nombre no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.firstName)) {
+      newErrors.firstName = "El nombre solo puede contener letras";
+    }
+
+    // Validar apellido
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "El apellido es obligatorio";
+    } else if (formData.lastName.trim().length < 2) {
+      newErrors.lastName = "El apellido debe tener al menos 2 caracteres";
+    } else if (formData.lastName.trim().length > 25) {
+      newErrors.lastName = "El apellido no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.lastName)) {
+      newErrors.lastName = "El apellido solo puede contener letras";
+    }
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "El email es obligatorio";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "El email no es válido";
+    } else if (formData.email.length > 50) {
+      newErrors.email = "El email no puede exceder 50 caracteres";
+    }
+
+    // Validar teléfono (Colombia: empieza con 3, 10 dígitos)
+    const phoneDigits = formData.phone.replace(/\D/g, "");
+    if (!formData.phone.trim()) {
+      newErrors.phone = "El teléfono es obligatorio";
+    } else if (phoneDigits.length !== 10) {
+      newErrors.phone = "El número debe tener exactamente 10 dígitos";
+    } else if (!phoneDigits.startsWith("3")) {
+      newErrors.phone = "El número debe empezar con 3";
+    }
+
+    // Validar mensaje
+    if (!formData.message.trim()) {
+      newErrors.message = "El mensaje es obligatorio";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "El mensaje debe tener al menos 10 caracteres";
+    } else if (formData.message.length > 500) {
+      newErrors.message = "El mensaje no puede exceder 500 caracteres";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Verificar si el formulario está completo
+  const isFormComplete = () => {
+    const allFieldsFilled =
+      formData.firstName.trim() &&
+      formData.lastName.trim() &&
+      formData.email.trim() &&
+      formData.phone.trim() &&
+      formData.message.trim();
+
+    // Verificar que no haya errores (filtrar errores vacíos)
+    const noErrors = Object.values(errors).every((error) => !error);
+    return allFieldsFilled && noErrors;
+  };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validar formulario
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simular envío (aquí conectarías con tu backend)
-    setTimeout(() => {
+    // Sanitizar datos
+    const sanitizedData = {
+      firstName: formData.firstName.trim(),
+      lastName: formData.lastName.trim(),
+      email: formData.email.trim().toLowerCase(),
+      phone: formData.phone.trim(),
+      message: formData.message.trim(),
+    };
+
+    try {
+      // Enviar al backend
+      const response = await fetch(getApiUrl("/api/contact"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sanitizedData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error al enviar el mensaje");
+      }
+
+      // Mensaje enviado exitosamente
+      console.log("✅ Mensaje enviado:", data);
+      toast.success("¡Mensaje enviado con éxito! Te responderemos pronto.");
+
       setIsSubmitting(false);
       setSubmitStatus("success");
       setFormData({
@@ -37,10 +153,20 @@ const ContactPage = () => {
         phone: "",
         message: "",
       });
+      setErrors({});
 
       // Limpiar mensaje después de 5 segundos
       setTimeout(() => setSubmitStatus(null), 5000);
-    }, 1500);
+    } catch (error) {
+      console.error("❌ Error al enviar mensaje:", error);
+      setIsSubmitting(false); // IMPORTANTE: Desbloquear el botón
+      toast.error(
+        error.message ||
+          "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente."
+      );
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   return (
@@ -91,7 +217,7 @@ const ContactPage = () => {
                   d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                 />
               </svg>
-              <span className="text-sm text-white">+54 11 1234-5678</span>
+              <span className="text-sm text-white">+57 321 842 2436</span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -108,7 +234,9 @@ const ContactPage = () => {
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                 />
               </svg>
-              <span className="text-sm text-white">contacto@aurea.com.ar</span>
+              <span className="text-sm text-white">
+                aurea.co.store@gmail.com
+              </span>
             </div>
 
             <div className="flex items-center gap-2">
@@ -131,9 +259,7 @@ const ContactPage = () => {
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              <span className="text-sm text-white">
-                Buenos Aires, Argentina
-              </span>
+              <span className="text-sm text-white">Colombia</span>
             </div>
           </div>
 
@@ -186,9 +312,18 @@ const ContactPage = () => {
                   value={formData.firstName}
                   onChange={handleChange}
                   placeholder="Nombre"
+                  minLength={2}
+                  maxLength={25}
                   required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
+                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
+                    errors.firstName ? "border-red-500" : "border-white/10"
+                  }`}
                 />
+                {errors.firstName && (
+                  <p className="text-red-400 text-xs mt-1">
+                    {errors.firstName}
+                  </p>
+                )}
               </div>
               <div>
                 <input
@@ -197,9 +332,16 @@ const ContactPage = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   placeholder="Apellido"
+                  minLength={2}
+                  maxLength={25}
                   required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
+                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
+                    errors.lastName ? "border-red-500" : "border-white/10"
+                  }`}
                 />
+                {errors.lastName && (
+                  <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>
+                )}
               </div>
             </div>
 
@@ -212,19 +354,38 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Email"
+                  maxLength={50}
                   required
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
+                  className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors ${
+                    errors.email ? "border-red-500" : "border-white/10"
+                  }`}
                 />
+                {errors.email && (
+                  <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+                )}
               </div>
               <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Teléfono"
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors"
-                />
+                <div className="flex items-stretch border border-white/10 bg-white/5">
+                  <div className="px-4 bg-white/10 border-r border-white/10 flex items-center">
+                    <span className="text-white font-medium">+57</span>
+                  </div>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="3001234567"
+                    pattern="3[0-9]{9}"
+                    maxLength={10}
+                    required
+                    className={`flex-1 bg-transparent text-white placeholder-gray-500 px-6 py-4 focus:outline-none ${
+                      errors.phone ? "border-red-500" : ""
+                    }`}
+                  />
+                </div>
+                {errors.phone && (
+                  <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+                )}
               </div>
             </div>
 
@@ -234,17 +395,28 @@ const ContactPage = () => {
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Tu mensaje"
+                placeholder="Tu mensaje... (mínimo 10 caracteres)"
                 required
                 rows="6"
-                className="w-full bg-white/5 border border-white/10 text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors resize-none"
+                minLength={10}
+                maxLength={500}
+                className={`w-full bg-white/5 border text-white placeholder-gray-500 px-6 py-4 focus:outline-none focus:border-white/30 transition-colors resize-none ${
+                  errors.message ? "border-red-500" : "border-white/10"
+                }`}
               ></textarea>
+              {errors.message && (
+                <p className="text-red-400 text-xs mt-1">{errors.message}</p>
+              )}
             </div>
 
             {/* Botón de envío */}
             <div>
-              <Button type="submit" disabled={isSubmitting} fullWidth>
-                {isSubmitting ? "Enviando..." : "Enviar"}
+              <Button
+                type="submit"
+                disabled={isSubmitting || !isFormComplete()}
+                fullWidth
+              >
+                {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
               </Button>
             </div>
 

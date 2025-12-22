@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import AdminLayout from "../../components/admin/AdminLayout";
 import StatsCard from "../../components/admin/StatsCard";
 import axios from "axios";
+import { getApiUrl } from "../../config/api";
 import {
   Package,
   ShoppingCart,
@@ -42,7 +43,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/admin/stats");
+      const response = await axios.get(getApiUrl("/api/admin/stats"));
       setStats(response.data);
     } catch (error) {
       console.error("Error al obtener estadísticas:", error);

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import axios from "axios";
+import { toast } from "sonner";
+import { getApiUrl } from "../config/api";
 
 const CheckoutPage = () => {
   const { cart, totalItems, clearCart } = useCart();
@@ -23,6 +25,7 @@ const CheckoutPage = () => {
 
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
 
   // Estados para departamentos y municipios
   const [departamentos, setDepartamentos] = useState([]);
@@ -88,8 +91,113 @@ const CheckoutPage = () => {
     0
   );
 
+  // Verificar si el formulario está completo y válido
+  const isFormComplete = () => {
+    // Verificar que todos los campos tengan valor
+    const allFieldsFilled =
+      formData.nombre.trim() &&
+      formData.apellido.trim() &&
+      formData.whatsapp.trim() &&
+      formData.email.trim() &&
+      formData.direccion.trim() &&
+      formData.referencia.trim() &&
+      formData.departamento &&
+      formData.ciudad;
+
+    // Verificar que no haya errores (filtrar errores vacíos)
+    const noErrors = Object.values(errors).every((error) => !error);
+
+    // Verificar que los términos estén aceptados
+    return allFieldsFilled && noErrors && acceptTerms;
+  };
+
+  // Función de validación
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validar nombre
+    if (!formData.nombre.trim()) {
+      newErrors.nombre = "El nombre es obligatorio";
+    } else if (formData.nombre.trim().length < 2) {
+      newErrors.nombre = "El nombre debe tener al menos 2 caracteres";
+    } else if (formData.nombre.trim().length > 25) {
+      newErrors.nombre = "El nombre no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.nombre)) {
+      newErrors.nombre = "El nombre solo puede contener letras";
+    }
+
+    // Validar apellido
+    if (!formData.apellido.trim()) {
+      newErrors.apellido = "El apellido es obligatorio";
+    } else if (formData.apellido.trim().length < 2) {
+      newErrors.apellido = "El apellido debe tener al menos 2 caracteres";
+    } else if (formData.apellido.trim().length > 25) {
+      newErrors.apellido = "El apellido no puede exceder 25 caracteres";
+    } else if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.apellido)) {
+      newErrors.apellido = "El apellido solo puede contener letras";
+    }
+
+    // Validar WhatsApp (Colombia: empieza con 3, 10 dígitos)
+    const phoneDigits = formData.whatsapp.replace(/\D/g, "");
+    if (!formData.whatsapp.trim()) {
+      newErrors.whatsapp = "El número de WhatsApp es obligatorio";
+    } else if (phoneDigits.length !== 10) {
+      newErrors.whatsapp = "El número debe tener exactamente 10 dígitos";
+    } else if (!phoneDigits.startsWith("3")) {
+      newErrors.whatsapp = "El número debe empezar con 3";
+    }
+
+    // Validar email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "El email es obligatorio";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "El email no es válido";
+    } else if (formData.email.length > 50) {
+      newErrors.email = "El email no puede exceder 50 caracteres";
+    }
+
+    // Validar dirección (debe incluir número)
+    if (!formData.direccion.trim()) {
+      newErrors.direccion = "La dirección es obligatoria";
+    } else if (formData.direccion.trim().length < 5) {
+      newErrors.direccion = "La dirección debe tener al menos 5 caracteres";
+    } else if (formData.direccion.length > 200) {
+      newErrors.direccion = "La dirección no puede exceder 200 caracteres";
+    } else if (!/\d/.test(formData.direccion)) {
+      newErrors.direccion = "La dirección debe incluir un número";
+    }
+
+    // Validar referencia
+    if (!formData.referencia.trim()) {
+      newErrors.referencia = "El punto de referencia es obligatorio";
+    } else if (formData.referencia.trim().length < 3) {
+      newErrors.referencia = "Debe tener al menos 3 caracteres";
+    } else if (formData.referencia.length > 300) {
+      newErrors.referencia = "No puede exceder 300 caracteres";
+    }
+
+    // Validar departamento
+    if (!formData.departamento) {
+      newErrors.departamento = "Debes seleccionar un departamento";
+    }
+
+    // Validar ciudad
+    if (!formData.ciudad) {
+      newErrors.ciudad = "Debes seleccionar un municipio";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Limpiar error del campo cuando el usuario empieza a escribir
+    if (errors[name]) {
+      setErrors({ ...errors, [name]: "" });
+    }
 
     // Si cambia el departamento, resetear la ciudad
     if (name === "departamento") {
@@ -108,8 +216,15 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validar formulario
+    if (!validateForm()) {
+      toast.error("Por favor, corrige los errores en el formulario");
+      return;
+    }
+
     if (!acceptTerms) {
-      alert("Debes aceptar los términos para continuar");
+      toast.error("Debes aceptar los términos para continuar");
       return;
     }
 
@@ -118,27 +233,78 @@ const CheckoutPage = () => {
     // Generar ID de pedido único
     const orderId = `AUR${Date.now().toString().slice(-8)}`;
 
-    // Preparar datos del pedido
-    const orderData = {
-      orderId,
-      customerData: formData,
-      cart,
-      totalPrice,
-      date: new Date().toISOString(),
+    // Sanitizar datos (trim)
+    const sanitizedData = {
+      nombre: formData.nombre.trim(),
+      apellido: formData.apellido.trim(),
+      whatsapp: formData.whatsapp.trim(),
+      direccion: formData.direccion.trim(),
+      referencia: formData.referencia.trim(),
+      departamento: formData.departamento,
+      ciudad: formData.ciudad,
+      email: formData.email.trim().toLowerCase(),
     };
 
-    // Aquí irá la lógica para enviar el pedido al backend
-    console.log("Pedido:", orderData);
+    // Preparar datos del pedido
+    const orderData = {
+      nombre: sanitizedData.nombre,
+      apellido: sanitizedData.apellido,
+      whatsapp: sanitizedData.whatsapp,
+      email: sanitizedData.email,
+      direccion: sanitizedData.direccion,
+      referencia: sanitizedData.referencia,
+      departamento: sanitizedData.departamento,
+      ciudad: sanitizedData.ciudad,
+      cart,
+      totalPrice,
+    };
 
-    // Simular envío
-    setTimeout(() => {
+    try {
+      // Enviar pedido al backend
+      const response = await fetch(getApiUrl("/api/checkout"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Error al procesar el pedido");
+      }
+
+      // Pedido exitoso
+      console.log("✅ Pedido procesado:", data);
+      toast.success(
+        "¡Pedido realizado con éxito! Recibirás un email de confirmación."
+      );
+
       // Limpiar carrito
       clearCart();
       setIsSubmitting(false);
 
-      // Redirigir a página de confirmación con los datos
-      navigate("/order-confirmation", { state: { orderData } });
-    }, 1500);
+      // Redirigir a página de confirmación
+      navigate("/order-confirmation", {
+        state: {
+          orderData: {
+            orderId: data.data.orderId,
+            customerData: data.data.customerData,
+            cart,
+            totalPrice: data.data.totalPrice,
+            date: data.data.createdAt,
+          },
+        },
+      });
+    } catch (error) {
+      console.error("❌ Error al procesar pedido:", error);
+      setIsSubmitting(false); // IMPORTANTE: Desbloquear el botón
+      toast.error(
+        error.message ||
+          "Hubo un error al procesar tu pedido. Por favor, intenta nuevamente."
+      );
+    }
   };
 
   // Si el carrito está vacío, redirigir
@@ -217,10 +383,19 @@ const CheckoutPage = () => {
                           value={formData.nombre}
                           onChange={handleChange}
                           placeholder="EJEMPLO: María"
+                          minLength={2}
+                          maxLength={25}
                           required
-                          className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                          className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                            errors.nombre ? "border-red-500" : ""
+                          }`}
                         />
                       </div>
+                      {errors.nombre && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.nombre}
+                        </p>
+                      )}
                     </div>
 
                     {/* Apellido */}
@@ -250,10 +425,19 @@ const CheckoutPage = () => {
                           value={formData.apellido}
                           onChange={handleChange}
                           placeholder="EJEMPLO: Rodriguez"
+                          minLength={2}
+                          maxLength={25}
                           required
-                          className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                          className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                            errors.apellido ? "border-red-500" : ""
+                          }`}
                         />
                       </div>
+                      {errors.apellido && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.apellido}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -272,16 +456,28 @@ const CheckoutPage = () => {
                           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                         </svg>
                       </div>
+                      <div className="px-3 bg-gray-100 border-r border-gray-300 flex items-center">
+                        <span className="text-gray-700 font-medium">+57</span>
+                      </div>
                       <input
                         type="tel"
                         name="whatsapp"
                         value={formData.whatsapp}
                         onChange={handleChange}
-                        placeholder="+57 300 123 4567"
+                        placeholder="3001234567"
+                        pattern="3[0-9]{9}"
+                        maxLength={10}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.whatsapp ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.whatsapp && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.whatsapp}
+                      </p>
+                    )}
                   </div>
 
                   {/* Email */}
@@ -311,10 +507,18 @@ const CheckoutPage = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="EJEMPLO: maria@gmail.com"
+                        maxLength={50}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.email ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
                   {/* Dirección completa */}
@@ -350,10 +554,19 @@ const CheckoutPage = () => {
                         value={formData.direccion}
                         onChange={handleChange}
                         placeholder="Ej: Calle 19 # 29-80 Casa 8"
+                        minLength={5}
+                        maxLength={200}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.direccion ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.direccion && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.direccion}
+                      </p>
+                    )}
                   </div>
 
                   {/* Puntos de referencia */}
@@ -390,10 +603,19 @@ const CheckoutPage = () => {
                         value={formData.referencia}
                         onChange={handleChange}
                         placeholder="EJ: Barrio Palermo / Junto a panadería."
+                        minLength={3}
+                        maxLength={300}
                         required
-                        className="flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400"
+                        className={`flex-1 px-4 py-3 focus:outline-none text-gray-900 placeholder-gray-400 ${
+                          errors.referencia ? "border-red-500" : ""
+                        }`}
                       />
                     </div>
+                    {errors.referencia && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.referencia}
+                      </p>
+                    )}
                   </div>
 
                   {/* Departamento y Ciudad en grid */}
@@ -410,7 +632,9 @@ const CheckoutPage = () => {
                           onChange={handleChange}
                           required
                           disabled={loadingDepartamentos}
-                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          className={`w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed ${
+                            errors.departamento ? "border-red-500" : ""
+                          }`}
                         >
                           <option value="">
                             {loadingDepartamentos
@@ -437,6 +661,11 @@ const CheckoutPage = () => {
                           />
                         </svg>
                       </div>
+                      {errors.departamento && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.departamento}
+                        </p>
+                      )}
                     </div>
 
                     {/* Ciudad */}
@@ -451,7 +680,9 @@ const CheckoutPage = () => {
                           onChange={handleChange}
                           required
                           disabled={!formData.departamento || loadingMunicipios}
-                          className="w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          className={`w-full px-4 py-3 border border-gray-300 bg-white focus:outline-none text-gray-900 appearance-none disabled:bg-gray-100 disabled:cursor-not-allowed ${
+                            errors.ciudad ? "border-red-500" : ""
+                          }`}
                         >
                           <option value="">
                             {!formData.departamento
@@ -480,6 +711,11 @@ const CheckoutPage = () => {
                           />
                         </svg>
                       </div>
+                      {errors.ciudad && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {errors.ciudad}
+                        </p>
+                      )}
                       {formData.departamento &&
                         municipios.length === 0 &&
                         !loadingMunicipios && (
@@ -508,7 +744,7 @@ const CheckoutPage = () => {
                   {/* Botón de envío */}
                   <Button
                     type="submit"
-                    disabled={isSubmitting || !acceptTerms}
+                    disabled={isSubmitting || !isFormComplete()}
                     fullWidth
                   >
                     {isSubmitting

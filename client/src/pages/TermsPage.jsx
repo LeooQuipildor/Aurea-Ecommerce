@@ -322,10 +322,10 @@ const TermsPage = () => {
                   <div>
                     <p className="text-sm text-gray-500 mb-1">Email</p>
                     <a
-                      href="mailto:legal@aurea-brand.com"
+                      href="mailto:aurea.co.store@gmail.com"
                       className="text-base md:text-lg font-medium text-gray-900 hover:text-yellow-600 transition-colors"
                     >
-                      legal@aurea-brand.com
+                      aurea.co.store@gmail.com
                     </a>
                   </div>
                 </div>

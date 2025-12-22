@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import axios from "axios";
+import { getApiUrl } from "../config/api";
 
 const Navbar = () => {
   const { totalItems } = useCart();
@@ -24,7 +25,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get(getApiUrl("/api/products"));
         setAllProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

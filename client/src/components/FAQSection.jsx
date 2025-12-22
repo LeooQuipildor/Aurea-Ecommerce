@@ -35,23 +35,23 @@ const FAQSection = () => {
         <div className="space-y-2">
           <FAQItem
             question="¿Hacen envíos a todo el país?"
-            answer="Sí, realizamos envíos a todas las provincias a través de correo privado."
+            answer="Sí, realizamos envíos a todo Colombia. Los tiempos de entrega varían según tu ubicación: Bogotá y principales ciudades 1-4 días hábiles, otras ciudades y municipios 5-7 días hábiles."
           />
           <FAQItem
             question="¿Qué métodos de pago aceptan?"
-            answer="Aceptamos todas las tarjetas de crédito, débito y transferencias bancarias."
+            answer="Aceptamos pago contraentrega. Pagas en efectivo directamente al transportista cuando recibas tu pedido en la puerta de tu casa. No necesitas tarjeta de crédito ni cuenta bancaria."
           />
           <FAQItem
             question="¿Es seguro comprar en su sitio web?"
-            answer="Totalmente. Utilizamos cifrado SSL para proteger todos tus datos personales y de pago."
+            answer="Sí, es 100% seguro. Con el pago contraentrega, solo pagas cuando recibes tu producto. Puedes verificar tu pedido antes de realizar el pago al transportista."
           />
           <FAQItem
             question="¿Cuál es el costo de envío?"
-            answer="El envío es gratuito en compras superiores a $50.000. Para montos menores, se calcula en el checkout."
+            answer="El costo de envío se calcula automáticamente según tu ciudad y el peso del pedido. Lo verás antes de confirmar tu compra."
           />
           <FAQItem
-            question="¿Cuál es el costo de envío?"
-            answer="El envío es gratuito en compras superiores a $50.000. Para montos menores, se calcula en el checkout."
+            question="¿Cómo puedo realizar un pedido?"
+            answer="Selecciona los productos que desees, agrégalos al carrito, completa tus datos de envío y confirma tu pedido. Pagarás en efectivo cuando recibas tu producto en casa."
           />
         </div>
       </div>

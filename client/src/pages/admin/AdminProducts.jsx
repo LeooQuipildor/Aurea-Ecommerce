@@ -5,6 +5,7 @@ import AdminLayout from "../../components/admin/AdminLayout";
 import axios from "axios";
 import { Plus, Edit, Trash2, Search, Package } from "lucide-react";
 import { toast } from "sonner";
+import { getApiUrl } from "../../config/api";
 
 const AdminProducts = () => {
   const { isAdmin } = useAuth();
@@ -25,7 +26,7 @@ const AdminProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/products");
+      const response = await axios.get(getApiUrl("/api/products"));
       setProducts(response.data);
     } catch (error) {
       console.error("Error al obtener productos:", error);
@@ -41,7 +42,7 @@ const AdminProducts = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      await axios.delete(getApiUrl(`/api/products/${id}`));
       toast.success("Producto eliminado exitosamente");
       fetchProducts();
     } catch (error) {

@@ -25,15 +25,15 @@ const AboutSection = () => {
       <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 drop-shadow-[4px_4px_1px_rgba(0,0,0,0.15)]">
         {[
           {
-            src: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=800",
+            src: "/images/gift-hands.jpg",
             title: "Envío Gratis Siempre",
           },
           {
-            src: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800",
+            src: "/images/gift-box-ring.png",
             title: "Pagás Cuando Llega",
           },
           {
-            src: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=800",
+            src: "/images/jewelry-box.jpg",
             title: "Garantía & Seguridad Total",
           },
         ].map((item, index) => (

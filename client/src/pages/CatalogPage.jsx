@@ -3,6 +3,7 @@ import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
+import { getApiUrl } from "../config/api";
 
 const CatalogPage = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ const CatalogPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products");
+        const response = await axios.get(getApiUrl("/api/products"));
         setProducts(response.data);
         setFilteredProducts(response.data);
       } catch (err) {
@@ -80,8 +81,8 @@ const CatalogPage = () => {
                 Elegancia actual diseñada para vos.
               </h1>
               <p className="text-gray-200 text-sm md:text-xl leading-relaxed">
-                Descubrí nuestra colección completa de joyas artesanales. Cada
-                pieza está diseñada con atención al detalle para realzar tu
+                Descubrí nuestra colección de joyas. Seleccionamos piezas de
+                tendencia global con atención al detalle para acercarte un
                 estilo único.
               </p>
             </div>
@@ -89,10 +90,10 @@ const CatalogPage = () => {
             {/* Cards de Filtro - 4 categorías */}
             <div className="grid grid-cols-4 gap-4">
               {[
-                { name: "COLLARES", image: "/images/hero.jpeg" },
-                { name: "ANILLOS", image: "/images/hero.jpeg" },
-                { name: "PULSERAS", image: "/images/hero.jpeg" },
-                { name: "ARETES", image: "/images/hero.jpeg" },
+                { name: "COLLARES", image: "/images/collar.jpg" },
+                { name: "ANILLOS", image: "/images/anillo.jpg" },
+                { name: "PULSERAS", image: "/images/pulsera.jpg" },
+                { name: "ARETES", image: "/images/aretes.jpg" },
               ].map((category) => (
                 <button
                   key={category.name}
@@ -244,7 +245,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 1: Foto (izq) - Desktop Fila 1 Col 2: Imagen */}
             <div className="overflow-hidden md:order-2">
               <img
-                src="/images/hero.jpeg"
+                src="/images/garantia.png"
                 alt="Garantía de Calidad"
                 className="w-full h-full object-cover min-h-[300px]"
               />
@@ -259,7 +260,7 @@ const CatalogPage = () => {
                 <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
                   Te ofrecemos piezas elaboradas con materiales premium y
                   terminaciones impecables para que disfrutes joyas que duran
-                  toda la vida
+                  toda la vida.
                 </p>
               </div>
             </div>
@@ -271,8 +272,8 @@ const CatalogPage = () => {
                   Envío Gratis
                 </h3>
                 <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
-                  Recibí tus joyas sin costo adicional en compras superiores al
-                  mínimo establecido
+                  Llegamos a la puerta de tu casa, en cualquier punto del país y
+                  sin costos extra.
                 </p>
               </div>
             </div>
@@ -280,7 +281,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 2: Foto (der) - Desktop Fila 2 Col 1: Imagen */}
             <div className="overflow-hidden md:order-4">
               <img
-                src="/images/hero.jpeg"
+                src="/images/Envio.png"
                 alt="Envío Gratis"
                 className="w-full h-full object-cover min-h-[300px]"
               />
@@ -289,7 +290,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 3: Foto (izq) - Desktop Fila 2 Col 3: Imagen */}
             <div className="overflow-hidden md:order-6">
               <img
-                src="/images/hero.jpeg"
+                src="/images/atencion.png"
                 alt="Garantía de por Vida"
                 className="w-full h-full object-cover min-h-[300px]"
               />
@@ -303,7 +304,7 @@ const CatalogPage = () => {
                 </h3>
                 <p className="text-gray-700 text-xs md:text-lg leading-relaxed">
                   Nuestro equipo está disponible para asesorarte y ayudarte a
-                  encontrar la joya perfecta
+                  encontrar la joya perfecta para ti.
                 </p>
               </div>
             </div>
