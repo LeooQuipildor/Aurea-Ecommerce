@@ -4,6 +4,45 @@ import { X, Upload, Loader } from "lucide-react";
 const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
   const [uploading, setUploading] = useState(false);
 
+  // Función para comprimir imagen
+  const compressImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+
+          // Redimensionar si es muy grande (max 1200px)
+          const maxSize = 1200;
+          if (width > maxSize || height > maxSize) {
+            if (width > height) {
+              height = (height / width) * maxSize;
+              width = maxSize;
+            } else {
+              width = (width / height) * maxSize;
+              height = maxSize;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Comprimir a JPEG con calidad 0.7
+          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.7);
+          resolve(compressedDataUrl);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleFileChange = async (e) => {
     const files = Array.from(e.target.files);
 
@@ -14,17 +53,9 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
 
     setUploading(true);
 
-    // Convertir imágenes a base64 o URLs (simulación)
+    // Comprimir y convertir imágenes
     const newImages = await Promise.all(
-      files.map((file) => {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            resolve(reader.result);
-          };
-          reader.readAsDataURL(file);
-        });
-      })
+      files.map((file) => compressImage(file))
     );
 
     onImagesChange([...images, ...newImages]);
