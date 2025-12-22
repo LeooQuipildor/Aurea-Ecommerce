@@ -1,9 +1,35 @@
+# robots.txt para AURÉA Joyería
+# Permite a todos los motores de búsqueda indexar el sitio
+
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /checkout/
+Disallow: /carrito/
 
 # Sitemap
-Sitemap: https://aurea.vercel.app/sitemap.xml
+Sitemap: https://aurea-joyeria.vercel.app/sitemap.xml
 
-# Disallow admin pages
-User-agent: *
-Disallow: /admin/
+# Crawl-delay para evitar sobrecarga del servidor
+Crawl-delay: 1
+
+# Permitir acceso a recursos estáticos
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Bloquear bots maliciosos
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
