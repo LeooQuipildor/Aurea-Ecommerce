@@ -17,8 +17,7 @@ const productSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: [true, 'La imagen es obligatoria'], 
-    // Por ahora guardaremos URLs, luego usaremos Cloudinary
+    required: [true, 'La imagen es obligatoria']
   },
   images: {
     type: [String],
@@ -46,6 +45,23 @@ const productSchema = new mongoose.Schema({
   isFeatured: {
     type: Boolean,
     default: false // Para mostrar en el Home como "Destacado"
+  },
+  colors: {
+    type: [String],
+    default: [] // Array de colores disponibles, ej: ['Plateado', 'Dorado', 'Oro Rosa']
+  },
+  isOnSale: {
+    type: Boolean,
+    default: false // Indica si el producto está en oferta
+  },
+  salePrice: {
+    type: Number,
+    min: 0,
+    default: null // Precio en oferta (si isOnSale es true)
+  },
+  distributorLink: {
+    type: String,
+    default: '' // Link al distribuidor (solo visible para admin)
   }
 }, {
   timestamps: true // Esto crea automáticamente campos createdAt y updatedAt

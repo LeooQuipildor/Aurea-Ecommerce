@@ -1,47 +1,10 @@
 import { useState } from "react";
 import { X, Upload, Loader } from "lucide-react";
+import { getApiUrl } from "../../config/api";
+import axios from "axios";
 
 const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
   const [uploading, setUploading] = useState(false);
-
-  // Función para comprimir imagen
-  const compressImage = (file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          let width = img.width;
-          let height = img.height;
-
-          // Redimensionar si es muy grande (max 1200px)
-          const maxSize = 1200;
-          if (width > maxSize || height > maxSize) {
-            if (width > height) {
-              height = (height / width) * maxSize;
-              width = maxSize;
-            } else {
-              width = (width / height) * maxSize;
-              height = maxSize;
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0, width, height);
-
-          // Comprimir a JPEG con calidad 0.7
-          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.7);
-          resolve(compressedDataUrl);
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-  };
 
   const handleFileChange = async (e) => {
     const files = Array.from(e.target.files);
@@ -53,13 +16,39 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
 
     setUploading(true);
 
-    // Comprimir y convertir imágenes
-    const newImages = await Promise.all(
-      files.map((file) => compressImage(file))
-    );
+    try {
+      // Crear FormData para enviar archivos
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
 
-    onImagesChange([...images, ...newImages]);
-    setUploading(false);
+      // Obtener token del localStorage
+      const token = localStorage.getItem("token");
+
+      // Subir a Cloudinary a través del backend
+      const response = await axios.post(
+        getApiUrl("/api/upload/upload"),
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Agregar las URLs devueltas por Cloudinary
+      onImagesChange([...images, ...response.data.images]);
+    } catch (error) {
+      console.error("Error al subir imágenes:", error);
+      alert(
+        error.response?.data?.message ||
+          "Error al subir imágenes. Por favor intenta de nuevo."
+      );
+    } finally {
+      setUploading(false);
+    }
   };
 
   const removeImage = (index) => {
@@ -90,7 +79,7 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
       {uploading && (
         <div className="flex items-center gap-2 text-blue-600">
           <Loader className="animate-spin" size={20} />
-          <span>Subiendo imágenes...</span>
+          <span>Subiendo a Cloudinary...</span>
         </div>
       )}
 
@@ -110,6 +99,11 @@ const ImageUploader = ({ images = [], onImagesChange, maxImages = 5 }) => {
               >
                 <X size={16} />
               </button>
+              {index === 0 && (
+                <div className="absolute bottom-2 left-2 bg-black text-white text-xs px-2 py-1">
+                  Principal
+                </div>
+              )}
             </div>
           ))}
         </div>

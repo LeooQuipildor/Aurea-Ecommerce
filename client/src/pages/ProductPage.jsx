@@ -173,19 +173,41 @@ const ProductPage = () => {
             </div>
 
             {/* Precio y Stock */}
-            <div className="flex items-baseline gap-4 mb-6">
-              <span className="text-4xl md:text-5xl font-bold text-gray-900">
-                ${product.price.toLocaleString()}
-              </span>
-              {product.stock > 0 ? (
-                <span className="text-sm text-green-600 uppercase tracking-wider">
-                  En Stock
-                </span>
-              ) : (
-                <span className="text-sm text-red-600 uppercase tracking-wider">
-                  Agotado
-                </span>
-              )}
+            <div className="mb-6">
+              <div className="flex items-baseline gap-4">
+                {product.isOnSale && product.salePrice ? (
+                  <>
+                    <span className="text-4xl md:text-5xl font-bold text-gray-900">
+                      ${product.salePrice.toLocaleString()}
+                    </span>
+                    <span className="text-2xl text-gray-400 line-through">
+                      ${product.price.toLocaleString()}
+                    </span>
+                    <span className="px-3 py-1 bg-red-500 text-white text-sm font-bold uppercase">
+                      {(
+                        ((product.price - product.salePrice) / product.price) *
+                        100
+                      ).toFixed(0)}
+                      % OFF
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-4xl md:text-5xl font-bold text-gray-900">
+                    ${product.price.toLocaleString()}
+                  </span>
+                )}
+              </div>
+              <div className="mt-2">
+                {product.stock > 0 ? (
+                  <span className="text-sm text-green-600 uppercase tracking-wider">
+                    En Stock
+                  </span>
+                ) : (
+                  <span className="text-sm text-red-600 uppercase tracking-wider">
+                    Agotado
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Descripción */}
@@ -193,27 +215,29 @@ const ProductPage = () => {
               {product.description}
             </p>
 
-            {/* Selector de Variantes (Colores) */}
-            <div className="space-y-3 mb-6">
-              <label className="text-sm font-semibold text-gray-800 uppercase tracking-wider">
-                Color
-              </label>
-              <div className="flex gap-3">
-                {["Plateado", "Dorado", "Oro Rosa"].map((color) => (
-                  <button
-                    key={color}
-                    onClick={() => setSelectedVariant(color)}
-                    className={`px-4 py-2 text-sm border transition-all ${
-                      selectedVariant === color
-                        ? "border-black bg-black text-white"
-                        : "border-gray-300 hover:border-gray-400"
-                    }`}
-                  >
-                    {color}
-                  </button>
-                ))}
+            {/* Selector de Variantes (Colores) - Solo si hay colores */}
+            {product.colors && product.colors.length > 0 && (
+              <div className="space-y-3 mb-6">
+                <label className="text-sm font-semibold text-gray-800 uppercase tracking-wider">
+                  Color
+                </label>
+                <div className="flex gap-3 flex-wrap">
+                  {product.colors.map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setSelectedVariant(color)}
+                      className={`px-4 py-2 text-sm border transition-all ${
+                        selectedVariant === color
+                          ? "border-black bg-black text-white"
+                          : "border-gray-300 hover:border-gray-400"
+                      }`}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Selector de Cantidad */}
             <div className="space-y-3 mb-6">

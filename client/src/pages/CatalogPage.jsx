@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
+import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
 import { getApiUrl } from "../config/api";
@@ -11,16 +12,20 @@ const CatalogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("TODOS");
   const [sortBy, setSortBy] = useState("featured");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dropdownRef = useRef(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(getApiUrl("/api/products"));
         setProducts(response.data);
         setFilteredProducts(response.data);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
@@ -198,9 +203,19 @@ const CatalogPage = () => {
 
         {/* Grid de Productos */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {filteredProducts.map((product, index) => (
-            <ProductCard key={product._id} product={product} index={index} />
-          ))}
+          {loading
+            ? // Mostrar skeletons mientras carga
+              Array.from({ length: 8 }).map((_, index) => (
+                <ProductCardSkeleton key={index} />
+              ))
+            : // Mostrar productos filtrados
+              filteredProducts.map((product, index) => (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  index={index}
+                />
+              ))}
         </div>
 
         {/* Paginación */}

@@ -3,7 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import AdminLayout from "../../components/admin/AdminLayout";
 import axios from "axios";
-import { Plus, Edit, Trash2, Search, Package } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Search,
+  Package,
+  ExternalLink,
+} from "lucide-react";
 import { toast } from "sonner";
 import { getApiUrl } from "../../config/api";
 
@@ -142,6 +149,9 @@ const AdminProducts = () => {
                       Precio
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Oferta
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Stock
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -178,7 +188,32 @@ const AdminProducts = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        ${product.price.toLocaleString()}
+                        {product.isOnSale && product.salePrice ? (
+                          <div>
+                            <div className="font-semibold text-green-600">
+                              ${product.salePrice.toLocaleString()}
+                            </div>
+                            <div className="text-xs text-gray-400 line-through">
+                              ${product.price.toLocaleString()}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>${product.price.toLocaleString()}</div>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {product.isOnSale && product.salePrice ? (
+                          <span className="px-2 py-1 inline-flex text-xs leading-5 font-semibold bg-red-100 text-red-800">
+                            {(
+                              ((product.price - product.salePrice) /
+                                product.price) *
+                              100
+                            ).toFixed(0)}
+                            % OFF
+                          </span>
+                        ) : (
+                          <span className="text-gray-400 text-xs">-</span>
+                        )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
@@ -202,6 +237,17 @@ const AdminProducts = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex items-center justify-end gap-2">
+                          {product.distributorLink && (
+                            <a
+                              href={product.distributorLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-green-600 hover:text-green-900 p-2 hover:bg-green-50 transition-colors"
+                              title="Ver en distribuidor"
+                            >
+                              <ExternalLink size={18} />
+                            </a>
+                          )}
                           <button
                             onClick={() =>
                               navigate(`/admin/products/edit/${product._id}`)

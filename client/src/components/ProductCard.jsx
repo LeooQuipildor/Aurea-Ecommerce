@@ -20,7 +20,7 @@ const ProductCard = ({ product, index = 0 }) => {
       className="bg-white p-2 sm:p-3 shadow-sm transition-shadow duration-100 hover:shadow-xl flex flex-col h-full group drop-shadow-[4px_4px_1px_rgba(0,0,0,0.15)]"
     >
       {/* Contenedor de Imagen - Optimizado para imágenes verticales */}
-      <div className="mb-2 sm:mb-3 overflow-hidden bg-gray-100 aspect-[3/4]">
+      <div className="mb-2 sm:mb-3 overflow-hidden bg-gray-100 aspect-[3/4] relative">
         <Link to={`/product/${_id}`}>
           <motion.img
             src={image}
@@ -30,6 +30,16 @@ const ProductCard = ({ product, index = 0 }) => {
             className="w-full h-full object-cover object-center"
           />
         </Link>
+        {/* Badge de Oferta */}
+        {product.isOnSale && product.salePrice && (
+          <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-bold uppercase">
+            {(
+              ((product.price - product.salePrice) / product.price) *
+              100
+            ).toFixed(0)}
+            % OFF
+          </div>
+        )}
       </div>
 
       {/* Detalles del producto */}
@@ -39,9 +49,23 @@ const ProductCard = ({ product, index = 0 }) => {
             <h3 className="text-black text-sm sm:text-base lg:text-lg uppercase font-normal truncate tracking-wide leading-none font-sans">
               {name}
             </h3>
-            <p className="text-yellow-500 text-base sm:text-lg font-semibold leading-none mb-1 sm:mb-2 font-sans">
-              ${price.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
-            </p>
+            {product.isOnSale && product.salePrice ? (
+              <div className="flex items-baseline gap-2">
+                <p className="text-yellow-500 text-base sm:text-lg font-semibold leading-none mb-1 sm:mb-2 font-sans">
+                  $
+                  {product.salePrice.toLocaleString("es-AR", {
+                    minimumFractionDigits: 2,
+                  })}
+                </p>
+                <p className="text-gray-400 text-xs sm:text-sm line-through leading-none mb-1 sm:mb-2 font-sans">
+                  ${price.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
+                </p>
+              </div>
+            ) : (
+              <p className="text-yellow-500 text-base sm:text-lg font-semibold leading-none mb-1 sm:mb-2 font-sans">
+                ${price.toLocaleString("es-AR", { minimumFractionDigits: 2 })}
+              </p>
+            )}
           </div>
         </Link>
       </div>

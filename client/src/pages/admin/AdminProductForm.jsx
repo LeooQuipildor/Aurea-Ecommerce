@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import AdminLayout from "../../components/admin/AdminLayout";
 import ImageUploader from "../../components/admin/ImageUploader";
 import axios from "axios";
-import { Save, ArrowLeft } from "lucide-react";
+import { Save, ArrowLeft, Plus, X, Link as LinkIcon } from "lucide-react";
 import { toast } from "sonner";
 import { getApiUrl } from "../../config/api";
 
@@ -25,8 +25,13 @@ const AdminProductForm = () => {
     image: "",
     materials: "",
     care: "",
+    colors: [],
+    isOnSale: false,
+    salePrice: "",
+    distributorLink: "",
   });
   const [images, setImages] = useState([]);
+  const [newColor, setNewColor] = useState("");
 
   useEffect(() => {
     if (!isAdmin()) {
@@ -53,6 +58,10 @@ const AdminProductForm = () => {
         image: product.image,
         materials: product.materials || "",
         care: product.care || "",
+        colors: product.colors || [],
+        isOnSale: product.isOnSale || false,
+        salePrice: product.salePrice || "",
+        distributorLink: product.distributorLink || "",
       });
       // Cargar todas las imágenes (images array o solo image)
       if (product.images && product.images.length > 0) {
@@ -72,6 +81,23 @@ const AdminProductForm = () => {
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const addColor = () => {
+    if (newColor.trim() && !formData.colors.includes(newColor.trim())) {
+      setFormData((prev) => ({
+        ...prev,
+        colors: [...prev.colors, newColor.trim()],
+      }));
+      setNewColor("");
+    }
+  };
+
+  const removeColor = (colorToRemove) => {
+    setFormData((prev) => ({
+      ...prev,
+      colors: prev.colors.filter((color) => color !== colorToRemove),
     }));
   };
 
@@ -97,10 +123,25 @@ const AdminProductForm = () => {
       return;
     }
 
+    // Validar precio de oferta
+    if (formData.isOnSale) {
+      if (!formData.salePrice || formData.salePrice <= 0) {
+        toast.error("El precio de oferta debe ser mayor a 0");
+        setLoading(false);
+        return;
+      }
+      if (parseFloat(formData.salePrice) >= parseFloat(formData.price)) {
+        toast.error("El precio de oferta debe ser menor al precio normal");
+        setLoading(false);
+        return;
+      }
+    }
+
     const productData = {
       ...formData,
       price: parseFloat(formData.price),
       stock: parseInt(formData.stock),
+      salePrice: formData.isOnSale ? parseFloat(formData.salePrice) : null,
       image: images[0], // Primera imagen como principal
       images: images, // Todas las imágenes
     };
@@ -313,6 +354,133 @@ const AdminProductForm = () => {
             <p className="text-xs text-gray-500 mt-2">
               Puedes subir hasta 5 imágenes. La primera será la imagen
               principal.
+            </p>
+          </div>
+
+          {/* Colores Disponibles */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Colores Disponibles
+            </label>
+            <div className="flex gap-2 mb-3">
+              <input
+                type="text"
+                value={newColor}
+                onChange={(e) => setNewColor(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addColor();
+                  }
+                }}
+                placeholder="Ej: Plateado, Dorado, Oro Rosa..."
+                className="flex-1 px-4 py-2 border border-gray-300 focus:outline-none focus:border-[#F4C430]"
+              />
+              <button
+                type="button"
+                onClick={addColor}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white hover:bg-gray-800 transition-colors"
+              >
+                <Plus size={20} />
+                Agregar
+              </button>
+            </div>
+            {formData.colors.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {formData.colors.map((color, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-800 border border-gray-300"
+                  >
+                    {color}
+                    <button
+                      type="button"
+                      onClick={() => removeColor(color)}
+                      className="hover:text-red-600"
+                    >
+                      <X size={16} />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+            <p className="text-xs text-gray-500 mt-2">
+              Agrega los colores o variantes disponibles para este producto
+            </p>
+          </div>
+
+          {/* Ofertas */}
+          <div className="border border-gray-200 p-4 bg-gray-50">
+            <div className="flex items-center mb-4">
+              <input
+                type="checkbox"
+                id="isOnSale"
+                name="isOnSale"
+                checked={formData.isOnSale}
+                onChange={handleChange}
+                className="h-4 w-4 text-[#F4C430] focus:ring-[#F4C430] border-gray-300"
+              />
+              <label
+                htmlFor="isOnSale"
+                className="ml-2 block text-sm font-medium text-gray-700"
+              >
+                Marcar como producto en oferta
+              </label>
+            </div>
+            {formData.isOnSale && (
+              <div>
+                <label
+                  htmlFor="salePrice"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
+                  Precio en Oferta ($) *
+                </label>
+                <input
+                  type="number"
+                  id="salePrice"
+                  name="salePrice"
+                  value={formData.salePrice}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-[#F4C430]"
+                  placeholder="0.00"
+                />
+                {formData.price && formData.salePrice && (
+                  <p className="text-xs text-green-600 mt-1">
+                    Descuento:{" "}
+                    {(
+                      ((formData.price - formData.salePrice) / formData.price) *
+                      100
+                    ).toFixed(0)}
+                    %
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Link del Distribuidor (Solo Admin) */}
+          <div className="border border-gray-200 p-4 bg-blue-50">
+            <label
+              htmlFor="distributorLink"
+              className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2"
+            >
+              <LinkIcon size={18} />
+              Link del Distribuidor (Interno - Solo Admins)
+            </label>
+            <input
+              type="url"
+              id="distributorLink"
+              name="distributorLink"
+              value={formData.distributorLink}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 focus:outline-none focus:border-[#F4C430]"
+              placeholder="https://distribuidor.com/producto/123"
+            />
+            <p className="text-xs text-gray-500 mt-1">
+              Este link solo será visible para administradores y te permite
+              acceder rápidamente al producto en el sitio de tu distribuidor
             </p>
           </div>
 
