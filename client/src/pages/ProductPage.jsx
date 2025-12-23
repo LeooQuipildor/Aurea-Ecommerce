@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
@@ -281,7 +282,9 @@ const ProductPage = () => {
                     product.colors.length > 0 &&
                     !selectedVariant
                   ) {
-                    alert("Por favor, seleccioná un color antes de continuar");
+                    toast.error(
+                      "Por favor, seleccioná un color antes de continuar"
+                    );
                     return;
                   }
                   for (let i = 0; i < quantity; i++) {
@@ -304,7 +307,7 @@ const ProductPage = () => {
                     product.colors.length > 0 &&
                     !selectedVariant
                   ) {
-                    alert(
+                    toast.error(
                       "Por favor, seleccioná un color antes de añadir al carrito"
                     );
                     return;

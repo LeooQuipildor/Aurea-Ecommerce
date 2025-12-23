@@ -6,7 +6,7 @@ const PING_INTERVAL = 14 * 60 * 1000; // 14 minutos en milisegundos
 
 async function pingServer() {
   try {
-    const response = await fetch(`${BACKEND_URL}/api/products?limit=1`);
+    const response = await fetch(`${BACKEND_URL}/`);
     const timestamp = new Date().toLocaleString('es-AR', { 
       timeZone: 'America/Argentina/Buenos_Aires' 
     });
