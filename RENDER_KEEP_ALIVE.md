@@ -44,7 +44,7 @@ Puedes ver los logs del servicio en Render:
 3. Verás mensajes como:
    ```
    🚀 Servicio Keep-Alive iniciado
-   📍 URL: https://aurea-backend-col2.onrender.com
+   📍 URL: https://aurea-backend-co12.onrender.com
    ⏱️ Intervalo: 14 minutos
    ✅ [timestamp] Ping exitoso - Servidor activo
    ```
@@ -54,7 +54,7 @@ Puedes ver los logs del servicio en Render:
 En el archivo `keepAlive.js`, asegúrate de que la URL del backend esté correcta:
 
 ```javascript
-const BACKEND_URL = "https://aurea-backend-col2.onrender.com";
+const BACKEND_URL = "https://aurea-backend-co12.onrender.com";
 ```
 
 Si tu URL de Render es diferente, cámbiala en el archivo.
@@ -91,7 +91,7 @@ Si prefieres no usar esta solución, tienes estas alternativas:
 Usa un servicio gratuito como [Cron-Job.org](https://cron-job.org/) o [UptimeRobot](https://uptimerobot.com/):
 
 - Configura un job que haga una petición GET a tu backend cada 14 minutos
-- URL: `https://aurea-backend-col2.onrender.com/`
+- URL: `https://aurea-backend-co12.onrender.com/`
 - Intervalo: 14 minutos
 
 ### 2. **Actualizar al Plan Paid de Render**

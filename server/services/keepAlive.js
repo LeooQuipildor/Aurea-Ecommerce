@@ -1,7 +1,7 @@
 // Servicio para mantener el servidor activo en Render (plan gratuito)
 // Este script hace ping al servidor cada 14 minutos para evitar que se apague
 
-const BACKEND_URL = 'https://aurea-backend-col2.onrender.com'; // Cambia esto por tu URL de Render
+const BACKEND_URL = 'https://aurea-backend-co12.onrender.com'; // Cambia esto por tu URL de Render
 const PING_INTERVAL = 14 * 60 * 1000; // 14 minutos en milisegundos
 
 async function pingServer() {
