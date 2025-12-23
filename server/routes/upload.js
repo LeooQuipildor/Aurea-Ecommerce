@@ -7,7 +7,7 @@ const { protect } = require('../middleware/auth');
 router.post('/upload', protect, upload.array('images', 5), async (req, res) => {
   try {
     // Verificar si es admin
-    if (!req.user.isAdmin) {
+    if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'No autorizado' });
     }
 
