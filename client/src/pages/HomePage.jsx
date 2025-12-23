@@ -56,7 +56,7 @@ const HomePage = () => {
             transition={{ duration: 1, ease: "easeOut" }}
             className="font-alumni font-thin text-4xl sm:text-5xl md:text-6xl lg:text-8xl text-white mb-2 tracking-widest italic drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]"
           >
-            BRILLO QUE INSPIRA
+            AURÉA - JOYERÍA DE LUJO
           </motion.h1>
 
           <motion.p
@@ -65,7 +65,7 @@ const HomePage = () => {
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
             className="text-xs md:text-base text-white font-semibold tracking-[0.3em] uppercase drop-shadow-[2px_2px_1px_rgba(0,0,0,0.5)]"
           >
-            Pequeños detalles que transforman lo cotidiano
+            Collares, Anillos, Pulseras y Aretes | Envío Gratis Colombia
           </motion.p>
 
           <motion.div
