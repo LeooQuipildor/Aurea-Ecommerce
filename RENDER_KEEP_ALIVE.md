@@ -31,7 +31,7 @@ Render redesplegará automáticamente el servidor.
 ## 🔄 Cómo Funciona
 
 1. Cuando el servidor se inicia en Render (modo producción), automáticamente activa el servicio Keep-Alive
-2. El servicio hace una petición GET a `/api/products?limit=1` cada 14 minutos
+2. El servicio hace una petición GET a la raíz del servidor (`/`) cada 14 minutos
 3. Esta petición mantiene el servidor activo y evita que Render lo apague
 4. En desarrollo local, el servicio NO se activa automáticamente
 
@@ -91,7 +91,7 @@ Si prefieres no usar esta solución, tienes estas alternativas:
 Usa un servicio gratuito como [Cron-Job.org](https://cron-job.org/) o [UptimeRobot](https://uptimerobot.com/):
 
 - Configura un job que haga una petición GET a tu backend cada 14 minutos
-- URL: `https://aurea-backend-col2.onrender.com/api/products?limit=1`
+- URL: `https://aurea-backend-col2.onrender.com/`
 - Intervalo: 14 minutos
 
 ### 2. **Actualizar al Plan Paid de Render**
