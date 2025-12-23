@@ -9,6 +9,7 @@ import ProductCard from "../components/ProductCard";
 import FAQSection from "../components/FAQSection";
 import Button from "../components/Button";
 import ProductSchema from "../components/ProductSchema";
+import Breadcrumbs from "../components/Breadcrumbs";
 import { getApiUrl } from "../config/api";
 
 const ProductPage = () => {
@@ -93,27 +94,19 @@ const ProductPage = () => {
       {/* Product Schema for SEO Rich Snippets */}
       <ProductSchema product={product} />
 
-      {/* Breadcrumb / Navegación */}
+      {/* Breadcrumb / Navegación con Schema */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-24 pb-8">
-        <Link
-          to="/catalogo"
-          className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-widest inline-flex items-center gap-2"
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-          Volver a {product.category}
-        </Link>
+        <Breadcrumbs
+          items={[
+            { label: "Inicio", url: "/" },
+            { label: "Catálogo", url: "/catalogo" },
+            {
+              label: product.category || "Productos",
+              url: `/catalogo?category=${product.category || ""}`,
+            },
+            { label: product.name },
+          ]}
+        />
       </div>
 
       {/* Contenido Principal */}

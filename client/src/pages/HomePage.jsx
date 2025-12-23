@@ -96,7 +96,7 @@ const HomePage = () => {
           transition={{ duration: 0.6 }}
           className="font-thin text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-gray-800 mb-2"
         >
-          Más vendidos
+          Joyería Más Vendida en Colombia
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
@@ -140,6 +140,75 @@ const HomePage = () => {
             Ver Todos los Productos
           </Link>
         </motion.div>
+      </section>
+
+      {/* NUEVA SECCIÓN: Sobre AURÉA (SEO Content) */}
+      <section className="bg-gray-50 py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-thin text-gray-900 mb-8 text-center"
+          >
+            Joyería de Lujo Hecha en Colombia
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="space-y-6 text-gray-700 text-lg leading-relaxed"
+          >
+            <p>
+              En <strong>AURÉA</strong> creamos joyas únicas que cuentan
+              historias. Cada pieza es cuidadosamente diseñada y elaborada con
+              los mejores materiales para ofrecerte elegancia y calidad que
+              perdura en el tiempo. Nuestra pasión por la joyería fina nos
+              impulsa a crear accesorios que no solo embellecen, sino que
+              también expresan la personalidad única de cada persona.
+            </p>
+
+            <p>
+              Nuestra colección incluye <strong>collares elegantes</strong>,{" "}
+              <strong>anillos únicos</strong>,
+              <strong>pulseras sofisticadas</strong> y{" "}
+              <strong>aretes exclusivos</strong>. Todas nuestras joyas están
+              elaboradas con oro de 18k, plata 925 y piedras preciosas
+              auténticas. Cada diseño combina tradición artesanal con técnicas
+              modernas de manufactura, garantizando piezas de la más alta
+              calidad que resistirán el paso del tiempo.
+            </p>
+
+            <p>
+              Como marca colombiana de joyería de lujo, nos enorgullece ofrecer{" "}
+              <strong>envío gratis a todo Colombia</strong> y una{" "}
+              <strong>garantía de por vida</strong> en todas nuestras piezas.
+              Creemos que cada joya debe ser una inversión que trascienda
+              generaciones, por eso respaldamos nuestro trabajo con la mejor
+              garantía del mercado contra defectos de fabricación.
+            </p>
+
+            <p>
+              Ya sea que busques el regalo perfecto para una ocasión especial,
+              un anillo de compromiso que simbolice tu amor eterno, o
+              simplemente quieras darte un gusto con una pieza que refleje tu
+              estilo personal, en AURÉA encontrarás la joya perfecta. Nuestro
+              equipo de expertos está siempre disponible para ayudarte a elegir
+              la pieza ideal que se adapte a tus necesidades y presupuesto.
+            </p>
+
+            <div className="text-center mt-8">
+              <Link
+                to="/catalogo"
+                className="inline-block border-b-2 border-black pb-1 text-base uppercase tracking-widest hover:text-gray-600 hover:border-gray-600 transition font-semibold"
+              >
+                Explorar Colección Completa
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       <AboutSection />
