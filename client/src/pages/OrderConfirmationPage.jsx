@@ -293,9 +293,39 @@ Gracias!`;
             </div>
           </div>
 
-          <p className="text-green-500 text-2xl mb-12 py-4 text-center font-semibold">
+          <p className="text-green-500 text-2xl mb-8 py-4 text-center font-semibold">
             Gracias. Tu pedido ha sido registrado.
           </p>
+
+          {/* Mensaje de Email */}
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-12">
+            <div className="flex items-start gap-3">
+              <svg
+                className="w-6 h-6 text-blue-500 flex-shrink-0 mt-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              <div>
+                <p className="text-blue-800 font-semibold mb-1">
+                  📧 Recibo enviado a tu correo
+                </p>
+                <p className="text-blue-700 text-sm">
+                  Hemos enviado un recibo de tu pedido a{" "}
+                  <strong>{customerData.email}</strong>. Si no lo ves en tu
+                  bandeja de entrada, por favor revisá la carpeta de spam o
+                  correo no deseado.
+                </p>
+              </div>
+            </div>
+          </div>
 
           {/* Botón para volver */}
           <div className="mt-12 text-center">

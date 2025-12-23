@@ -46,6 +46,12 @@ mongoose.connect(MONGO_URI)
         console.log('✅ Conectado a MongoDB Exitosamente');
         app.listen(PORT, () => {
             console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+            
+            // Iniciar servicio keep-alive solo en producción (Render)
+            if (process.env.NODE_ENV === 'production') {
+                require('./services/keepAlive');
+                console.log('🔄 Servicio Keep-Alive activado para Render');
+            }
         });
     })
     .catch((error) => {

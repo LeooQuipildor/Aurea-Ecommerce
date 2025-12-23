@@ -275,6 +275,15 @@ const ProductPage = () => {
               {/* Botón COMPRAR AHORA */}
               <Button
                 onClick={() => {
+                  // Validar si hay colores y no se seleccionó ninguno
+                  if (
+                    product.colors &&
+                    product.colors.length > 0 &&
+                    !selectedVariant
+                  ) {
+                    alert("Por favor, seleccioná un color antes de continuar");
+                    return;
+                  }
                   for (let i = 0; i < quantity; i++) {
                     addToCart(product);
                   }
@@ -289,6 +298,17 @@ const ProductPage = () => {
               {/* Botón Añadir al Carrito */}
               <motion.button
                 onClick={() => {
+                  // Validar si hay colores y no se seleccionó ninguno
+                  if (
+                    product.colors &&
+                    product.colors.length > 0 &&
+                    !selectedVariant
+                  ) {
+                    alert(
+                      "Por favor, seleccioná un color antes de añadir al carrito"
+                    );
+                    return;
+                  }
                   for (let i = 0; i < quantity; i++) {
                     addToCart(product);
                   }
