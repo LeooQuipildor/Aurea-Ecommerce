@@ -16,7 +16,7 @@ const ProductSchema = ({ product }) => {
     sku: product._id,
     brand: {
       "@type": "Brand",
-      name: "AURÉA",
+      name: "AUREA",
     },
     offers: {
       "@type": "Offer",
