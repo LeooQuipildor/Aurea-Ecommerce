@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-black text-white pt-5 pb-5 ">
-      <div className="max-w-7xl mx-auto p-2 flex flex-col md:flex-row justify-between items-center">
+      <div className="max-w-7xl mx-auto p-2 flex flex-col md:flex-row justify-between items-center gap-6">
         {/* Logo e Instagram juntos a la izquierda */}
         <div className="flex items-center gap-4 mb-4 md:mb-0">
           {/* Logo */}
@@ -51,10 +51,34 @@ const Footer = () => {
           </a>
         </div>
 
+        {/* Información de Contacto - Centro */}
+        <div className="flex flex-col md:flex-row items-center gap-4 text-xs text-gray-300">
+          <a
+            href="tel:+573218422436"
+            className="flex items-center gap-2 hover:text-yellow-400 transition-colors"
+          >
+            <span>📞</span>
+            <span>+57 321 842 2436</span>
+          </a>
+          <span className="hidden md:inline text-gray-600">|</span>
+          <a
+            href="mailto:aurea.co.store@gmail.com"
+            className="flex items-center gap-2 hover:text-yellow-400 transition-colors"
+          >
+            <span>📧</span>
+            <span>aurea.co.store@gmail.com</span>
+          </a>
+          <span className="hidden md:inline text-gray-600">|</span>
+          <span className="flex items-center gap-2">
+            <span>📍</span>
+            <span>Colombia</span>
+          </span>
+        </div>
+
         {/* Copyright Derecha con link */}
         <Link
           to="/terminos"
-          className="text-gray-100 text-xs tracking-widest hover:text-yellow-400 transition-colors"
+          className="text-gray-100 text-xs tracking-widest hover:text-yellow-400 transition-colors text-center md:text-right"
         >
           © 2025 AURÉA. TODOS LOS DERECHOS RESERVADOS.
         </Link>
