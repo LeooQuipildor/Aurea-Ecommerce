@@ -75,13 +75,29 @@ const Footer = () => {
           </span>
         </div>
 
-        {/* Copyright Derecha con link */}
-        <Link
-          to="/terminos"
-          className="text-gray-100 text-xs tracking-widest hover:text-yellow-400 transition-colors text-center md:text-right"
-        >
-          © 2025 AURÉA. TODOS LOS DERECHOS RESERVADOS.
-        </Link>
+        {/* Links Derecha */}
+        <div className="flex flex-col md:flex-row items-center gap-3 text-xs text-gray-300">
+          <Link
+            to="/sobre-nosotros"
+            className="hover:text-yellow-400 transition-colors tracking-wide"
+          >
+            Sobre Nosotros
+          </Link>
+          <span className="hidden md:inline text-gray-600">|</span>
+          <Link
+            to="/guia-de-tallas"
+            className="hover:text-yellow-400 transition-colors tracking-wide"
+          >
+            Guía de Tallas
+          </Link>
+          <span className="hidden md:inline text-gray-600">|</span>
+          <Link
+            to="/terminos"
+            className="hover:text-yellow-400 transition-colors tracking-wide"
+          >
+            Términos y Condiciones
+          </Link>
+        </div>
       </div>
     </footer>
   );
