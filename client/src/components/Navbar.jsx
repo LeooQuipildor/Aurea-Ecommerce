@@ -47,6 +47,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Scroll to top cuando cambia la ruta
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   // Cerrar búsqueda al hacer click fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -190,6 +195,16 @@ const Navbar = () => {
                 } transition-colors text-base lg:text-xl uppercase tracking-widest font-normal`}
               >
                 Contacto
+              </Link>
+              <Link
+                to="/sobre-nosotros"
+                className={`${
+                  location.pathname === "/sobre-nosotros"
+                    ? "text-white"
+                    : "text-white/80 hover:text-white"
+                } transition-colors text-base lg:text-xl uppercase tracking-widest font-normal`}
+              >
+                Nosotros
               </Link>
             </div>
           </div>
@@ -405,6 +420,28 @@ const Navbar = () => {
               }`}
             >
               Contacto
+            </Link>
+            <Link
+              to="/sobre-nosotros"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block py-3 px-4 text-base uppercase tracking-widest font-normal rounded transition-colors ${
+                location.pathname === "/sobre-nosotros"
+                  ? "text-white bg-white/10"
+                  : "text-white/80 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Nosotros
+            </Link>
+            <Link
+              to="/guia-de-tallas"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`block py-3 px-4 text-base uppercase tracking-widest font-normal rounded transition-colors ${
+                location.pathname === "/guia-de-tallas"
+                  ? "text-white bg-white/10"
+                  : "text-white/80 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              Guía de Tallas
             </Link>
           </div>
         </div>
