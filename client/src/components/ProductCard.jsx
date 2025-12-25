@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { motion } from "framer-motion";
+import OptimizedImage from "./OptimizedImage";
 
 const ProductCard = ({ product, index = 0 }) => {
   const { _id, name, price, image } = product;
@@ -22,13 +23,19 @@ const ProductCard = ({ product, index = 0 }) => {
       {/* Contenedor de Imagen - Optimizado para imágenes verticales */}
       <div className="mb-2 sm:mb-3 overflow-hidden bg-gray-100 aspect-[3/4] relative">
         <Link to={`/product/${_id}`}>
-          <motion.img
-            src={image}
-            alt={name}
+          <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
-            className="w-full h-full object-cover object-center"
-          />
+            className="w-full h-full"
+          >
+            <OptimizedImage
+              src={image}
+              alt={`${name} - Joyería AURÉA Colombia`}
+              width="400"
+              height="533"
+              objectFit="cover"
+            />
+          </motion.div>
         </Link>
         {/* Badge de Oferta */}
         {product.isOnSale && product.salePrice && (

@@ -11,6 +11,8 @@ import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import ContactPage from "./pages/ContactPage";
 import TermsPage from "./pages/TermsPage";
+import AboutPage from "./pages/AboutPage";
+import SizeGuidePage from "./pages/SizeGuidePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -129,6 +131,22 @@ const AnimatedRoutes = () => {
                   element={
                     <AnimatedRoute>
                       <TermsPage />
+                    </AnimatedRoute>
+                  }
+                />
+                <Route
+                  path="/sobre-nosotros"
+                  element={
+                    <AnimatedRoute>
+                      <AboutPage />
+                    </AnimatedRoute>
+                  }
+                />
+                <Route
+                  path="/guia-de-tallas"
+                  element={
+                    <AnimatedRoute>
+                      <SizeGuidePage />
                     </AnimatedRoute>
                   }
                 />
