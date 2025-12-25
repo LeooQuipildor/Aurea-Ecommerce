@@ -17,7 +17,7 @@ const AboutPage = () => {
       <section className="relative h-[60vh] md:h-[70vh] bg-black">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-60"
-          style={{ backgroundImage: "url('/images/hero.png')" }}
+          style={{ backgroundImage: "url('/images/hero.webp')" }}
         ></div>
 
         <div className="relative z-10 h-full flex items-center justify-center text-center px-4">

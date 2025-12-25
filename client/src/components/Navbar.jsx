@@ -200,7 +200,7 @@ const Navbar = () => {
             className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex-shrink-0"
           >
             <img
-              src="/images/logo.png"
+              src="/images/logo.webp"
               alt="Logo Aurea"
               className="h-10 sm:h-12 w-auto hover:opacity-80 transition-opacity"
             />

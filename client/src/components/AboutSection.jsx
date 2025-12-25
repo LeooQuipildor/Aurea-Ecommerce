@@ -25,15 +25,15 @@ const AboutSection = () => {
       <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 drop-shadow-[4px_4px_1px_rgba(0,0,0,0.15)]">
         {[
           {
-            src: "/images/gift-hands.jpg",
+            src: "/images/gift-hands.webp",
             title: "Envío Gratis Siempre",
           },
           {
-            src: "/images/gift-box-ring.png",
+            src: "/images/gift-box-ring.webp",
             title: "Pagás Cuando Llega",
           },
           {
-            src: "/images/jewelry-box.jpg",
+            src: "/images/jewelry-box.webp",
             title: "Garantía & Seguridad Total",
           },
         ].map((item, index) => (

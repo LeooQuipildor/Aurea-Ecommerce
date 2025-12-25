@@ -95,10 +95,10 @@ const CatalogPage = () => {
             {/* Cards de Filtro - 4 categorías */}
             <div className="grid grid-cols-4 gap-4">
               {[
-                { name: "COLLARES", image: "/images/collar.jpg" },
-                { name: "ANILLOS", image: "/images/anillo.jpg" },
-                { name: "PULSERAS", image: "/images/pulsera.jpg" },
-                { name: "ARETES", image: "/images/aretes.jpg" },
+                { name: "COLLARES", image: "/images/collar.webp" },
+                { name: "ANILLOS", image: "/images/anillo.webp" },
+                { name: "PULSERAS", image: "/images/pulsera.webp" },
+                { name: "ARETES", image: "/images/aretes.webp" },
               ].map((category) => (
                 <button
                   key={category.name}
@@ -260,7 +260,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 1: Foto (izq) - Desktop Fila 1 Col 2: Imagen */}
             <div className="overflow-hidden md:order-2">
               <img
-                src="/images/garantia.png"
+                src="/images/garantia.webp"
                 alt="Garantía de Calidad"
                 className="w-full h-full object-cover min-h-[300px]"
               />
@@ -296,7 +296,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 2: Foto (der) - Desktop Fila 2 Col 1: Imagen */}
             <div className="overflow-hidden md:order-4">
               <img
-                src="/images/Envio.png"
+                src="/images/Envio.webp"
                 alt="Envío Gratis"
                 className="w-full h-full object-cover min-h-[300px]"
               />
@@ -305,7 +305,7 @@ const CatalogPage = () => {
             {/* Móvil Fila 3: Foto (izq) - Desktop Fila 2 Col 3: Imagen */}
             <div className="overflow-hidden md:order-6">
               <img
-                src="/images/atencion.png"
+                src="/images/atencion.webp"
                 alt="Garantía de por Vida"
                 className="w-full h-full object-cover min-h-[300px]"
               />

@@ -55,6 +55,22 @@
     <priority>0.7</priority>
   </url>
   
+  <!-- Página Sobre Nosotros -->
+  <url>
+    <loc>https://aurea-joyeria.vercel.app/sobre-nosotros</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Página Guía de Tallas -->
+  <url>
+    <loc>https://aurea-joyeria.vercel.app/guia-de-tallas</loc>
+    <lastmod>2025-12-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
   <!-- Nota: Las páginas de productos individuales se pueden agregar dinámicamente -->
   <!-- Ejemplo de producto (agregar más según sea necesario):
   <url>

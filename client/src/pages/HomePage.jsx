@@ -37,7 +37,7 @@ const HomePage = () => {
         {/* A. IMAGEN DE FONDO */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-80"
-          style={{ backgroundImage: "url('/images/hero.png')" }}
+          style={{ backgroundImage: "url('/images/hero.webp')" }}
         ></div>
 
         {/* B. CAPA DE RUIDO (ESPECIFICACIONES EXACTAS) */}
