@@ -4,6 +4,7 @@ import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
 import { getApiUrl } from "../config/api";
 
 const CatalogPage = () => {
@@ -76,6 +77,12 @@ const CatalogPage = () => {
 
   return (
     <div className="bg-white">
+      <SEO
+        title="Catálogo de Joyería de Lujo | AURÉA Colombia"
+        description="Exploá nuestra colección completa de joyería de lujo. Collares, anillos, pulseras y aretes exclusivos. Envío gratis a toda Colombia. ✨"
+        keywords="catálogo joyería Colombia, comprar joyas online, collares lujo, anillos diseño, pulseras elegantes, aretes exclusivos, joyería premium Colombia"
+        url="https://aurea-joyeria.vercel.app/catalogo"
+      />
       {/* HERO SECTION */}
       <section className="relative bg-black text-white pt-24 pb-16">
         <div className="w-full px-4 md:px-8 lg:px-12">
@@ -131,7 +138,7 @@ const CatalogPage = () => {
       <section className="max-w-7xl mx-auto px-4 py-16">
         {/* Título y Filtros */}
         <div className="mb-12">
-          <h2 className="font-thin text-6xl md:text-7xl text-gray-800 mb-8 uppercase text-center md:text-left">
+          <h2 className="font-thin text-5xl md:text-6xl text-gray-800 mb-8 uppercase text-center md:text-left">
             Todos nuestros productos
           </h2>
 
@@ -246,7 +253,7 @@ const CatalogPage = () => {
         <div className="w-full">
           {/* Título y Subtítulo */}
           <div className="text-center mb-16">
-            <h2 className="font-light text-4xl md:text-6xl text-gray-800 mb-4 uppercase tracking-wide">
+            <h2 className="font-light text-4xl md:text-5xl text-gray-800 mb-4 uppercase tracking-wide">
               Por qué miles de personas nos eligen cada día
             </h2>
             <p className="text-gray-700 text-xs md:text-xl max-w-3xl mx-auto leading-relaxed">

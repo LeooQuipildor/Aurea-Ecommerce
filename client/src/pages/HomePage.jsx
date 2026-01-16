@@ -9,6 +9,7 @@ import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductCardSkeleton";
+import SEO from "../components/SEO";
 import { getApiUrl } from "../config/api";
 
 const HomePage = () => {
@@ -30,8 +31,25 @@ const HomePage = () => {
     fetchProducts();
   }, []);
 
+  // Structured data para la página de inicio
+  const homeStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "AURÉA - Joyería de Lujo en Colombia",
+    description:
+      "Compra joyería de lujo en Colombia. Collares elegantes, anillos únicos, pulseras y aretes exclusivos. Envío gratis a todo el país.",
+    url: "https://aurea-joyeria.vercel.app",
+  };
+
   return (
     <div className="bg-white">
+      <SEO
+        title="AURÉA - Joyería de Lujo en Colombia | Collares, Anillos y Más"
+        description="Descubrí joyería de lujo en Colombia. Collares elegantes, anillos únicos, pulseras sofisticadas y aretes exclusivos. Envío gratis y garantía de por vida. ✨"
+        keywords="joyería Colombia, joyas de lujo Colombia, collares Colombia, anillos Colombia, pulseras Colombia, aretes Colombia, joyería online, comprar joyas, AURÉA, envío gratis Colombia"
+        url="https://aurea-joyeria.vercel.app"
+        structuredData={homeStructuredData}
+      />
       {/* 1. HERO SECTION */}
       <div className="relative h-screen w-full bg-[#000]">
         {/* A. IMAGEN DE FONDO */}

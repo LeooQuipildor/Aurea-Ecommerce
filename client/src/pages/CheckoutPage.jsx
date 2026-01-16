@@ -3,6 +3,7 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
+import SEO from "../components/SEO";
 import axios from "axios";
 import { toast } from "sonner";
 import { getApiUrl } from "../config/api";
@@ -327,6 +328,11 @@ const CheckoutPage = () => {
 
   return (
     <div className="bg-white min-h-screen">
+      <SEO
+        title="Finalizar Pedido | AURÉA"
+        description="Completá tu pedido de joyería de lujo en AURÉA. Envío gratis a toda Colombia."
+        url="https://aurea-joyeria.vercel.app/checkout"
+      />
       {/* Hero Section */}
       <div className="pt-24 pb-6 px-4">
         <div className="max-w-6xl mx-auto">

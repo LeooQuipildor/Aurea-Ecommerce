@@ -2,6 +2,7 @@ import { useState } from "react";
 import Footer from "../components/Footer";
 import FAQSection from "../components/FAQSection";
 import Button from "../components/Button";
+import SEO from "../components/SEO";
 import { toast } from "sonner";
 import { getApiUrl } from "../config/api";
 
@@ -171,6 +172,12 @@ const ContactPage = () => {
 
   return (
     <div className="bg-black min-h-screen">
+      <SEO
+        title="Contacto | AURÉA Joyería Colombia"
+        description="Contáctanos para consultas sobre joyería de lujo. Teléfono: +57 321 842 2436 | Email: aurea.co.store@gmail.com. Atención personalizada en Colombia."
+        keywords="contacto joyería Colombia, atención al cliente, consultas joyas, AURÉA contacto, WhatsApp joyería"
+        url="https://aurea-joyeria.vercel.app/contacto"
+      />
       {/* Hero Section */}
       <div className="pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center">

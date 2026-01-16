@@ -9,6 +9,7 @@ import ProductCard from "../components/ProductCard";
 import FAQSection from "../components/FAQSection";
 import Button from "../components/Button";
 import ProductSchema from "../components/ProductSchema";
+import SEO from "../components/SEO";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { getApiUrl } from "../config/api";
 
@@ -91,6 +92,21 @@ const ProductPage = () => {
 
   return (
     <div className="bg-white">
+      {/* SEO Meta Tags */}
+      <SEO
+        title={`${product.name} | AURÉA Joyería Colombia`}
+        description={`${product.description.substring(
+          0,
+          150
+        )}... Envío gratis a toda Colombia. Garantía de por vida.`}
+        keywords={`${product.name}, ${
+          product.category
+        }, joyería Colombia, comprar ${product.category?.toLowerCase()} online, joyas de lujo`}
+        image={product.images?.[0] || product.image}
+        url={`https://aurea-joyeria.vercel.app/producto/${product._id}`}
+        type="product"
+      />
+
       {/* Product Schema for SEO Rich Snippets */}
       <ProductSchema product={product} />
 
