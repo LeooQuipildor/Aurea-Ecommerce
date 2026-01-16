@@ -29,8 +29,11 @@ const Breadcrumbs = ({ items }) => {
       />
 
       {/* Visual Breadcrumbs */}
-      <nav aria-label="Breadcrumb" className="text-sm text-gray-600 mb-4">
-        <ol className="flex items-center space-x-2">
+      <nav
+        aria-label="Breadcrumb"
+        className="py-3 px-4 bg-gray-50 rounded-sm mb-6"
+      >
+        <ol className="flex items-center space-x-1 text-sm">
           {items.map((item, index) => (
             <li key={index} className="flex items-center">
               {index > 0 && (
@@ -39,6 +42,7 @@ const Breadcrumbs = ({ items }) => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -51,12 +55,17 @@ const Breadcrumbs = ({ items }) => {
 
               {index === items.length - 1 ? (
                 // Último elemento (no es link)
-                <span className="text-gray-900 font-medium">{item.label}</span>
+                <span
+                  className="text-gray-900 font-semibold uppercase tracking-wide"
+                  aria-current="page"
+                >
+                  {item.label}
+                </span>
               ) : (
                 // Links intermedios
                 <Link
                   to={item.url}
-                  className="hover:text-black transition-colors uppercase tracking-wider"
+                  className="text-gray-600 hover:text-black transition-colors uppercase tracking-wide hover:underline"
                 >
                   {item.label}
                 </Link>

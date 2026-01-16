@@ -26,36 +26,69 @@ const FAQItem = ({ question, answer }) => {
 };
 
 const FAQSection = () => {
+  // Array de FAQs para reutilizar en el Schema
+  const faqs = [
+    {
+      question: "¿Hacen envíos a todo el país?",
+      answer:
+        "Sí, realizamos envíos a todo Colombia. Los tiempos de entrega varían según tu ubicación: Bogotá y principales ciudades 1-4 días hábiles, otras ciudades y municipios 5-7 días hábiles.",
+    },
+    {
+      question: "¿Qué métodos de pago aceptan?",
+      answer:
+        "Aceptamos pago contraentrega. Pagas en efectivo directamente al transportista cuando recibas tu pedido en la puerta de tu casa. No necesitas tarjeta de crédito ni cuenta bancaria.",
+    },
+    {
+      question: "¿Es seguro comprar en su sitio web?",
+      answer:
+        "Sí, es 100% seguro. Con el pago contraentrega, solo pagas cuando recibes tu producto. Puedes verificar tu pedido antes de realizar el pago al transportista.",
+    },
+    {
+      question: "¿Cuál es el costo de envío?",
+      answer:
+        "El costo de envío se calcula automáticamente según tu ciudad y el peso del pedido. Lo verás antes de confirmar tu compra.",
+    },
+    {
+      question: "¿Cómo puedo realizar un pedido?",
+      answer:
+        "Selecciona los productos que desees, agrégalos al carrito, completa tus datos de envío y confirma tu pedido. Pagarás en efectivo cuando recibas tu producto en casa.",
+    },
+  ];
+
+  // FAQ Schema para SEO
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <section className="bg-black py-8 px-4">
+      {/* FAQ Schema para Rich Snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <div className="max-w-6xl mx-auto">
         <h2 className="font-thin text-7xl text-white mb-5">
           Preguntas Frecuentes
         </h2>
         <div className="space-y-2">
-          <FAQItem
-            question="¿Hacen envíos a todo el país?"
-            answer="Sí, realizamos envíos a todo Colombia. Los tiempos de entrega varían según tu ubicación: Bogotá y principales ciudades 1-4 días hábiles, otras ciudades y municipios 5-7 días hábiles."
-          />
-          <FAQItem
-            question="¿Qué métodos de pago aceptan?"
-            answer="Aceptamos pago contraentrega. Pagas en efectivo directamente al transportista cuando recibas tu pedido en la puerta de tu casa. No necesitas tarjeta de crédito ni cuenta bancaria."
-          />
-          <FAQItem
-            question="¿Es seguro comprar en su sitio web?"
-            answer="Sí, es 100% seguro. Con el pago contraentrega, solo pagas cuando recibes tu producto. Puedes verificar tu pedido antes de realizar el pago al transportista."
-          />
-          <FAQItem
-            question="¿Cuál es el costo de envío?"
-            answer="El costo de envío se calcula automáticamente según tu ciudad y el peso del pedido. Lo verás antes de confirmar tu compra."
-          />
-          <FAQItem
-            question="¿Cómo puedo realizar un pedido?"
-            answer="Selecciona los productos que desees, agrégalos al carrito, completa tus datos de envío y confirma tu pedido. Pagarás en efectivo cuando recibas tu producto en casa."
-          />
+          {faqs.map((faq, index) => (
+            <FAQItem key={index} question={faq.question} answer={faq.answer} />
+          ))}
         </div>
       </div>
     </section>
   );
 };
+
 export default FAQSection;

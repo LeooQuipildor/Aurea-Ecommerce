@@ -30,7 +30,9 @@ const ProductCard = ({ product, index = 0 }) => {
           >
             <OptimizedImage
               src={image}
-              alt={`${name} - Joyería AURÉA Colombia`}
+              alt={`${name} - ${
+                product.category || "Joyería"
+              } de lujo - AURÉA Colombia`}
               width="400"
               height="533"
               objectFit="cover"

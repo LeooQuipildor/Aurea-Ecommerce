@@ -5,6 +5,7 @@ import ProductCardSkeleton from "../components/ProductCardSkeleton";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
+import Breadcrumbs from "../components/Breadcrumbs";
 import { getApiUrl } from "../config/api";
 
 const CatalogPage = () => {
@@ -114,7 +115,9 @@ const CatalogPage = () => {
                 >
                   <img
                     src={category.image}
-                    alt={category.name}
+                    alt={`${
+                      category.name
+                    } de lujo - Joyería AURÉA Colombia - Comprar ${category.name.toLowerCase()} online`}
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                   />
                   {/* Overlay con nombre */}
@@ -247,6 +250,24 @@ const CatalogPage = () => {
           </button>
         </div>
       </section>
+
+      {/* Hero Section */}
+      <div className="bg-white">
+        <div className="relative">
+          {/* Contenedor principal con padding */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+            {/* Breadcrumbs */}
+            <Breadcrumbs
+              items={[
+                { label: "Inicio", url: "/" },
+                { label: "Catálogo", url: "/catalogo" },
+              ]}
+            />
+
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12"></div>
+          </div>
+        </div>
+      </div>
 
       {/* SECCIÓN "POR QUÉ MILES DE PERSONAS NOS ELIGEN" */}
       <section className="bg-white">
